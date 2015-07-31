@@ -1,0 +1,64 @@
+<div class="container-fluid" style="width:50%;">
+
+  <h2 style="margin: 20px -16px;">Sign up</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "form-horizontal", :role => "form"}) do |f| %>
+  <%= devise_error_messages! %>
+
+    <div class="form-group">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :second_name %><br>
+      <%= f.text_field :second_name, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :address %><br>
+      <%= f.text_field :address, :class => "form-control" %>
+    </div>
+
+    <%= f.hidden_field :role, :value => 'customer' %>
+
+    <div class="form-group">
+      <%= f.label :city %><br>
+      <%= f.text_field :city, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :state %><br>
+      <%= f.text_field :state, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :zip %><br>
+      <%= f.text_field :zip, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Sign up", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <!-- <%= render "devise/shared/links" %> -->
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+		<h3>List of Companies</h3>
+		<%= link_to "Add Company", new_company_path , :class => "btn btn-success" %>
+		<table class="table" style="width:70%;">
+			<tr>
+				<td>No.</td>
+				<td>Name</td>
+				<td>Actions</td>
+			</tr>
+			<% @companies.each_with_index do |company, index| %>
+				<tr>
+					<td><%= index+1 %></td>
+					<td><%= company.first_name %></td>
+					<td>
+						<%= link_to "Edit", edit_company_path(company), :class => "btn btn-primary" %>
+						<%= link_to "View", company_path(company), :class => "btn btn-primary" %>
+						<%= link_to "Delete", company_path(company), 
+							method: :delete, 
+							:class => 'btn btn-primary',
+							data: { confirm: 'Are you sure?   Products associated with this company will also be deleted !'}
+						%>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+</div>

@@ -1,0 +1,5 @@
+# Roles
+#
+SUPERADMIN = 1
+COMPANY = 2
+CUSTOMER = 3

@@ -1,12 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ShopCart</title>
+  <title>Cart</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
+
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+					<span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span> 
+			    </button>
+			</div>
+			<div class="collapse navbar-collapse" id="myNav">
+			<!--	<ul class="nav navbar-nav">
+	        	   <li class="active"><a href="#">Home</a></li>					
+	        	   <li><a href="#">Dashboard</a></li>
+			       <li><a href="#">Projects</a></li>
+			       <li><a href="#">Contacts</a></li>
+				</ul>
+			-->
+				<ul class="nav navbar-nav navbar-right">
+
+					<% if user_signed_in? %>
+						<li>
+							<a href="#"><%= current_user.role %></a>
+						</li>
+						<li>
+							<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+						</li>
+					<% else %>
+						<li>
+							<%= link_to new_user_session_path, method: :get do %>
+								Login
+								<span class="glyphicon glyphicon-log-in">
+							<% end %>
+						</li>
+						<li>
+							<%= link_to new_user_registration_path, method: :get do %>
+								Sign Up
+								<span class="glyphicon glyphicon-user"></span>
+							<% end %>
+						</li>
+					<% end %>
+			    </ul>
+			</div>
+		</nav>
+
+
+
+	</div>
+
+	<div class="header" style="background: #246E5D; color: #FFF; font-size: 16px; font-weight: bold; padding: 20px 30px;">
+		<% if user_signed_in? %>
+			<% if current_user.role == 1 %>
+				Administrator
+			<% elsif current_user.role == 2 %>
+				Company
+			<% else %>
+				Customer
+			<% end %>
+		<% end %>
+	</div>
 
 <%= yield %>
 
