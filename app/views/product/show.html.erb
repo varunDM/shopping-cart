@@ -1,8 +1,10 @@
 <div class="container">
 	<h4>View Product</h4>
-	<h5>Name: <%= @product.name %></h5>
-	<h5>Name: <%= @product.price %></h5>
-	<h5>Name: <%= @product.quantity %></h5>
-	<h5>Name: <%= @product.description %></h5>
-	<%= link_to 'Back', company_index_path %>
+  <%= image_tag @product.avatar.url, :style => "width: 80px;" %>
+	<h5> <strong>Name:</strong> <%= @product.name %></h5>
+  <h5> <strong>Company:</strong> <%= @product.user.first_name %></h5>
+	<h5> <strong>Price:</strong> <%= @product.price %></h5>
+	<h5> <strong>quantity:</strong> <%= @product.quantity %></h5>
+	<h5> <strong>Description:</strong> <%= @product.description %></h5>
+	<%= link_to 'Back', company_index_path, :class => 'btn btn-primary' %>
 </div>

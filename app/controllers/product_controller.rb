@@ -3,6 +3,7 @@ class ProductController < ApplicationController
   def new
     @company = current_user.id
     @product = Product.new
+    @categories = Category.all
   end
 
   def edit
@@ -35,11 +36,12 @@ class ProductController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    
   end
 
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :quantity, :description, :user_id)    
+    params.require(:product).permit(:name, :price, :quantity, :description, :user_id, :category_id, :avatar)    
   end
 end

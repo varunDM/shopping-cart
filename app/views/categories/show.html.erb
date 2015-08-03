@@ -1,0 +1,34 @@
+<div class="container">
+  <h3> <%= @category.name %></h3>
+  <hr>
+  <% if @products.present? %>
+    
+    <h4>List of Products</h4>
+    <table class="table" style="width:70%;">
+      <tr>
+        <td>No.</td>
+        <td>Product Name</td>
+        <td>Company Name</td>
+        <td>Price</td>
+        <td>Quanitiy</td>
+        <td>Description</td>
+      </tr>
+      <% @products.each_with_index do |product, index| %>
+        <tr>
+          <td> <%= index+1 %> </td>
+          <td> <%= product.name %> </td>
+          <td> <%= product.user.first_name %> </td>
+          <td> <%= product.price %> </td>
+          <td> <%= product.quantity %> </td>
+          <td> <%= product.description %> </td>
+        </tr>
+      <% end %>
+    </table>
+  
+  <% else %>
+    <h5 class="alert alert-warning">This category contains no products !</h5>
+  <% end %>
+  <hr>
+  <%= link_to "Back", admin_index_path, :class => "btn btn-success" %>
+
+</div>

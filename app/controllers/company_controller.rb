@@ -17,6 +17,7 @@ class CompanyController < ApplicationController
 
   def show
     @company = User.find(params[:id])
+    @products = @company.products
   end
 
   def create
@@ -46,7 +47,7 @@ class CompanyController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :first_name, :role)
+    params.require(:user).permit(:email, :password, :first_name, :role, :logo_id)
   end
 
 end

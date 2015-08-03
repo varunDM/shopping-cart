@@ -1,7 +1,5 @@
 <div class="container">
 	<h3>Edit Product</h3>
-	<h4>Company ID : <%= @company %></h4>
-
 	<%= form_for @product, url: product_path do |f| %>
     <%= @product.errors.full_messages %>
     <p>
@@ -20,11 +18,14 @@
       <%= f.label :description %></br>
       <%= f.text_field :description %>
     </p>
+    <p>
+      <%= f.file_field :avatar %>
+    </p>
+
     <%= f.hidden_field :user_id, :value => @company %>
     <p>
-      <%= f.submit "Save" %>
+      <%= f.submit "Save", :class => 'btn btn-primary' %>
+      <%= link_to "Cancel", company_index_path, :class => 'btn btn-danger' %>
     </p>
- 	 <% end %>
-
-	<%= link_to "Cancel", company_index_path %>
+   <% end %>
 </div>

@@ -1,12 +1,15 @@
 <div class="container">
 	<h3>Add Product</h3>
-	<h4>Company ID : <%= @company %></h4>
 
-	<%= form_for @product, url: product_index_path do |f| %>
+	<%= form_for( @product, url: product_index_path, :html => {:multipart => true}) do |f| %>
     <%= @product.errors.full_messages %>
     <p>
       <%= f.label :name %></br>
       <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :category_id %><br>
+      <%= f.collection_select(:category_id, @categories, :id, :name) %>
     </p>
     <p>
       <%= f.label :price %></br>
@@ -20,11 +23,14 @@
       <%= f.label :description %></br>
       <%= f.text_field :description %>
     </p>
+    <p>
+      <%= f.file_field :avatar %>
+    </p>
     <%= f.hidden_field :user_id, :value => @company %>
     <p>
       <%= f.submit "Save", :class => "btn btn-primary" %>
+      <%= link_to "Cancel", company_index_path, :class => "btn btn-danger" %>
     </p>
  	 <% end %>
 
-	<%= link_to "Cancel", company_index_path %>
 </div>

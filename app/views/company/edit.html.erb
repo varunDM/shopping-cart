@@ -16,9 +16,9 @@
     </p>
     <%= f.hidden_field :role, :value => 2 %>
     <p>
-      <%= f.submit "Save" %>
-    </p>
+      <%= f.submit "Save", :class => 'btn btn-primary' %>
+      <%= link_to "Cancel", admin_index_path, :class => 'btn btn-danger' %>
+   </p>
   <% end %>
   
-  <%= link_to "Cancel", admin_index_path %>
 </div>

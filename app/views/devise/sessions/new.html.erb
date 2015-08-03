@@ -3,8 +3,6 @@
   <h2 style="margin: 20px -16px;">Log in</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form-horizontal", :role => "form"}) do |f| %>
-
-    <%= resource.errors.full_messages %>
     
     <div class="form-group">
       <%= f.label :email %><br/>

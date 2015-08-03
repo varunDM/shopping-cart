@@ -1,25 +1,25 @@
-<div class="container">
-  <h3>Create a company</h3>
-  <%= form_for @company, url: company_index_path do |f| %>
-    <%= @company.errors.full_messages %>
-    <p>
+<div class="container" style="width:50%;">
+  <h3 style="margin: 20px -16px;">Create a company</h3>
+  <%= form_for @company, url: company_index_path, :html => {:class => "form-horizontal", :role => "form"} do |f| %>
+    <div class="form-group">
+     <%= @company.errors.full_messages %>
+    </div>
+    <div class="form-group">
       <%= f.label :email %></br>
-      <%= f.text_field :email %>
-    </p>
-    <p>
+      <%= f.text_field :email, :class => "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.label :password %></br>
-      <%= f.text_field :password %>
-    </p>
-    <p>
-      <%= f.label :first_name %></br>
-      <%= f.text_field :first_name %>
-    </p>
+      <%= f.password_field :password, :class => "form-control"  %>
+    </div>
+    <div class="form-group">
+      <%= f.label :first_name, "Name" %></br>
+      <%= f.text_field :first_name, :class => "form-control"  %>
+    </div>
     <%= f.hidden_field :role, :value => 2 %>
-    <p>
-      <%= f.submit "Save" %>
-    </p>
+    <div class="form-group">
+      <%= f.submit "Save", :class => "btn btn-primary"  %>
+      <%= link_to "Cancel", admin_index_path, :class => "btn btn-danger"   %>
+    </div>
   <% end %>
-  
-  <%= link_to "Cancel", admin_index_path %>
-
 </div>
