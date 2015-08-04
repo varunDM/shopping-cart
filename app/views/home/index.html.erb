@@ -1,4 +1,16 @@
 <div class="jumbotron text-center">
 	<h1>Welcome!</h1>
-	<h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at tortor et quam placerat suscipit nec a nulla. Pellentesque volutpat lorem vel semper luctus. Cras pulvinar lacus vel blandit scelerisque. Etiam porta dictum nibh, ac ullamcorper velit facilisis sed. Aliquam ultricies molestie velit. Aliquam sit amet tortor vitae sem molestie varius. Nullam velit ex, congue et nisi ut, posuere bibendum nunc. Nulla pulvinar orci ut felis dignissim auctor. Vestibulum a rhoncus nisi.</h4>
+	<h4 style="color: #646464; padding: 20px 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at tortor et quam placerat suscipit nec a nulla. Pellentesque volutpat lorem vel semper luctus. Cras pulvinar lacus vel blandit scelerisque. Etiam porta dictum nibh, ac ullamcorper velit facilisis sed. Aliquam ultricies molestie velit. Aliquam sit amet tortor vitae sem molestie varius. Nullam velit ex, congue et nisi ut, posuere bibendum nunc. Nulla pulvinar orci ut felis dignissim auctor. Vestibulum a rhoncus nisi.</h4>
+
+  <div class="products-container">
+    <% @products.each do |product| %>
+      <%= link_to product_path(product) do %>
+        <div class="product-box col-md-2 col-sm-3 col-xs-6">
+          <%= image_tag product.avatar.url(:thumb)%>
+          <h5> <%= product.name %> </h5>
+          <h6> <%= product.user.first_name %> </h6>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="clear"></div>
 </div>

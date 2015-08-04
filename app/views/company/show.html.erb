@@ -17,7 +17,7 @@
       <% @products.each_with_index do |product, index| %>
         <tr>
           <td> <%= index+1 %> </td>
-          <td> <%= image_tag product.avatar.url, :style => "width: 50px;" %> </td>
+          <td> <%= image_tag product.avatar.url(:thumb), :style => "width: 50px;" %> </td>
           <td> <%= product.name %></td>
           <td> <%= product.category.name %> </td>
           <td> <%= product.price %> </td>
@@ -29,6 +29,6 @@
   <% else %>
     <h5 class="alert alert-warning">This company has no products !</h5>
   <% end %>
-	<%= link_to "Back", admin_index_path, :class => "btn btn-success" %>
+	<%= link_to "Back", admin_index_path, :class => "btn btn-primary" %>
 
 </div>

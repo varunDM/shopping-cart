@@ -1,10 +1,14 @@
-<div class="container">
-	<h4>View Product</h4>
-  <%= image_tag @product.avatar.url, :style => "width: 80px;" %>
-	<h5> <strong>Name:</strong> <%= @product.name %></h5>
-  <h5> <strong>Company:</strong> <%= @product.user.first_name %></h5>
-	<h5> <strong>Price:</strong> <%= @product.price %></h5>
-	<h5> <strong>quantity:</strong> <%= @product.quantity %></h5>
-	<h5> <strong>Description:</strong> <%= @product.description %></h5>
-	<%= link_to 'Back', company_index_path, :class => 'btn btn-primary' %>
+<div class="container product-container">
+  <div class="col-md-5 product-image">
+    <%= image_tag @product.avatar.url, :style => "width:50%;" %>
+  </div>
+  <div class="col-md-7 product-details">
+  	<h2> <%= @product.name %> </h2>
+    <h5> <%= @product.user.first_name %> </h5>
+  	<h3> Rs. <%= @product.price %> </h3>
+  	<!-- <h5> <strong>Quantity:</strong> <%= @product.quantity %></h5> -->
+  	<h5> <%= @product.description %> </h5>
+
+    <%= link_to "Buy Now", checkout_path, :class => "btn btn-primary" %>
+  </div>
 </div>

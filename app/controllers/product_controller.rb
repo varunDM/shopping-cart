@@ -9,6 +9,7 @@ class ProductController < ApplicationController
   def edit
     @company = current_user.id
     @product = Product.find(params[:id])
+    @categories = Category.all
   end
 
   def create
@@ -16,6 +17,7 @@ class ProductController < ApplicationController
     if @product.save
       redirect_to company_index_path
     else
+      @categories = Category.all
       render 'new'
     end
   end
@@ -25,6 +27,7 @@ class ProductController < ApplicationController
     if @product.update(product_params)
       redirect_to company_index_path
     else
+      @categories = Category.all
       render 'edit'
     end
   end

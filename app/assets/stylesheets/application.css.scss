@@ -14,5 +14,23 @@
  *= require_self
  */
 
-@import "bootstrap-sprockets"
-@import "bootstrap"
+@import "bootstrap-sprockets";
+@import "bootstrap"; 
+
+.header {
+  background: #354052;
+  a {
+    color: #CECBDE;
+    font-weight: bold;
+  }
+  a:hover {
+    background-color: #354052 !important;
+    color: #EEEEEF;
+  }
+
+  .navbar {
+    margin-bottom: 0;
+  }
+}
+
+

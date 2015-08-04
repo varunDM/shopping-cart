@@ -7,8 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div class="container-fluid">
-		<nav class="navbar navbar-default">
+	<div class="container-fluid header">
+		<nav class="navbar">
 			<div class="navbar-header">
 				<%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
 
@@ -30,10 +30,16 @@
 
 					<% if user_signed_in? %>
 						<li>
-							<a href="#"><%= current_user.first_name %> ( <%= current_user.id %> )</a>
+							<% if current_user.role == 1 %>
+								<%= link_to current_user.first_name, admin_index_path %>
+							<% elsif current_user.role == 2 %>
+								<%= link_to current_user.first_name, company_index_path %>
+							<% else %>
+								<%= link_to current_user.first_name, customer_index_path %>
+							<% end %>
 						</li>
 						<li>
-							<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+							<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
 						</li>
 					<% else %>
 						<li>
@@ -57,17 +63,6 @@
 
 	</div>
 
-	<div class="header" style="background: #246E5D; color: #FFF; font-size: 16px; font-weight: bold; padding: 20px 30px;">
-		<% if user_signed_in? %>
-			<% if current_user.role == 1 %>
-				Administrator
-			<% elsif current_user.role == 2 %>
-				Company
-			<% else %>
-				Customer
-			<% end %>
-		<% end %>
-	</div>
 
 	<% if notice %>
   <p class="alert alert-success"><%= notice %></p>

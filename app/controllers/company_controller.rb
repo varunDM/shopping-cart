@@ -1,7 +1,8 @@
 #
 class CompanyController < ApplicationController
   before_action :authenticate_user!
-
+  before_filter :check_user
+  
   def index
     @company = current_user
     @products = @company.products
@@ -42,6 +43,10 @@ class CompanyController < ApplicationController
     @company = User.find(params[:id])
     @company.destroy
     redirect_to admin_index_path
+  end
+
+  def check_user
+    redirect_to home_index_path unless current_user.role == COMPANY
   end
 
   private

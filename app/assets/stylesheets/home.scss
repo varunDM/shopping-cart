@@ -1,3 +1,31 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.clear {
+  clear: both;
+}
+
+.products-container {
+  padding: 20px;
+
+  .product-box {
+    height: 250px;
+    padding: 55px 20px;
+    border: 1px solid #D3D3D3;
+    img {
+
+    }
+    h5 {
+      font-size: 15px;
+      padding: 5px;
+      color: #3C3C3C;
+    }
+    h6 {
+      color: #6E6E6E;
+    }
+  }
+  .product-box:hover {
+      background-color: #DDD;
+  }
+}
