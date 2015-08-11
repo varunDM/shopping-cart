@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="alert alert-success">
+    <div>Your order was successful ! </div>
+    <% Array(@products).each do |product| %>
+      <div class="product" style="padding: 20px 10px; width: 120px; height: 220px; float: left; text-align: center;">
+        <b style="display: block;"><%= product.name %></b> </br>
+        <%= image_tag product.avatar.url(:thumb) %></br>
+      </div>
+    <% end %>
+    <div style="clear:both;"></div>
+    Thanks a ton !!
+  </div>
+</div>

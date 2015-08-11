@@ -1,3 +1,73 @@
 // Place all the styles related to the checkout controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.address {
+  float: left;
+  padding: 22px 37px;
+  margin: 10px 5px;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px;
+  position: relative;
+}
+
+.remove {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: block;
+  padding: 3px 5px;
+  background: #F73131;
+  color: #FFFFFF;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.remove:hover {
+  text-decoration: none;
+  background: #F74242;
+  color: #FFFFFF;
+}
+
+
+.confirm_product {
+  position: relative;
+  width: 150px;
+  height: 225px;
+  padding: 15px;
+  margin: 5px 5px 5px 0px;
+  float: left;
+  border: 1px solid #D8D8D8;
+  text-align: center;
+
+  .number {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #565656;
+    border-radius: 50%;
+    border: 1px solid #595959;
+    line-height: 1.4;
+    width: 20px;
+    height: 20px;
+  }
+  img {
+
+  }
+
+  h4 {
+    font-size: 13px;
+  }
+  h5 {
+    font-size: 12px;
+  }
+}
+
+.confirm_address {
+  padding: 10px 0px;
+
+  h5 {
+    font-size: 14px;
+    padding: 2px 0px;
+  }
+}

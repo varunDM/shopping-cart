@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+  Rails.application.routes.draw do
   
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
@@ -7,13 +7,33 @@ Rails.application.routes.draw do
   resources :home
   resources :admin
   resources :company
+ 
   resources :customer
+  post 'customer/:id/bill_address' => 'customer#create_bill_address', as: 'create_bill_address'
+  delete 'customer/:id/bill_address/:address_id' => 'customer#remove_bill_address', as: 'remove_bill_address'
+
   resources :product
   resources :categories
 
-  get 'checkout/:id' => 'checkout#get', as: 'checkout'
+  post 'checkout/:product_id' => 'checkout#index', as: 'checkout_index'
+  # post 'checkout/cart' => 'checkout#index', as: 'checkout_cart'
 
-  # The priority is based upon order of creation: first created -> highest priority.
+  get 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_show', as: 'purchase_show'
+
+  post 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_action', as: 'purchase_action'
+  get 'checkout/:product_id/success' => 'checkout#success', as: 'purchase_success'
+
+  resources :review
+  # search-box submission
+  post '/search' => 'home#search'
+
+  # add-to cart
+  post '/add_to_cart' => 'product#add_to_cart'
+
+  # remove item from mini-cart
+  post 'remove_from_cart' => 'product#remove_from_cart'
+
+  # The priority is based upon order of creation
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

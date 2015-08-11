@@ -1,14 +1,56 @@
 <div class="container product-container">
   <div class="col-md-5 product-image">
-    <%= image_tag @product.avatar.url, :style => "width:50%;" %>
+    <%= image_tag @product.avatar.url, :style => "width:40%;" %>
   </div>
   <div class="col-md-7 product-details">
-  	<h2> <%= @product.name %> </h2>
+  	<h3> <%= @product.name %> </h3>
     <h5> <%= @product.user.first_name %> </h5>
-  	<h3> Rs. <%= @product.price %> </h3>
-  	<!-- <h5> <strong>Quantity:</strong> <%= @product.quantity %></h5> -->
-  	<h5> <%= @product.description %> </h5>
+  	<h3 style="padding-top: 25px; padding-bottom: 40px;"> Rs. <%= @product.price %> </h3>
+  	<h5 style=" line-height: 1.7; padding-bottom: 25px;"> <%= @product.description %> </h5>
 
-    <%= link_to "Buy Now", checkout_path, :class => "btn btn-primary" %>
+    <%= link_to "Buy Now", checkout_index_path(@product), :class => "btn btn-primary" , method: :post %>
+    <a href="#"  class="btn btn-warning add-to-cart" productid="<%= @product.id %>">Add to Cart</a>
   </div>
 </div>
+
+
+
+<script type="text/javascript">
+
+
+  $('.add-to-cart').click(function(){
+
+    $.ajax({
+
+      url: '/add_to_cart',
+      method: 'POST',
+      data: {
+        product: $(this).attr('productid')
+      },
+      success: function(data){
+        var mini_products = '';
+        var next_index = $('.product').length;
+        mini_products =  '<div class="product">' +
+                            '<div class="mini-cart-remove" data-index='+next_index+'>x</div>' +
+                            '<img src="' + data.avatar_url + '"/>' +
+                            '<div class="mini-product-details">' +
+                              '<div class="mini-product-details">' +
+                                '<h5>' + data.name + '</h5>' +
+                                '<h6>Rs.' + data.price + '</h6>' +
+                              '</div>' +
+                            '</div>' +
+                          '</div>';
+        $('.empty-cart').remove();
+        $('.mini-cart').append(mini_products);
+        // get old count and plus by one
+        count = $('.cart-count').text();
+        formatted_count = parseInt(count)+1;
+        $('.cart-count').html(formatted_count);
+      },
+      error: function(){
+        alert('Error');
+      }
+    });
+  });
+
+</script>

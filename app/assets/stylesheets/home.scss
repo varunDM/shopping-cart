@@ -10,19 +10,24 @@
   padding: 20px;
 
   .product-box {
+    text-align: center;
     height: 250px;
-    padding: 55px 20px;
-    border: 1px solid #D3D3D3;
-    img {
-
+    padding-top: 30px;
+      
+    .img-container {
+      height: 125px;
     }
+
     h5 {
-      font-size: 15px;
+      font-size: 13px;
+      font-weight: bold;
       padding: 5px;
-      color: #3C3C3C;
+      color: #424242;
+      margin: 5px 0px 0px 0px;
     }
     h6 {
       color: #6E6E6E;
+      margin: 2px 0px 0px 0px;
     }
   }
   .product-box:hover {

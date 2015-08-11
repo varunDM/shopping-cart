@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body style="color: rgb(55, 55, 55);">
+    <h1>Hi, <%= @user.first_name %></h1>
+    <p>
+      You have successfully placed the order of the following item:<br>
+    </p>
+    <h4> <%= @product.name %> (<%= @product.user.first_name %>) </h4>
+    <p>Thanks for shopping and have a great day!</p>
+  </body>
+</html>

@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803095328) do
+ActiveRecord::Schema.define(version: 20150811104421) do
+
+  create_table "bill_addresses", force: :cascade do |t|
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "name",       limit: 255
+    t.string   "zip",        limit: 255
+    t.text     "address",    limit: 65535
+    t.string   "country",    limit: 255
+    t.string   "phone",      limit: 255
+    t.integer  "user_id",    limit: 4
+  end
+
+  add_index "bill_addresses", ["user_id"], name: "index_bill_addresses_on_user_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -36,6 +49,27 @@ ActiveRecord::Schema.define(version: 20150803095328) do
 
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "bill_address_id", limit: 4
+    t.integer  "product_id",      limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "purchases", ["bill_address_id"], name: "index_purchases_on_bill_address_id", using: :btree
+  add_index "purchases", ["product_id"], name: "index_purchases_on_product_id", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.text     "body",       limit: 65535
+    t.integer  "user_id",    limit: 4
+    t.integer  "product_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "reviews", ["product_id"], name: "index_reviews_on_product_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -63,4 +97,8 @@ ActiveRecord::Schema.define(version: 20150803095328) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "products", "users"
+  add_foreign_key "purchases", "bill_addresses"
+  add_foreign_key "purchases", "products"
+  add_foreign_key "reviews", "products"
+  add_foreign_key "reviews", "users"
 end
