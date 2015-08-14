@@ -33,12 +33,26 @@
     <% end %>
 
     <div class="col-md-6">
-      <h3 style="padding-bottom: 20px;">Reviews</h3>
+      <h3 style="padding-bottom: 20px;">
+        Reviews
+        <% if @old_reviews.present? %> 
+          <span style="font-size: 18px; color: #7E7E7E;">
+            (<%= @old_reviews.size %>)
+          </span>
+        <% end %>
+      </h3>
       <% if @old_reviews.present? %>
         <% @old_reviews.each do |review| %>
           <div class="review">
             <h5 style="font-weight: bold;"> <%= review.user.first_name %></h5>
             <p style="color: #515151;"> <%= review.body %> </p>
+
+            <% if user_signed_in?  %>
+              <% if review.user_id == current_user.id %>
+                <%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'remove' %>
+              <% end %>
+            <% end %>
+
           </div>
         <% end %>
       <% else %>
@@ -76,8 +90,16 @@
                               '</div>' +
                             '</div>' +
                           '</div>';
+        cart_button = '<div style="text-align: center; margin: 15px 0px 5px 0px;">' +
+                        '<a href="/cart" class="btn btn-primary">View Cart</a>' +
+                      '</div>';
+
         $('.empty-cart').remove();
         $('.mini-cart-products').append(mini_products);
+
+        if($('.product').length == 1){
+          $('.mini-cart').append(cart_button);
+        }
         // get old count and plus by one
         count = $('.cart-count').text();
         formatted_count = parseInt(count)+1;

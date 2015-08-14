@@ -44,8 +44,14 @@
                               '</div>' +
                             '</div>' +
                           '</div>';
+        cart_button = '<div style="text-align: center; margin: 15px 0px 5px 0px;">' +
+                        '<a href="/cart" class="btn btn-primary">View Cart</a>' +
+                      '</div>';
         $('.empty-cart').remove();
         $('.mini-cart-products').append(mini_products);
+        if($('.product').length == 1){
+          $('.mini-cart').append(cart_button);
+        }
         // get old count and plus by one
         count = $('.cart-count').text();
         formatted_count = parseInt(count)+1;

@@ -19,13 +19,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse" id="myNav">
-      <!--  <ul class="nav navbar-nav">
-               <li class="active"><a href="#">Home</a></li>         
-               <li><a href="#">Dashboard</a></li>
-             <li><a href="#">Projects</a></li>
-             <li><a href="#">Contacts</a></li>
-        </ul>
-      -->
+
         <ul class="nav navbar-nav navbar-right">
           <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px;" class="mini-cart-trigger"> <%= image_tag "cart.png", :class => 'mini-cart-ico' %>
             <div class="cart-count">0</div>
@@ -45,7 +39,7 @@
                   </div>
                   <% end %>
                 </div>
-                <div style="text-align: center; margin: 15px 0px 5px 0px;">
+                <div class="view_cart" style="text-align: center; margin: 15px 0px 5px 0px;">
                   <% item = Product.new(:id => 0) %>
                   <%= link_to 'View Cart', view_cart_path, :class => 'btn btn-primary' %>
                 </div>
@@ -152,6 +146,14 @@
               count = $('.cart-count').text();
               formatted_count = parseInt(count)-1;
               $('.cart-count').html(formatted_count);
+
+              // When cart is empty
+              empty_cart = ' <div class="mini-cart-products"></div><div class="empty-cart" style="color: #A1A1A1; text-align: center;padding: 50px 0px; font-size: 20px;">Cart is empty !</div>';
+
+              if($('.product').length == 0){
+                 $('.mini-cart').html(empty_cart);
+              }
+
             },
             error: function(){
               alert("Error");

@@ -11,7 +11,7 @@
           <h6><%= address.country %></h6>
           <h6><%= address.zip %></h6>
           <%= link_to 'Deliver to this address', purchase_show_path(:bill_address_id => address.id), :class => 'btn btn-primary' %>
-          <%= link_to 'Delete', remove_bill_address_path(:id => @user.id, :address_id => address.id), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'remove'  %>
+          <%= link_to 'Delete', remove_bill_address_path(:id => @user.id, :address_id => address.id), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'remove', :style => '  width:165px;'  %>
         </div>
       <% end %>
   <% end %>
