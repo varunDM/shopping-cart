@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container-fluid header" style="padding:0;">
-		<nav class="navbar">
+		<nav class="navbar" style="background-color: #006CB4; border-radius: 0px;">
 			<div class="navbar-header">
 				<%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
 
@@ -18,16 +18,17 @@
 			    <span class="icon-bar"></span> 
 			  </button>
 			</div>
-			<div class="collapse navbar-collapse" id="myNav">
+			<div class="collapse navbar-collapse" id="myNav" style="box-shadow: 0px 1px 1px 0px #136280;">
 
 				<ul class="nav navbar-nav navbar-right">
-					<a href="#" style="float: left; padding: 11px 5px; position: relative;" class="mini-cart-trigger"> <%= image_tag "cart.png", :class => 'mini-cart-ico' %>
+					<div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px;" class="mini-cart-trigger"> <%= image_tag "cart.png", :class => 'mini-cart-ico' %>
             <div class="cart-count">0</div>
             <div class="mini-cart">
-              <% if session[:cart].present? %>
-                <% items = session[:cart].split(',') %>
-                <% items.each_with_index do |item, index| %>
-                  <% product = Product.find(item) %>
+              <div class="mini-cart-products">
+                <% if session[:cart].present? %>
+                  <% items = session[:cart].split(',') %>
+                  <% items.each_with_index do |item, index| %>
+                    <% product = Product.find(item) %>
                   <div class="product">
                     <div class="mini-cart-remove" data-index="<%= index %>">x</div>
                     <%= image_tag product.avatar.url(:thumb)%>
@@ -36,18 +37,20 @@
                       <h6>Rs. <%= product.price %> </h6>
                     </div>
                   </div>
-                <% end %>
+                  <% end %>
+                </div>
                 <div style="text-align: center; margin: 15px 0px 5px 0px;">
                   <% item = Product.new(:id => 0) %>
-                  <%= button_to 'Checkout', checkout_index_path(item), :class => 'btn btn-primary' %>
+                  <%= link_to 'View Cart', view_cart_path, :class => 'btn btn-primary' %>
                 </div>
-              <% else %>
-                <div class="empty-cart" style="color: #A1A1A1; text-align: center; padding: 50px 0px; font-size: 20px;">
-                  Cart is empty !
-                </div>
-              <% end %>
+                <% else %>
+                  </div>
+                  <div class="empty-cart" style="color: #A1A1A1; text-align: center; padding: 50px 0px; font-size: 20px;">
+                    Cart is empty !
+                  </div>
+                <% end %>
             </div>
-          </a>
+          </div>
 
 					<% if user_signed_in? %>
 						<li>

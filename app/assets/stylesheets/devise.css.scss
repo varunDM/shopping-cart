@@ -1,11 +1,21 @@
 body {
-  background-color: #848484;
-  /*background: url('mainbanner.jpg');*/
+  background: url('mainbanner.jpg');
+  background-attachment: fixed;
+  font-family: 'Droid Sans', sans-serif;
+  /*background-color: #0F0F0F;*/
 }
 
+.header a{
+  color: #5A5A5A;
+}
+.header a:hover{
+  color: #414141;
+}
 .login-container {
-  background: rgba(255, 255, 255, 0.53);
+  background: rgba(63, 63, 63, 0.33);
+  color: #FFF;
   padding: 15px 50px;
   margin-top: 60px;
+  margin-bottom: 60px;
   border-radius: 8px;
 }

@@ -9,6 +9,6 @@ class AdminController < ApplicationController
   end
 
   def check_user
-    redirect_to home_index_path unless current_user.role == SUPERADMIN    
+    redirect_to home_index_path unless current_user.role == SUPERADMIN
   end
 end

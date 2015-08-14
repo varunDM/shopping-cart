@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811104421) do
+ActiveRecord::Schema.define(version: 20150812055021) do
 
   create_table "bill_addresses", force: :cascade do |t|
     t.datetime "created_at",               null: false
@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 20150811104421) do
     t.string   "name",                limit: 255
     t.integer  "price",               limit: 4
     t.integer  "quantity",            limit: 4
-    t.string   "description",         limit: 255
+    t.text     "description",         limit: 65535
     t.integer  "user_id",             limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "category_id",         limit: 4
     t.string   "avatar_file_name",    limit: 255
     t.string   "avatar_content_type", limit: 255

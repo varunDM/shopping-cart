@@ -1,0 +1,42 @@
+<div class="container">
+  <h3>Shopping Cart</h3>
+  <% if session[:cart].present? %>
+    <div class="cart-products col-md-10">
+      <table class="table"> 
+        <tr>
+          <td style="border-top: 0px;"></td>
+          <td style="border-top: 0px;">Price</td>
+        </tr>
+        <% @items.each_with_index do |item, index| %>
+          <% product = Product.find(item) %>
+          <tr class="product-row">
+            <td>
+              <div class="image">
+                <%= image_tag product.avatar.url(:thumb)%>
+              </div>
+              <div class="details">
+                <h5> <%= product.name %> </h5>
+                <h6> <%= product.user.first_name %> </h6>
+                <%= link_to 'Delete', remove_from_cart_path(:arr_pos => index), method: :post %>
+              </div>
+            </td>
+            <td>
+              <h5 class="price">Rs. <%= product.price %> </h5>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-md-2">
+
+      <h4 style="font-weight: bold;">Subtotal (<%= @count %> items)</h4>
+      <h4 style="font-weight: bold; color: #b12704; margin-bottom: 30px;">Rs. <%= @sum %></h4>
+      <% item = Product.new(:id => 0) %>
+      <%= link_to 'Proceed to Checkout', checkout_index_path(item), :class => 'btn btn-primary' %>
+    </div>
+  <% else %>
+    <div class="empty-cart" style="color: #A1A1A1; text-align: center; padding: 50px 0px; font-size: 20px;">
+      Cart is empty !
+    </div>
+  <% end %>
+</div>

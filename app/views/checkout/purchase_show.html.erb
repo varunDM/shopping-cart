@@ -1,26 +1,32 @@
 <div class="container" style=" padding-top: 20px;">
-  <h3>Purchase Confirmation</h3>
-  <div class="col-md-6" style="padding-left: 0;">
+  <h3>Confirm Order</h3>
+  <hr>
+  <div class="col-md-12" style="padding-left: 0;">
     <h4>Products</h4>
+    <table class="table">
+    <tr>
+      <td></td>
+      <td>Product Name</td>
+      <td>Manufacturer</td>
+      <td>Price</td>
+    </tr>
     <% Array(@products).each_with_index do |product, index| %>
-      <div class="confirm_product">
-        <div class="number"><%= index+1 %></div>
-        <%= image_tag product.avatar.url(:thumb) %>
-        <h6> <%= product.category.name %> </h6>
-        <h4><%= product.name %></h4>
-        <h5>Rs. <%= product.price %> </h5>
-      </div>
+        <tr>
+          <td> <div class="number"><%= index+1 %></div> </td>
+          <td> <h5><%= product.name %></h5> </td>
+          <td> <h5> <%= product.user.first_name %> </h5> </td>
+          <td> <h5>Rs. <%= product.price %> </h5> </td>
+      </tr>
     <% end %>
-  </div>
-  <div class="col-md-6">
+  </table>
+  <div class="col-md-12">
     <h4>Billing Address</h4>
     <div class="confirm_address">
-      <h5><b>Name:</b> <%= @address.name %> </h5>
-      <h5><b>Address:</b> <%= @address.address %> </h5>
-      <h5><b>Country:</b> <%= @address.country %> </h5>
-      <h5><b>ZIP:</b><%= @address.zip %> </h5>
-      <h5><b>Phone:</b> <%= @address.phone %> </h5>     
+      <h4><%= @address.name %></h4>
+      <h6><%= @address.address %></h6>
+      <h6><%= @address.country %></h6>
+      <h6><%= @address.zip %></h6>
     </div>
-    <%= link_to "Confirm", purchase_action_path, method: :post, :class => "btn btn-primary" %>
+    <%= link_to "Confirm Order", purchase_action_path, method: :post, :class => "btn btn-primary" %>
   </div>
  </div>

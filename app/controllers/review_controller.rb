@@ -1,8 +1,10 @@
 #
 class ReviewController < ApplicationController
   def create
-    review = Review.find(review_params)
-    
+    review = Review.new(review_params)
+    if review.save
+      redirect_to session[:previous_url]
+    end
   end
 
   def review_params

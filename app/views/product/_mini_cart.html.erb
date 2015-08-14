@@ -1,0 +1,10 @@
+<div class="product">
+  <div class="mini-cart-remove" data-index='<%= @next_index %>'>x</div>
+  <%= image_tag @product.avatar.url(:thumb)%>
+  <div class="mini-product-details">
+    <div class="mini-product-details">
+      <h5><%= @product.name %></h5>
+      <h6><%= @product.price %></h6>
+    </div>
+  </div>
+</div>

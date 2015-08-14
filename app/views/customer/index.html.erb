@@ -1,9 +1,22 @@
-<div class="container" style=" padding-top: 20px;">
-  <h2> <%= @user.first_name + ' ' + @user.second_name %> </h2>
-  <h4> <%= @user.email %> </h4>
-  <h3>Address</h3>
-  <h5> <%= @user.address %> </h5>
-  <h5> <%= @user.city %> </h5>
-  <h5> <%= @user.state %> </h5>
-  <h5> <%= @user.zip %> </h5>
+<div class="container" style="padding-top: 60px; width: 60%;">
+
+  <div class="col-md-2">
+    <%= image_tag 'user.png' %>    
+  </div>
+  <div class="col-md-8 col-md-offset-2">
+    <h3> <%= @user.first_name + ' ' + @user.second_name %> </h3>
+    <h4 style="color: #737373;"> <%= @user.email %> </h4>
+    <hr>
+    <h3>Address</h3>
+    <h5> <%= @user.address %> </h5>
+    <h5> <%= @user.city %> </h5>
+    <h5> <%= @user.state %> </h5>
+    <h5> <%= @user.zip %> </h5>
+  </div>
 </div>
+
+<!-- <div class="container">
+  <div class="col-md-12">
+    <h3>Recent orders</h3>
+  </div>
+</div> -->

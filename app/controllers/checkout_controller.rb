@@ -1,13 +1,27 @@
 #
 class CheckoutController < ApplicationController
   
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :view_cart
 
 
   def index
     @user = current_user
     @address_new = BillAddress.new
     @address_old = BillAddress.where(:user_id => @user.id)
+    session[:check_out_url] = request.fullpath
+  end
+
+  def view_cart
+    session[:previous_url] = request.fullpath
+    if session[:cart].present?
+      @sum = 0
+      @items = session[:cart].split(',')
+      @items.each_with_index do |item, index|
+        product = Product.find(item)
+        @sum += product.price
+        @count = index + 1
+      end
+    end
   end
 
   def purchase_show

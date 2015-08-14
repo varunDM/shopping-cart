@@ -1,6 +1,6 @@
 <div class="container" >
 
-  <h3>  <%= link_to(image_tag "moto.png") %> <%= @company.first_name %> </h3>
+  <h3><%= @company.first_name %> </h3>
   <hr>
   <%= link_to "Add Product", new_product_path, :class => "btn btn-primary" %>
 
@@ -10,6 +10,7 @@
       <tr>
         <td>No.</td>
         <td>Product Name</td>
+        <td></td>
         <td>Category</td>
         <td>Price</td>
         <td>Quanitiy</td>
@@ -20,6 +21,7 @@
         <tr>
           <td> <%= index+1 %> </td>
           <td> <%= product.name %> </td>
+          <td> <%= image_tag product.avatar.url(:thumb) %> </td>
           <td> <%= product.category.name %> </td>
           <td> <%= product.price %> </td>
           <td> <%= product.quantity %> </td>

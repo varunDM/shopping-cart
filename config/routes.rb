@@ -15,7 +15,8 @@
   resources :product
   resources :categories
 
-  post 'checkout/:product_id' => 'checkout#index', as: 'checkout_index'
+  get 'cart' => 'checkout#view_cart', as: 'view_cart'
+  get 'checkout/:product_id' => 'checkout#index', as: 'checkout_index'
   # post 'checkout/cart' => 'checkout#index', as: 'checkout_cart'
 
   get 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_show', as: 'purchase_show'

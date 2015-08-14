@@ -47,6 +47,9 @@ class ProductController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @review = Review.new
+    session[:previous_url] = request.fullpath
+    @old_reviews = Review.where(:product_id => params[:id])
+    p @old_reviews
   end
 
   # Stores the product id's to session
@@ -64,9 +67,13 @@ class ProductController < ApplicationController
   def remove_from_cart
     pos = params[:arr_pos].to_i
     cart_items = session[:cart].split(',')
+    # p Product.find(cart_items[pos])
     cart_items.delete_at(pos)
 
     session[:cart] = cart_items.join(',')
+    if session[:previous_url] == '/cart'
+      return redirect_to view_cart_path
+    end
     render :json => cart_items
   end
 
