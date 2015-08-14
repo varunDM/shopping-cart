@@ -27,14 +27,16 @@ body {
 .btn-primary {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #229ac8;
+  background-color: #7fbf4d;
   background-image: -webkit-linear-gradient(top,#7fbf4d,#63a62f);
   background-repeat: repeat-x;
-  border: 1px solid #63a62f;
+  border: 1px solid;
+  border-color: #63a62f;
   border-bottom: 1px solid #5b992b;
 }
-.btn-primary:hover {
-  border: 1px solid #3B760F;
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #7fbf4d !important;
+  border-color: #4C8321 !important;
 }
 
 .btn-warning {
@@ -125,6 +127,10 @@ body {
       .product {
         border-bottom: 1px solid #DBDBDB;
         position: relative;
+      }
+      .product:hover {
+        background-color: #E0E0E0 !important;
+        border-bottom: 1px solid #D3D3D3;
       }
       .mini-cart-remove {
         position: absolute;

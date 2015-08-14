@@ -25,14 +25,14 @@
                   <% items = session[:cart].split(',') %>
                   <% items.each_with_index do |item, index| %>
                     <% product = Product.find(item) %>
-                  <div class="product">
+                  <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
                     <div class="mini-cart-remove" data-index="<%= index %>">x</div>
                     <%= image_tag product.avatar.url(:thumb)%>
                     <div class="mini-product-details">
                       <h5> <%= product.name %> </h5>
                       <h6>Rs. <%= product.price %> </h6>
                     </div>
-                  </div>
+                  <% end %>
                   <% end %>
                 </div>
                 <div class="view_cart" style="text-align: center; margin: 15px 0px 5px 0px;">
@@ -101,7 +101,8 @@
     // // Mini-cart remove
      
 
-    $('.mini-cart').delegate(".mini-cart-remove","click", function() {
+    $('.mini-cart').delegate(".mini-cart-remove","click", function(event) {
+        event.preventDefault();
         var t = $(this);
         var prod_index = t.attr('data-index');
         formatted_prod_index = parseInt(prod_index);

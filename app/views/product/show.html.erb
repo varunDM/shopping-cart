@@ -80,7 +80,7 @@
       success: function(data){
         var mini_products = '';
         var next_index = $('.product').length;
-        mini_products =  '<div class="product">' +
+        mini_products =  '<a href="/product/'+ data.id + '" class="product" style= "display: block;">'+
                             '<div class="mini-cart-remove" data-index='+next_index+'>x</div>' +
                             '<img src="' + data.avatar_url + '"/>' +
                             '<div class="mini-product-details">' +
@@ -89,7 +89,7 @@
                                 '<h6>Rs.' + data.price + '</h6>' +
                               '</div>' +
                             '</div>' +
-                          '</div>';
+                          '</a>';
         cart_button = '<div style="text-align: center; margin: 15px 0px 5px 0px;">' +
                         '<a href="/cart" class="btn btn-primary">View Cart</a>' +
                       '</div>';

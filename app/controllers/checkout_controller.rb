@@ -41,6 +41,8 @@ class CheckoutController < ApplicationController
         @purchase = Purchase.new( :product_id => item.id, :bill_address_id => params[:bill_address_id])
         @purchase.save
       end
+      
+      UserMailer.purchase_email(purchase_params, session[:cart]).deliver
 
       flash[:purchased_item] = params[:product_id]
       redirect_to purchase_success_path
@@ -48,7 +50,7 @@ class CheckoutController < ApplicationController
       @purchase = Purchase.new(purchase_params)
       if @purchase.save
         # Send email
-        UserMailer.purchase_email(@purchase).deliver
+        UserMailer.purchase_email(@purchase, session[:cart]).deliver
         flash[:purchased_item] = params[:product_id]
         redirect_to purchase_success_path
       else

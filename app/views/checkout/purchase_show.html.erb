@@ -6,6 +6,7 @@
     <table class="table">
     <tr>
       <td></td>
+      <td style="width: 90px;"></td>
       <td>Product Name</td>
       <td>Manufacturer</td>
       <td>Price</td>
@@ -13,6 +14,7 @@
     <% Array(@products).each_with_index do |product, index| %>
         <tr>
           <td> <div class="number"><%= index+1 %></div> </td>
+          <td> <%= image_tag product.avatar.url(:thumb) , :style => 'width: 30px;' %> </td>
           <td> <h5><%= product.name %></h5> </td>
           <td> <h5> <%= product.user.first_name %> </h5> </td>
           <td> <h5>Rs. <%= product.price %> </h5> </td>

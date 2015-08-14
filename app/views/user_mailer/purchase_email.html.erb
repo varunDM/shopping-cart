@@ -8,7 +8,9 @@
     <p>
       You have successfully placed the order of the following item:<br>
     </p>
-    <h4> <%= @product.name %> (<%= @product.user.first_name %>) </h4>
+    <% @products.each do |product| %>
+      <h4> <%= product.name %> (<%= product.user.first_name %>) </h4>
+    <% end %>
     <p>Thanks for shopping and have a great day!</p>
   </body>
 </html>
