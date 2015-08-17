@@ -24,6 +24,8 @@
   post 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_action', as: 'purchase_action'
   get 'checkout/:product_id/success' => 'checkout#success', as: 'purchase_success'
 
+  # product comparison
+  get 'compare/:product_id' => 'product#add_to_compare', as: 'product_compare'
   resources :review
   # search-box submission
   post '/search' => 'home#search'

@@ -1,6 +1,5 @@
 # Manage the operations related to Products
 class ProductController < ApplicationController
-
   # For creating new product
   def new
     @company = current_user.id
@@ -14,7 +13,7 @@ class ProductController < ApplicationController
     @product = Product.find(params[:id])
     @categories = Category.all
   end
-  
+
   # Creates a new product
   def create
     @product = Product.new(product_params)
@@ -75,6 +74,25 @@ class ProductController < ApplicationController
       return redirect_to view_cart_path
     end
     render :json => cart_items
+  end
+
+  # Add to compare session
+  def add_to_compare
+    if session[:compare].present?
+      # session[:compare] << ',' + params[:product_id]
+    else
+      items = session[:compare].split(',')
+      unless items.include? params[:product_id]
+        # session[:compare] = params[:product_id]
+        p items
+        p params[:product_id]
+        p 'checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk'
+        p 'true'
+      end
+    end
+    p 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'
+    p session[:compare]
+    redirect_to product_path(params[:product_id])
   end
 
   private

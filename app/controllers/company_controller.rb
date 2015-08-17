@@ -54,5 +54,4 @@ class CompanyController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password, :first_name, :role, :logo_id)
   end
-
 end

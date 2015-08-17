@@ -86,3 +86,27 @@ a:link:hover, a:link:focus{
     border: 1px solid #ABABAB;
   }
 }
+
+
+/* Flex slider*/
+
+.flexslider {
+  border: none;
+}
+.flex-viewport {
+  height: 400px;
+}
+/*.flexslider .slides {
+  position: absolute;
+  top: -250px;
+}*/
+
+.flex-direction-nav a:before {
+  content: '\2190';
+  color: #FFF;
+}
+
+.flex-direction-nav a.flex-next:before {
+  content: '\2192';
+  color: #FFF;
+}

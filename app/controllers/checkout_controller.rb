@@ -40,15 +40,15 @@ class CheckoutController < ApplicationController
       @items.each do |item|
         @purchase = Purchase.new( :product_id => item.id, :bill_address_id => params[:bill_address_id])
         @purchase.save
+        stock_minus(item.id)
       end
-      
       UserMailer.purchase_email(purchase_params, session[:cart]).deliver
-
       flash[:purchased_item] = params[:product_id]
       redirect_to purchase_success_path
     else
       @purchase = Purchase.new(purchase_params)
       if @purchase.save
+        stock_minus(params[:product_id])
         # Send email
         UserMailer.purchase_email(@purchase, session[:cart]).deliver
         flash[:purchased_item] = params[:product_id]
@@ -57,7 +57,13 @@ class CheckoutController < ApplicationController
         render 'purchase_show'
       end
     end
-   
+  end
+
+  def stock_minus(product)
+    product = Product.find(product)
+    quantity = product.quantity
+    quantity -= 1
+    product.update(:quantity => quantity)
   end
 
   def items_from_cart

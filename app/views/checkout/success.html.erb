@@ -1,13 +1,28 @@
 <div class="container">
-  <div class="alert alert-success">
-    <div>Your order was successful ! </div>
-    <% Array(@products).each do |product| %>
-      <div class="product" style="padding: 20px 10px; width: 120px; height: 220px; float: left; text-align: center;">
-        <b style="display: block;"><%= product.name %></b> </br>
-        <%= image_tag product.avatar.url(:thumb) %></br>
-      </div>
-    <% end %>
+  <div class="alert">
+    <h4>Thank You for Your Order!</h4>
+    <div class="alert alert-success"> 
+      You will recieve an email confirmation shortly at <b><%= current_user.email %></b>.
+    </div>
+    <hr>
+    <h5>Order Summary:</h5>
+    <table class="table">
+       <tr>
+        <td style="width: 30px;"></td>
+        <td style="width: 90px;"></td>
+        <td>Product Name</td>
+        <td>Price</td>
+      </tr>
+      <% Array(@products).each_with_index do |product, index| %>
+          <tr>
+            <td> <div class="number"><%= index+1 %></div> </td>
+            <td> <%= image_tag product.avatar.url(:thumb) , :style => 'width: 40px;' %> </td>
+            <td> <h5><%= product.name %></h5> </td>
+            <td> <h5>Rs. <%= product.price %> </h5> </td>
+        </tr>
+      <% end %>
+    </table>
     <div style="clear:both;"></div>
-    Thanks a ton !!
+    <%= link_to 'Continue Shopping', home_index_path, :class => 'btn btn-primary' %>
   </div>
 </div>

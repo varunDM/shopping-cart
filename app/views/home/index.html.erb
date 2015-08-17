@@ -1,3 +1,13 @@
+<div class="flexslider">
+  <ul class="slides">
+    <li>
+      <%= image_tag 'slide1.jpg' %>
+    </li>
+    <li>
+      <%= image_tag 'slide2.jpg' %>
+    </li>
+  </ul>
+</div>
 <div class="container">
   <div class="products-container">
     <% @products.each do |product| %>
@@ -11,7 +21,11 @@
             <h6> <%= truncate(product.description, :length => 80, :omission => '...') %> </h6>
             <h4>Rs. <%= product.price %> </h4>
           </div>
-          <a href="#" class="add-to-cart" productid="<%= product.id %>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
+          <% if product.quantity == 0 %>
+            <h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>
+          <% else %>
+            <a href="#" class="add-to-cart" productid="<%= product.id %>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
+          <% end %>
         </div>
       <% end %>
     <% end %>
@@ -62,5 +76,13 @@
       }
     });
   });
+
+
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide"
+  });
+});
+
 
 </script>
