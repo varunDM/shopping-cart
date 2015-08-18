@@ -4,7 +4,8 @@
     <div class="cart-products col-md-8">
       <table class="table"> 
         <tr>
-          <td style="border-top: 0px;"></td>
+          <td style="border-top: 0px; min-width: 300px;">Item</td>
+          <td style="border-top: 0px;">Quantity</td>
           <td style="border-top: 0px; width: 275px; text-align: right;">Price</td>
         </tr>
         <% @items.each_with_index do |item, index| %>
@@ -20,6 +21,9 @@
                 <%= link_to 'Delete', remove_from_cart_path(:arr_pos => index), method: :post %>
               </div>
             </td>
+            <td>
+              <%= product.quantity %>
+            </td>
             <td style="text-align: right;">
               <h5 class="price">Rs. <%= product.price %> </h5>
             </td>
@@ -27,11 +31,13 @@
         <% end %>
         <tr style="border-bottom: 1px solid #ddd;">
           <td></td>
+          <td></td>
           <td style="text-align: right;">
             <h4 style="font-weight: bold;">Subtotal (<%= @count %> items): <span style="color: #b12704;">Rs. <%= @sum %></span></h4>
           </td>
         </tr>
          <tr style="border-bottom: 1px solid #ddd;">
+          <td></td>
           <td></td>
           <td style="text-align: right;">
             <% item = Product.new(:id => 0) %>

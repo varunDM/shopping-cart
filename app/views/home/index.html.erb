@@ -1,11 +1,17 @@
 <div class="flexslider">
   <ul class="slides">
     <li>
-      <%= image_tag 'slide1.jpg' %>
+      <%= image_tag 'slide3.jpg' %>
+    </li>
+    <li>
+      <%= image_tag 'slide4.jpg' %>
     </li>
     <li>
       <%= image_tag 'slide2.jpg' %>
     </li>
+    <li>
+      <%= image_tag 'slide1.jpg' %>
+    </li>    
   </ul>
 </div>
 <div class="container">
@@ -36,7 +42,7 @@
 <script type="text/javascript">
 
 
-  $('.add-to-cart').click(function(){
+  $('.products-container').delegate(".add-to-cart", "click", function() {
 
     $.ajax({
 
@@ -77,8 +83,7 @@
     });
   });
 
-
-$(window).load(function() {
+$(function() {
   $('.flexslider').flexslider({
     animation: "slide"
   });

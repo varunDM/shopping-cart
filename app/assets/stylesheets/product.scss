@@ -22,3 +22,22 @@
   }
 }
 
+/* Add to compare button*/
+.compare {
+  color: #444444;
+  margin: 10px 0px 0px -10px !important;
+
+  img {
+    width: 17px; 
+    margin: 0px 5px 0px 0px; 
+    vertical-align: top; 
+    opacity: .7;
+  }
+}
+.compare:hover {
+  color: #000000;
+
+  img {
+    opacity: .9;
+  }
+}

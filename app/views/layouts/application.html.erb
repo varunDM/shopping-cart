@@ -16,8 +16,11 @@
 			<div class="navbar-collapse" style="box-shadow: 0px 1px 1px 0px #136280;">
 
 				<ul class="nav navbar-nav navbar-right">
-					<div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px;" class="mini-cart-trigger"> <%= image_tag "cart.png", :class => 'mini-cart-ico' %>
+          <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico', :title => 'Wishlist') %>
+          <%= link_to(image_tag('compare_white.png'), compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico', :title => 'Compare') %> 
+					<div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
             <div class="cart-count">0</div>
+            <div class="triangle"></div>
             <div class="mini-cart">
               <div class="mini-cart-products">
                 <% if session[:cart].present? %>
@@ -50,24 +53,24 @@
 					<% if user_signed_in? %>
 						<li>
 							<% if current_user.role == SUPERADMIN %>
-								<%= link_to current_user.first_name, admin_index_path %>
+								<%= link_to current_user.first_name, admin_index_path, :title => 'Dashboard' %>
 							<% elsif current_user.role == COMPANY %>
-								<%= link_to current_user.first_name, company_index_path %>
+								<%= link_to current_user.first_name, company_index_path, :title => 'Dashboard' %>
 							<% else %>
-								<%= link_to current_user.first_name, customer_index_path %>
+								<%= link_to current_user.first_name, customer_index_path, :title => 'Profile' %>
 							<% end %>
 						</li>
 						<li>
-							<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+							<%= link_to 'Log out', destroy_user_session_path,:title => 'Sign Out', method: :delete %>
 						</li>
 					<% else %>
 						<li>
-							<%= link_to new_user_session_path, method: :get do %>
+							<%= link_to new_user_session_path, :title => 'Login', method: :get do %>
 								Login
 							<% end %>
 						</li>
 						<li>
-							<%= link_to new_user_registration_path, method: :get do %>
+							<%= link_to new_user_registration_path, :title => 'Sign Up', method: :get do %>
 								Sign Up
 							<% end %>
 						</li>

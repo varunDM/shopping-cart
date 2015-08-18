@@ -4,17 +4,18 @@
   </div>
   <div class="col-md-7 product-details">
   	<h3> <%= @product.name %> </h3>
-
     <h5>Brand: <%= @product.user.first_name %> </h5>
-  	<h3 style="padding-top: 10px; padding-bottom: 20px;"> Rs. <%= @product.price %> </h3>
+    <h3 style="padding-top: 10px; padding-bottom: 20px;"> Rs. <%= @product.price %> </h3>
     <% if @product.quantity == 0 %>
-      <h4>Availability: Out of Stock</h4>
+      <h4>Availability: <span style="font-weight: bold;">Out of Stock</span></h4>
     <% else %>
-      <h4>Availability: In Stock</h4>
-      <hr>
+      <h4>Availability: <span style="color: #3F9900; font-weight: bold;">In Stock</span></h4>
+      <%= link_to "#{image_tag('compare.png')}  Add to Compare".html_safe, product_compare_path(@product), :class => 'compare btn' %></br>
+      <%= link_to "#{image_tag('heart.png')}  Add to Wishlist".html_safe, add_to_wishlist_path(@product), :class => 'compare btn' %></br><hr>
       <%= link_to "Buy Now", checkout_index_path(@product), :class => "btn btn-primary"%>
       <a href="#"  class="btn btn-warning add-to-cart" productid="<%= @product.id %>">Add to Cart</a>
-    <% end %>
+      
+  <% end %>
     
   </div>
   <div class="col-md-12" style="padding-top: 30px;">

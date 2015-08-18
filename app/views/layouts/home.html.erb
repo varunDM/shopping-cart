@@ -21,8 +21,11 @@
       <div class="collapse navbar-collapse" id="myNav">
 
         <ul class="nav navbar-nav navbar-right">
-          <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px;" class="mini-cart-trigger"> <%= image_tag "cart.png", :class => 'mini-cart-ico' %>
+          <%= link_to(image_tag('heart_white.png'), compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
+          <%= link_to(image_tag('compare_white.png'), compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
+          <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
             <div class="cart-count">0</div>
+            <div class="triangle"></div>
             <div class="mini-cart">
               <div class="mini-cart-products">
                 <% if session[:cart].present? %>
@@ -121,7 +124,7 @@
    $('.cart-count').html(count);
 
     // // Mini-cart remove
-     
+
 
     $('.mini-cart').delegate(".mini-cart-remove","click", function(event) {
         event.preventDefault();
@@ -167,7 +170,6 @@
     $('#search_form').submit(function(event){
 
       event.preventDefault();
-      
       $.ajax({
 
         url: '/search',
@@ -180,22 +182,31 @@
         },
         
         success: function(data){
+          $('.flexslider').hide();
           var len = data.length;
           var products = '';
           for(var i=0; i<len; i++){
             products += '<a href="/product/' + data[i].id + '">' +
-                          '<div class="product-box col-md-2 col-sm-3 col-xs-6">' +
+                          '<div class="product-box col-md-3 col-sm-4 col-xs-6">' +
                             '<div class="product-box-container">' +
                               '<div class="img-container">' +
                                 '<img src="' + data[i].avatar_url + '">' +
                               '</div>' +
                               '<h5>'+ data[i].name +'</h5>' +
-                              '<h6>'+ data[i].first_name +'</h5>' +
+                              '<h6>' + jQuery.trim(data[i].description).substring(0, 80) + '...</h6>' +
                               '<h4>Rs. '+ data[i].price + '</h4>' +
                             '</div>' +
-                            '<a href="#" class="add-to-cart" productid="' + data[i].id + '"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>' +
-                          '</div>' +
+                            
+                            ( data[i].quantity == 0?
+                              '<h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>'
+                            :
+                              '<a href="#" class="add-to-cart" productid="' + data[i].id + '"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>'
+                            )
+
+                          + '</div>' +
                         '</a>';
+
+
           }
           $('.products-container').html(products);
         },
@@ -217,21 +228,28 @@
           type: 'categories.name'
         },
         success: function(data){
+          $('.flexslider').hide();
           var len = data.length;
           var products = '';
           for(var i=0; i<len; i++){
             products += '<a href="/product/' + data[i].id + '">' +
-                          '<div class="product-box col-md-2 col-sm-3 col-xs-6">' +
+                          '<div class="product-box col-md-3 col-sm-4 col-xs-6">' +
                             '<div class="product-box-container">' +
                               '<div class="img-container">' +
                                 '<img src="' + data[i].avatar_url + '">' +
                               '</div>' +
                               '<h5>'+ data[i].name +'</h5>' +
-                              '<h6>'+ data[i].first_name +'</h5>' +
+                              '<h6>' + jQuery.trim(data[i].description).substring(0, 80) + '...</h6>' +
                               '<h4>Rs. '+ data[i].price + '</h4>' +
                             '</div>' +
-                            '<a href="#" class="add-to-cart" productid="' + data[i].id + '"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>' +
-                          '</div>' +
+                            
+                            ( data[i].quantity == 0?
+                              '<h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>'
+                            :
+                              '<a href="#" class="add-to-cart" productid="' + data[i].id + '"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>'
+                            )
+
+                          + '</div>' +
                         '</a>';
           }
           $('.products-container').html(products);

@@ -26,6 +26,8 @@
 
   # product comparison
   get 'compare/:product_id' => 'product#add_to_compare', as: 'product_compare'
+  get 'compare' => 'product#show_compare', as: 'compare_product'
+  get 'compare_remove/:index' => 'product#remove_from_compare', as: 'compare_remove'
   resources :review
   # search-box submission
   post '/search' => 'home#search'
@@ -35,6 +37,11 @@
 
   # remove item from mini-cart
   post 'remove_from_cart' => 'product#remove_from_cart'
+
+  # wishlist
+  get '/add_to_wishlist/:id' => 'product#add_to_wishlist', as: 'add_to_wishlist'
+  get '/wishlist' => 'product#wishlist', as: 'wishlist'
+  get 'remove_from_wishlist/:index' => 'product#remove_from_wishlist', as: 'remove_from_wishlist'
 
   # The priority is based upon order of creation
   # See how all your routes lay out with "rake routes".

@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+  overflow-x: hidden;
+}
+
 .clear {
   clear: both;
 }
@@ -102,11 +106,9 @@ a:link:hover, a:link:focus{
 }*/
 
 .flex-direction-nav a:before {
-  content: '\2190';
-  color: #FFF;
+  font-size: 37px;
 }
 
 .flex-direction-nav a.flex-next:before {
-  content: '\2192';
-  color: #FFF;
+  font-size: 37px;
 }
