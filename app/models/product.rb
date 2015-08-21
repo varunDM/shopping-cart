@@ -16,6 +16,11 @@ class Product < ActiveRecord::Base
 
   end
 
+  def self.autocomplete(query)
+    @product = Product.select('products.name', 'products.id').where("name like ?", "%#{query}%")
+    @category = Category.select('categories.name, categories.id').where("name like ?", "%#{query}%")
+    {:category => @category, :product => @product}
+  end
 
   def avatar_url
     avatar.url(:thumb)

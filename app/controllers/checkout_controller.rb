@@ -38,7 +38,7 @@ class CheckoutController < ApplicationController
     if params[:product_id] == '0'
       @items = items_from_cart
       @items.each do |item|
-        @purchase = Purchase.new( :product_id => item.id, :bill_address_id => params[:bill_address_id])
+        @purchase = Purchase.new( :product_id => item.id, :bill_address_id => params[:bill_address_id], :ip =>  IPAddr.new(request.remote_ip).to_i)
         @purchase.save
         stock_minus(item.id)
       end
@@ -46,7 +46,7 @@ class CheckoutController < ApplicationController
       flash[:purchased_item] = params[:product_id]
       redirect_to purchase_success_path
     else
-      @purchase = Purchase.new(purchase_params)
+      @purchase = Purchase.new(purchase_params.merge(:ip =>  IPAddr.new(request.remote_ip).to_i))
       if @purchase.save
         stock_minus(params[:product_id])
         # Send email

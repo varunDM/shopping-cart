@@ -1,0 +1,13 @@
+<div class="container">
+  <h3>Logs</h3>
+  <table class="table">
+    <% @activities.each do |activity| %>
+      <tr>
+      <td>
+      <b><%= activity.user.first_name %></b> <%= activity.action.html_safe %> <span style="color: #9D9D9D;">(<%= activity.created_at%>)</span>
+      </td>
+      </tr>
+    <% end %>
+    <%= paginate @activities %>
+  </table>
+</div>

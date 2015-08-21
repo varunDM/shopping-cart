@@ -18,6 +18,7 @@ class ProductController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
+      activity_log("added product <b>#{@product.name}</b>(#{@product.id}) to #{@product.category.name}")
       redirect_to company_index_path
     else
       @categories = Category.all
@@ -29,6 +30,7 @@ class ProductController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
+      activity_log("edited a product #{@product.previous_changes()}")
       redirect_to company_index_path
     else
       @categories = Category.all
@@ -39,7 +41,10 @@ class ProductController < ApplicationController
   # Removes a product
   def destroy
     @product = Product.find(params[:id])
-    redirect_to company_index_path if @product.destroy
+    if @product.destroy
+      activity_log("deleted a product")
+      redirect_to company_index_path
+    end
   end
 
   # Get the details of a product
@@ -86,9 +91,10 @@ class ProductController < ApplicationController
   end
 
   def wishlist
-    @products = Array.new
-    session[:wishlist].each do |id|
-      @products << Product.find(id)
+    if session[:wishlist].present?
+      @products = session[:wishlist].map do |id|
+        Product.find(id)
+      end
     end
   end
 
@@ -118,29 +124,28 @@ class ProductController < ApplicationController
   end
 
   def remove_from_compare
-     pos = params[:index].to_i
-     compare_items = session[:compare].split(',')
-     compare_items.delete_at(pos)
-     session[:compare] = compare_items.join(',')
-     redirect_to(compare_product_path)
+   pos = params[:index].to_i
+   compare_items = session[:compare].split(',')
+   compare_items.delete_at(pos)
+   session[:compare] = compare_items.join(',')
+   redirect_to(compare_product_path)
   end
 
   def show_compare
     if session[:compare].present?
       @items = session[:compare].split(',')
-      @products = Array.new
-      @items.each_with_index do |item, index|
+      @products = @items.map do |item|
         product = Product.find(item)
-        prd_fields = Array.new
-        prd_fields.push(product.name)
-        prd_fields.push(product.avatar.url(:thumb))
-        prd_fields.push(product.price)
-        prd_fields.push(product.user.first_name)
-        prd_fields.push(product.id)
-        @products.push(prd_fields)
+        [
+          product.name,
+          product.avatar.url(:thumb),
+          product.description,
+          product.price,
+          product.user.first_name,
+          product.id
+        ]
       end
-      @products = @products.transpose
-      @table_headers = ['Product', 'Image', 'Price', 'Manufacturer']
+      @table_headers = ['Product', 'Image', 'Summary', 'Price', 'Manufacturer', '']
     end
   end
 

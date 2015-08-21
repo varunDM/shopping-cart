@@ -1,0 +1,92 @@
+<div class="container">
+  <h3>Orders</h3>
+
+  <div id="tabs" style="margin: 25px 0px;">
+    <ul>
+      <li><a href="#tabs-1">Order details</a></li>
+      <li><a href="#tabs-2">Shipping details</a></li>
+      <li><a href="#tabs-3">Products</a></li>
+    </ul>
+    <div id="tabs-1">
+      <table class="table" style="width: 50%;">
+        <tr>
+          <td>Order ID</td>
+          <td><%= @order.id %></td>
+        </tr>
+        <tr>
+          <td>Customer</td>
+          <td><%= @order.first_name %></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td><%= @order.email %></td>
+        </tr>
+        <tr>
+          <td>Telephone</td>
+          <td><%= @order.phone %></td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>Rs. <%= @order.price %></td>
+        </tr>
+        <tr>
+          <td>IP address</td>
+          <td><%= IPAddr.new(@order.ip, Socket::AF_INET).to_s %></td>
+        </tr>
+        <tr>
+          <td>Date added</td>
+          <td><%= @order.created_at %></td>
+        </tr>
+      </table>
+    </div>
+    <div id="tabs-2">
+      <table class="table" style="width: 50%;">
+        <tr>
+          <td>Name</td>
+          <td><%= @shipping.name %></td>
+        </tr>
+        <tr>
+          <td>Address</td>
+          <td><%= @shipping.address %></td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td><%= @shipping.phone %></td>
+        </tr>
+        <tr>
+          <td>Country</td>
+          <td><%= @shipping.country %></td>
+        </tr>
+        <tr>
+          <td>Zip</td>
+          <td><%= @shipping.zip %></td>
+        </tr>
+      </table>
+    </div>
+    <div id="tabs-3">
+      <table class="table">
+        <tr>
+          <td>Product</td>
+          <td>Category</td>
+          <td>Quantity</td>
+          <td>Unit Price</td>
+          <td>Total</td>
+        </tr>
+          <tr>
+            <td><%= @product.name %></td>
+            <td><%= @product.category.name %></td>
+            <td>...</td>
+            <td>Rs. <%= @product.price %></td>
+            <td>...</td>
+          </tr>
+      </table>
+    </div>
+  </div>
+  <%= link_to 'Back', orders_path, :class => 'btn btn-primary'%>
+</div>
+
+<script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+  </script>

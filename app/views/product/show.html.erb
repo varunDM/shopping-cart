@@ -11,7 +11,8 @@
     <% else %>
       <h4>Availability: <span style="color: #3F9900; font-weight: bold;">In Stock</span></h4>
       <%= link_to "#{image_tag('compare.png')}  Add to Compare".html_safe, product_compare_path(@product), :class => 'compare btn' %></br>
-      <%= link_to "#{image_tag('heart.png')}  Add to Wishlist".html_safe, add_to_wishlist_path(@product), :class => 'compare btn' %></br><hr>
+      <%= link_to "#{image_tag('heart.png')}  Add to Wishlist".html_safe, add_to_wishlist_path(@product), :class => 'compare btn' %></br>
+      <h4>Quantity: </h4><%= text_field_tag 'quantity' %></br><hr>
       <%= link_to "Buy Now", checkout_index_path(@product), :class => "btn btn-primary"%>
       <a href="#"  class="btn btn-warning add-to-cart" productid="<%= @product.id %>">Add to Cart</a>
       

@@ -12,9 +12,10 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    activity_log('logged out of the system')
+    super
+  end
 
   # protected
 

@@ -1,11 +1,17 @@
   Rails.application.routes.draw do
   
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
 
   root 'home#index'
   
+  post '/autocomplete' => 'home#autocomplete'
   resources :home
+
+  get 'admin/logs' => 'admin#logs', as: 'logs'
+  get 'admin/orders' => 'admin#view_orders', as: 'orders'
+  get 'admin/orders/:id' => 'admin#order_details', as: 'order_view'
   resources :admin
+
   resources :company
  
   resources :customer

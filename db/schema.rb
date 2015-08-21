@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812055021) do
+ActiveRecord::Schema.define(version: 20150819111527) do
+
+  create_table "activity_logs", force: :cascade do |t|
+    t.string   "user_id",    limit: 255
+    t.integer  "ip",         limit: 4
+    t.text     "action",     limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "bill_addresses", force: :cascade do |t|
     t.datetime "created_at",               null: false
@@ -55,6 +63,9 @@ ActiveRecord::Schema.define(version: 20150812055021) do
     t.integer  "product_id",      limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "quantity",        limit: 4
+    t.integer  "price",           limit: 4
+    t.integer  "ip",              limit: 4
   end
 
   add_index "purchases", ["bill_address_id"], name: "index_purchases_on_bill_address_id", using: :btree

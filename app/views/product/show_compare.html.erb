@@ -6,20 +6,26 @@
       <tr>
         <td style="font-weight: bold; color: #767676; border: none;">Product Details</td>
       </tr>
-      <% @products.each_with_index do |field, index| %>
+      
+      <% @table_headers.each_with_index do |header, index| %>
         <tr>
-          <td><%= @table_headers[index] %></td>
-          <% field.each_with_index do |column, indx| %>
-            <% if index == 1 %>
-              <td><img src="<%=column %>"></td>
-            <% elsif index == 4%>
-              <td><%= link_to 'Remove', compare_remove_path(indx), :class => 'remove' %></td>
-            <% else %>
-              <td><%= column %></td>
+          <td> <%= header %> </td>
+          <% if index == 1 %>
+            <% @products.each do |product| %>
+              <td> <img src="<%= product[index] %>"> </td>
+            <% end %>
+          <% elsif index == 5 %>
+            <% @products.each_with_index do |product, indx| %>
+              <td> <%= link_to 'Remove', compare_remove_path(indx), :class => 'remove' %> </td>
+            <% end %>
+          <% else %>
+            <% @products.each do |product| %>
+              <td> <%= product[index] %> </td>
             <% end %>
           <% end %>
         </tr>
       <% end %>
+
     </table>
   <% else %>
     <div class="alert alert-warning">You have not chosen any products to compare !</div>

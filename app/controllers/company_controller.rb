@@ -24,6 +24,7 @@ class CompanyController < ApplicationController
   def create
     @company = User.new(user_params)
     if @company.save
+      activity_log("created a company <b>#{@company.first_name}</b>")
       redirect_to admin_index_path
     else
       render 'new'

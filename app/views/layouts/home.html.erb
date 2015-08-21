@@ -21,7 +21,7 @@
       <div class="collapse navbar-collapse" id="myNav">
 
         <ul class="nav navbar-nav navbar-right">
-          <%= link_to(image_tag('heart_white.png'), compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
+          <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
           <%= link_to(image_tag('compare_white.png'), compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
           <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
             <div class="cart-count">0</div>
@@ -95,7 +95,7 @@
 
         <%= form_tag( home_index_path ,:method => 'get' ,class: 'navbar-form navbar-right', style: 'background-color: #FFFFFF; margin-right: 5px; padding: 0px;', role: 'search',  id: 'search_form') do %>
           <div class="form-group">
-            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'search by name', id: 'query', :style => 'box-shadow: none; border: 1px solid #FFF;' %>
+            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'search', id: 'query', :style => 'box-shadow: none; border: 1px solid #FFF;' %>
           </div>
           <button type="submit" class="btn btn-default" style="box-shadow: none; border: 1px solid #FFF;"><span class="glyphicon glyphicon-search"></span></button>
         <% end %>
@@ -219,7 +219,10 @@
     // Navbar - Category search
     $('#categories li a').click(function(){
       var category = $.trim($(this).text());
+      $.fn.categorySearch(category);
+    });
 
+    $.fn.categorySearch = function(category){
       $.ajax({
         url: '/search',
         method: 'POST',
@@ -258,8 +261,7 @@
           alert('Error');
         }
       });
-
-    });
+    } 
 
   </script>
 
