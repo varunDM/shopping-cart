@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <td>Total</td>
-          <td>Rs. <%= @order.price %></td>
+          <td>Rs. ... </td>
         </tr>
         <tr>
           <td>IP address</td>
@@ -65,20 +65,22 @@
     </div>
     <div id="tabs-3">
       <table class="table">
-        <tr>
+        <tr style="background: #E4E4E4;">
           <td>Product</td>
           <td>Category</td>
           <td>Quantity</td>
           <td>Unit Price</td>
           <td>Total</td>
         </tr>
+        <% @order.products.each do |product| %>
           <tr>
-            <td><%= @product.name %></td>
-            <td><%= @product.category.name %></td>
+            <td><%= product.name %></td>
+            <td><%= product.category.name %></td>
             <td>...</td>
-            <td>Rs. <%= @product.price %></td>
+            <td>Rs. <%= product.price %></td>
             <td>...</td>
           </tr>
+        <% end %>
       </table>
     </div>
   </div>

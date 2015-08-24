@@ -35,23 +35,29 @@ class CheckoutController < ApplicationController
   end
 
   def purchase_action
+    # from cart
     if params[:product_id] == '0'
       @items = items_from_cart
+      @purchase = Purchase.new(:bill_address_id => params[:bill_address_id], :ip =>  IPAddr.new(request.remote_ip).to_i)
+      @purchase.save
       @items.each do |item|
-        @purchase = Purchase.new( :product_id => item.id, :bill_address_id => params[:bill_address_id], :ip =>  IPAddr.new(request.remote_ip).to_i)
-        @purchase.save
+        @purchase_products = PurchaseProduct.new(:purchase_id => @purchase.id, :product_id => item.id )
+        @purchase_products.save
         stock_minus(item.id)
       end
-      UserMailer.purchase_email(purchase_params, session[:cart]).deliver
-      flash[:purchased_item] = params[:product_id]
+      UserMailer.purchase_email(params, session[:cart]).deliver
+      session[:purchased_item] = params[:product_id]
       redirect_to purchase_success_path
+    # via product page
     else
-      @purchase = Purchase.new(purchase_params.merge(:ip =>  IPAddr.new(request.remote_ip).to_i))
+      @purchase = Purchase.new(:bill_address_id => params[:bill_address_id], :ip =>  IPAddr.new(request.remote_ip).to_i)
       if @purchase.save
+        @purchase_products = PurchaseProduct.new(:purchase_id => @purchase.id, :product_id => params[:product_id])
+        @purchase_products.save
         stock_minus(params[:product_id])
         # Send email
-        UserMailer.purchase_email(@purchase, session[:cart]).deliver
-        flash[:purchased_item] = params[:product_id]
+        UserMailer.purchase_email(params, session[:cart]).deliver
+        session[:purchased_item] = params[:product_id]
         redirect_to purchase_success_path
       else
         render 'purchase_show'
@@ -77,18 +83,13 @@ class CheckoutController < ApplicationController
 
 
   def success
-    if flash[:purchased_item] == '0'
+    if session[:purchased_item] == '0'
       @products = items_from_cart
       session.delete(:cart)
     else
-      item = flash[:purchased_item]
+      item = session[:purchased_item]
       @products = Product.find(item)
     end
   end
 
-  private
-
-  def purchase_params
-    params.permit(:product_id, :bill_address_id)    
-  end
 end

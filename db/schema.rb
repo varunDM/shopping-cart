@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819111527) do
+ActiveRecord::Schema.define(version: 20150821121913) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.string   "user_id",    limit: 255
@@ -58,9 +58,18 @@ ActiveRecord::Schema.define(version: 20150819111527) do
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
+  create_table "purchase_products", force: :cascade do |t|
+    t.integer  "purchase_id", limit: 4
+    t.integer  "product_id",  limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "purchase_products", ["product_id"], name: "index_purchase_products_on_product_id", using: :btree
+  add_index "purchase_products", ["purchase_id"], name: "index_purchase_products_on_purchase_id", using: :btree
+
   create_table "purchases", force: :cascade do |t|
     t.integer  "bill_address_id", limit: 4
-    t.integer  "product_id",      limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "quantity",        limit: 4
@@ -69,7 +78,6 @@ ActiveRecord::Schema.define(version: 20150819111527) do
   end
 
   add_index "purchases", ["bill_address_id"], name: "index_purchases_on_bill_address_id", using: :btree
-  add_index "purchases", ["product_id"], name: "index_purchases_on_product_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
     t.text     "body",       limit: 65535
@@ -108,8 +116,9 @@ ActiveRecord::Schema.define(version: 20150819111527) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "products", "users"
+  add_foreign_key "purchase_products", "products"
+  add_foreign_key "purchase_products", "purchases"
   add_foreign_key "purchases", "bill_addresses"
-  add_foreign_key "purchases", "products"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
 end

@@ -91,7 +91,7 @@ $(function() {
 
 // Auto complete
 
-  $("#query").autocomplete({
+  $("#query").autocomplete({ minLength: 2 },{
 
     select: function (event, ui) {
       // On selecting a category
