@@ -32,7 +32,7 @@
                   <% product = Product.find(item) %>
                   <div class="product">
                     <div class="mini-cart-remove" data-index="<%= index %>">x</div>
-                    <%= image_tag product.avatar.url(:thumb)%>
+                    <%= image_tag product.product_images[0].image.url(:thumb)%>
                     <div class="mini-product-details">
                       <h5> <%= product.name %> </h5>
                       <h6>Rs. <%= product.price %> </h6>

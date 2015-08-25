@@ -10,7 +10,7 @@
       </tr>
       <% @products.each_with_index do |product, index| %>
         <tr>
-          <td> <%= image_tag(product.avatar.url(:thumb), :style => 'width: 40px;') %> </td>
+          <td> <%= image_tag(product.product_images[0].image.url(:thumb), :style => 'width: 40px;') %> </td>
           <td> <%= product.name %> </td>
           <td> <%= product.price %> </td>
           <td> <%= link_to 'Delete',remove_from_wishlist_path(index), :class => 'remove' %> </td>

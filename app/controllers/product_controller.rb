@@ -5,6 +5,7 @@ class ProductController < ApplicationController
     @company = current_user.id
     @product = Product.new
     @categories = Category.all
+    4.times { @product.product_images.build }
   end
 
   # Populates the edit page for product
@@ -18,10 +19,11 @@ class ProductController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      activity_log("added product <b>#{@product.name}</b>(#{@product.id}) to #{@product.category.name}")
+      activity_log("added product <b>#{@product.name}</b> to #{@product.category.name}")
       redirect_to company_index_path
     else
       @categories = Category.all
+      4.times { @product.product_images.build }
       render 'new'
     end
   end
@@ -64,7 +66,7 @@ class ProductController < ApplicationController
       session[:cart] = params[:product]
     end
     @product = Product.find(params[:product])
-    render :json => @product.as_json(methods: :avatar_url)
+    render :json => @product.as_json(methods: :image_url)
   end
 
   # Remove the element at 'arr_pos' from session
@@ -138,7 +140,7 @@ class ProductController < ApplicationController
         product = Product.find(item)
         [
           product.name,
-          product.avatar.url(:thumb),
+          product.product_images[0].image.url(:thumb),
           product.description,
           product.price,
           product.user.first_name,
@@ -152,6 +154,6 @@ class ProductController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :quantity, :description, :user_id, :category_id, :avatar)    
+    params.require(:product).permit!
   end
 end

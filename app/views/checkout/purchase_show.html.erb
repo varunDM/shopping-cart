@@ -14,7 +14,7 @@
     <% Array(@products).each_with_index do |product, index| %>
         <tr>
           <td> <div class="number"><%= index+1 %></div> </td>
-          <td> <%= image_tag product.avatar.url(:thumb) , :style => 'width: 30px;' %> </td>
+          <td> <%= image_tag product.product_images[0].image.url(:thumb) , :style => 'width: 30px;' %> </td>
           <td> <h5><%= product.name %></h5> </td>
           <td> <h5> <%= product.user.first_name %> </h5> </td>
           <td> <h5>Rs. <%= product.price %> </h5> </td>

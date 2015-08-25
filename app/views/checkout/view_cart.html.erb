@@ -13,7 +13,7 @@
           <tr class="product-row">
             <td>
               <div class="image">
-                <%= image_tag product.avatar.url(:thumb)%>
+                <%= image_tag product.product_images[0].image.url(:thumb)%>
               </div>
               <div class="details">
                 <h5> <%= product.name %> </h5>

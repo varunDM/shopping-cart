@@ -7,7 +7,7 @@ class HomeController < ApplicationController
 
   def search
     @products = Product.search(params[:query], params[:type])
-    render :json => @products.as_json(methods: :avatar_url)
+    render :json => @products.as_json(methods: :image_url)
   end
 
   def autocomplete

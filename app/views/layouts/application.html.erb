@@ -8,12 +8,12 @@
 </head>
 <body>
 	<div class="container-fluid header" style="padding:0;">
-		<nav class="navbar" style="background-color: #006CB4; border-radius: 0px;">
+		<nav class="navbar" style="background-color: #2196F3; border-radius: 0px; border: none;">
 			<div class="navbar-header">
 				<%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
 
 			</div>
-			<div class="navbar-collapse" style="box-shadow: 0px 1px 1px 0px #136280;">
+			<div class="navbar-collapse" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);">
 
 				<ul class="nav navbar-nav navbar-right">
           <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico', :title => 'Wishlist') %>
@@ -29,7 +29,7 @@
                     <% product = Product.find(item) %>
                   <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
                     <div class="mini-cart-remove" data-index="<%= index %>">x</div>
-                    <%= image_tag product.avatar.url(:thumb)%>
+                    <%= image_tag product.product_images[0].image.url(:thumb)%>
                     <div class="mini-product-details">
                       <h5> <%= product.name %> </h5>
                       <h6>Rs. <%= product.price %> </h6>
@@ -166,7 +166,7 @@
             products += '<a href="/product/' + data[i].id + '">' +
                           '<div class="product-box col-md-2 col-sm-3 col-xs-6">' +
                             '<div class="img-container">' +
-                              '<img src="' + data[i].avatar_url + '">' +
+                              '<img src="' + data[i].image_url + '">' +
                             '</div>' +
                             '<h5>'+ data[i].name +'</h5>' +
                             '<h6>'+ data[i].first_name +'</h5>' +
@@ -200,7 +200,7 @@
             products += '<a href="/product/' + data[i].id + '">' +
                           '<div class="product-box col-md-2 col-sm-3 col-xs-6">' +
                             '<div class="img-container">' +
-                              '<img src="' + data[i].avatar_url + '">' +
+                              '<img src="' + data[i].image_url + '">' +
                             '</div>' +
                             '<h5>'+ data[i].name +'</h5>' +
                             '<h6>'+ data[i].first_name +'</h5>' +

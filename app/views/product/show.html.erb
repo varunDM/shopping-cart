@@ -1,6 +1,16 @@
 <div class="container product-container">
   <div class="col-md-5 product-image">
-    <%= image_tag @product.avatar.url, :style => "width:40%;" %>
+    <div id="blowup">
+      <%= image_tag @product.product_images[0].image.url, :id => 'blowup-image' %>
+    </div>
+    <div id="light-box">
+      <% @product.product_images.each do |product_image| %>
+        <div class="tiny-image">
+          <span class="helper"></span>
+          <%= image_tag product_image.image.url%>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div class="col-md-7 product-details">
   	<h3> <%= @product.name %> </h3>
@@ -91,7 +101,7 @@
         var next_index = $('.product').length;
         mini_products =  '<a href="/product/'+ data.id + '" class="product" style= "display: block;">'+
                             '<div class="mini-cart-remove" data-index='+next_index+'>x</div>' +
-                            '<img src="' + data.avatar_url + '"/>' +
+                            '<img src="' + data.image_url + '"/>' +
                             '<div class="mini-product-details">' +
                               '<div class="mini-product-details">' +
                                 '<h5>' + data.name + '</h5>' +
@@ -118,6 +128,18 @@
         alert('Error');
       }
     });
+  });
+
+  $(function(){
+    // Change blowup image on clicking small images
+    $('.tiny-image').click(function(){
+      var path = $(this).children('img').attr('src');
+      $('#blowup img').attr('src', path);
+    });
+
+    // Zoom blowup on hover
+    var blowup_image_path = $('#blowup img').attr('src');
+    $('#blowup').zoom({url: blowup_image_path, magnify: 1.5});
   });
 
 </script>

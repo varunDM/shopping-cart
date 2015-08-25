@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="container-fluid header" style="padding:0;">
-    <nav class="navbar" style="background-color: #006CB4; border-radius: 0px;">
+    <nav class="navbar" style="background-color: #2196F3; border-radius: 0px;">
       <div class="navbar-header">
         <%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
 
@@ -34,7 +34,7 @@
                     <% product = Product.find(item) %>
                     <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
                       <div class="mini-cart-remove" style="z-index: 2;" data-index="<%= index %>">x</div>
-                      <%= image_tag product.avatar.url(:thumb)%>
+                      <%= image_tag product.product_images[0].image.url(:thumb)%>
                       <div class="mini-product-details">
                         <h5> <%= product.name %> </h5>
                         <h6>Rs. <%= product.price %> </h6>
@@ -84,8 +84,8 @@
       </div>
     </nav>
 
-      <nav class="navbar navbar-inverse" style="border: none; border-radius: 0; background-color: #006CB4; min-height: 40px;">
-       <div class="container-fluid" style="box-shadow: 0px 1px 1px 0px #136280;">
+      <nav class="navbar navbar-inverse" style="border: none; border-radius: 0; background-color: #2196F3; min-height: 40px;">
+       <div class="container-fluid" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);">
         <ul class="nav navbar-nav" id="categories">
           <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li> -->
           <% Category.all.each do |category| %>
@@ -190,7 +190,7 @@
                           '<div class="product-box col-md-3 col-sm-4 col-xs-6">' +
                             '<div class="product-box-container">' +
                               '<div class="img-container">' +
-                                '<img src="' + data[i].avatar_url + '">' +
+                                '<img src="' + data[i].image_url + '">' +
                               '</div>' +
                               '<h5>'+ data[i].name +'</h5>' +
                               '<h6>' + jQuery.trim(data[i].description).substring(0, 80) + '...</h6>' +
@@ -239,7 +239,7 @@
                           '<div class="product-box col-md-3 col-sm-4 col-xs-6">' +
                             '<div class="product-box-container">' +
                               '<div class="img-container">' +
-                                '<img src="' + data[i].avatar_url + '">' +
+                                '<img src="' + data[i].image_url + '">' +
                               '</div>' +
                               '<h5>'+ data[i].name +'</h5>' +
                               '<h6>' + jQuery.trim(data[i].description).substring(0, 80) + '...</h6>' +

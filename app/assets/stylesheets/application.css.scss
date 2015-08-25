@@ -21,7 +21,7 @@ body {
   background: none;
   background-color: #FFFFFF;
   font-family: 'Droid Sans', sans-serif;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 button.btn.btn-default:focus {
@@ -80,7 +80,7 @@ button.btn.btn-default:focus {
   }
   a:hover {
     color: #E1F6FD;
-    background-color: rgba(255, 255, 255, 0.09) !important;
+    background-color: rgba(0,0,0,0.05) !important;
   }
 
 
@@ -103,16 +103,19 @@ button.btn.btn-default:focus {
 
     .cart-count {
       position: absolute;
-      top: 4px;
-      right: -8px;
-      background: #D4E2EC;
-      color: #12496E;
+      top: 6px;
+      right: -2px;
+      background: #f05050;
+      color: #FFFFFF;
       border-radius: 50%;
-      height: 23px;
-      width: 23px;
-      text-align: center;
-      line-height: 1.8;
+      width: 20px;
       z-index: 1;
+      font-size: 14px;
+      font-weight: bold;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
     }
     .triangle {
       width: 0; 
@@ -156,8 +159,8 @@ button.btn.btn-default:focus {
       }
       .mini-cart-remove {
         position: absolute;
-        right: 10px;
-        top: 10px;
+        right: 0px;
+        top: 5px;
         font-size: 14px;
         border: 1px solid #D54937;
         background: #D54937;
@@ -175,7 +178,7 @@ button.btn.btn-default:focus {
       }
       .mini-product-details {
         display: inline-block;
-        width: 60%;
+        width: 70%;
         padding-left: 10px;
       }
       h5 {

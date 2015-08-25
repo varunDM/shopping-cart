@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821121913) do
+ActiveRecord::Schema.define(version: 20150825072940) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.string   "user_id",    limit: 255
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 20150821121913) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "product_images", force: :cascade do |t|
+    t.integer  "product_id",         limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+  end
+
+  add_index "product_images", ["product_id"], name: "index_product_images_on_product_id", using: :btree
+
   create_table "products", force: :cascade do |t|
     t.string   "name",                limit: 255
     t.integer  "price",               limit: 4
@@ -63,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150821121913) do
     t.integer  "product_id",  limit: 4
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.integer  "quantity",    limit: 4
   end
 
   add_index "purchase_products", ["product_id"], name: "index_purchase_products_on_product_id", using: :btree
@@ -115,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150821121913) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "product_images", "products"
   add_foreign_key "products", "users"
   add_foreign_key "purchase_products", "products"
   add_foreign_key "purchase_products", "purchases"

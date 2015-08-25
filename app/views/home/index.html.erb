@@ -21,7 +21,7 @@
         <div class="product-box col-md-3 col-sm-4 col-xs-6">
           <div class="product-box-container">
             <div class="img-container">
-              <%= image_tag product.avatar.url(:thumb)%>
+              <%= image_tag product.product_images[0].image.url(:thumb)%>
             </div>
             <h5> <%= product.name %> </h5>
             <h6> <%= truncate(product.description, :length => 80, :omission => '...') %> </h6>
@@ -56,7 +56,7 @@
         var next_index = $('.product').length;
         mini_products =  '<a href="/product/'+ data.id + '" class="product" style= "display: block;">' +
                             '<div class="mini-cart-remove" data-index='+next_index+'>x</div>' +
-                            '<img src="' + data.avatar_url + '"/>' +
+                            '<img src="' + data.image_url + '"/>' +
                             '<div class="mini-product-details">' +
                               '<div class="mini-product-details">' +
                                 '<h5>' + data.name + '</h5>' +
