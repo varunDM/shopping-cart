@@ -8,6 +8,8 @@ class CheckoutController < ApplicationController
     @user = current_user
     @address_new = BillAddress.new
     @address_old = BillAddress.where(:user_id => @user.id)
+    session[:quantity] = params[:quantity]
+    session[:product] = params[:product_id]
     session[:check_out_url] = request.fullpath
   end
 
@@ -15,7 +17,7 @@ class CheckoutController < ApplicationController
     session[:previous_url] = request.fullpath
     if session[:cart].present?
       @sum = 0
-      @items = session[:cart].split(',')
+      @items = session[:cart]
       @items.each_with_index do |item, index|
         product = Product.find(item)
         @sum += product.price
@@ -52,9 +54,9 @@ class CheckoutController < ApplicationController
     else
       @purchase = Purchase.new(:bill_address_id => params[:bill_address_id], :ip =>  IPAddr.new(request.remote_ip).to_i)
       if @purchase.save
-        @purchase_products = PurchaseProduct.new(:purchase_id => @purchase.id, :product_id => params[:product_id])
+        @purchase_products = PurchaseProduct.new(:purchase_id => @purchase.id, :product_id => params[:product_id], :quantity => session[:quantity])
         @purchase_products.save
-        stock_minus(params[:product_id])
+        stock_minus(params[:product_id], session[:quantity])
         # Send email
         UserMailer.purchase_email(params, session[:cart]).deliver
         session[:purchased_item] = params[:product_id]
@@ -65,15 +67,15 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def stock_minus(product)
+  def stock_minus(product, amount)
     product = Product.find(product)
     quantity = product.quantity
-    quantity -= 1
+    quantity -= amount.to_i
     product.update(:quantity => quantity)
   end
 
   def items_from_cart
-    items = session[:cart].split(',')
+    items = session[:cart]
     products = []
     items.each do |item|
       products << Product.find(item)

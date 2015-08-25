@@ -47,6 +47,15 @@
 
   .product-details {
     padding-left: 50px;
+
+    .number-input {
+      width: 50px;
+      padding: 0px 0px 0px 5px;
+      margin: 0px 5px;
+      font-size: 20px;
+      color: #5E5E5E;
+      outline: none;
+    }
   }
 
   .reviews {

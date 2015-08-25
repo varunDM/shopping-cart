@@ -41,7 +41,7 @@
           <td></td>
           <td style="text-align: right;">
             <% item = Product.new(:id => 0) %>
-            <%= link_to 'Proceed to Checkout', checkout_index_path(item), :class => 'btn btn-primary' %>
+            <%= link_to 'Proceed to Checkout', checkout_index_path(item), :method=> :post, :class => 'btn btn-primary' %>
           </td>
         </tr>
       </table>

@@ -60,11 +60,13 @@ class ProductController < ApplicationController
 
   # Stores the product id's to session
   def add_to_cart
-    if session[:cart].present?
-      session[:cart] << ',' + params[:product]
+    if session[:cart].nil?
+      session[:cart] = []
+      session[:cart] << params[:product]
     else
-      session[:cart] = params[:product]
+      session[:cart] << params[:product]
     end
+
     @product = Product.find(params[:product])
     render :json => @product.as_json(methods: :image_url)
   end
@@ -72,9 +74,7 @@ class ProductController < ApplicationController
   # Remove the element at 'arr_pos' from session
   def remove_from_cart
     pos = params[:arr_pos].to_i
-    cart_items = session[:cart].split(',')
-    cart_items.delete_at(pos)
-    session[:cart] = cart_items.join(',')
+    session[:cart].delete_at(pos)
     return redirect_to view_cart_path if session[:previous_url] == '/cart'
     render :json => cart_items
   end

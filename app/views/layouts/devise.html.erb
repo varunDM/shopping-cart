@@ -27,7 +27,7 @@
             <div class="cart-count">0</div>
             <div class="mini-cart">
               <% if session[:cart].present? %>
-                <% items = session[:cart].split(',') %>
+                <% items = session[:cart] %>
                 <% items.each_with_index do |item, index| %>
                   <% product = Product.find(item) %>
                   <div class="product">

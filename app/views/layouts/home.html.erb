@@ -29,7 +29,7 @@
             <div class="mini-cart">
               <div class="mini-cart-products">
                 <% if session[:cart].present? %>
-                  <% items = session[:cart].split(',') %>
+                  <% items = session[:cart] %>
                   <% items.each_with_index do |item, index| %>
                     <% product = Product.find(item) %>
                     <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
