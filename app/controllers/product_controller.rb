@@ -76,7 +76,7 @@ class ProductController < ApplicationController
     pos = params[:arr_pos].to_i
     session[:cart].delete_at(pos)
     return redirect_to view_cart_path if session[:previous_url] == '/cart'
-    render :json => cart_items
+    render :json => session[:cart]
   end
 
   # Add to wishlist

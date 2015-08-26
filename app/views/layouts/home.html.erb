@@ -183,32 +183,7 @@
         
         success: function(data){
           $('.flexslider').hide();
-          var len = data.length;
-          var products = '';
-          for(var i=0; i<len; i++){
-            products += '<a href="/product/' + data[i].id + '">' +
-                          '<div class="product-box col-md-3 col-sm-4 col-xs-6">' +
-                            '<div class="product-box-container">' +
-                              '<div class="img-container">' +
-                                '<img src="' + data[i].image_url + '">' +
-                              '</div>' +
-                              '<h5>'+ data[i].name +'</h5>' +
-                              '<h6>' + jQuery.trim(data[i].description).substring(0, 80) + '...</h6>' +
-                              '<h4>Rs. '+ data[i].price + '</h4>' +
-                            '</div>' +
-                            
-                            ( data[i].quantity == 0?
-                              '<h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>'
-                            :
-                              '<a href="#" class="add-to-cart" productid="' + data[i].id + '"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>'
-                            )
-
-                          + '</div>' +
-                        '</a>';
-
-
-          }
-          $('.products-container').html(products);
+          $('.products-container').html(data);
         },
         error: function(){
           alert("Error");
@@ -232,30 +207,7 @@
         },
         success: function(data){
           $('.flexslider').hide();
-          var len = data.length;
-          var products = '';
-          for(var i=0; i<len; i++){
-            products += '<a href="/product/' + data[i].id + '">' +
-                          '<div class="product-box col-md-3 col-sm-4 col-xs-6">' +
-                            '<div class="product-box-container">' +
-                              '<div class="img-container">' +
-                                '<img src="' + data[i].image_url + '">' +
-                              '</div>' +
-                              '<h5>'+ data[i].name +'</h5>' +
-                              '<h6>' + jQuery.trim(data[i].description).substring(0, 80) + '...</h6>' +
-                              '<h4>Rs. '+ data[i].price + '</h4>' +
-                            '</div>' +
-                            
-                            ( data[i].quantity == 0?
-                              '<h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>'
-                            :
-                              '<a href="#" class="add-to-cart" productid="' + data[i].id + '"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>'
-                            )
-
-                          + '</div>' +
-                        '</a>';
-          }
-          $('.products-container').html(products);
+          $('.products-container').html(data);
         },
         error: function(){
           alert('Error');

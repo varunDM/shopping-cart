@@ -101,7 +101,7 @@
       url: '/add_to_cart',
       method: 'POST',
       data: {
-        product: $(this).attr('productid')
+        product: $(this).attr('productid'),
         quantity: $('#quantity').val()
       },
       success: function(data){
