@@ -7,10 +7,10 @@ class UserMailer < ApplicationMailer
     if params[:product_id] == "0"
       bill_address = BillAddress.find(params[:bill_address_id])
       @user = User.find(bill_address.user_id)
-      items = session.split(',')
+      items = session
       @products = []
       items.each do |item|
-        @products << Product.find(item)
+        @products << Product.find(item['product'])
       end
     else
 

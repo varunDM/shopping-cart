@@ -16,7 +16,7 @@
                 <%= image_tag product.product_images[0].image.url(:thumb)%>
               </div>
               <div class="details">
-                <h5> <%= product.name %> </h5>
+                <h5> <%= link_to product.name, product_path(product) %> </h5>
                 <h6> <%= product.user.first_name %> </h6>
                 <%= link_to 'Delete', remove_from_cart_path(:arr_pos => index), method: :post %>
               </div>

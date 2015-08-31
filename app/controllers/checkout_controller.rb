@@ -17,26 +17,30 @@ class CheckoutController < ApplicationController
     session[:previous_url] = request.fullpath
     if session[:cart].present?
       @sum = 0
+      @count = 0
       @items = session[:cart]
       @items.each_with_index do |item, index|
         product = Product.find(item['product'])
         @sum += product.price * item['quantity'].to_i
-        @count = index + 1
+        @count += item['quantity'].to_i
       end
     end
   end
 
   def purchase_show
     if params[:product_id] == '0'
-      @sum = 0
+      p 'herreeeeeeeeeeeeeee'
       @items = session[:cart]
-      @items.each_with_index do |item, index|
-        product = Product.find(item['product'])
-        @sum += product.price * item['quantity'].to_i
-        @count = index + 1
-      end
     else
-      @products = Product.find(params[:product_id])
+      @items = []
+      @items << { 'product' => params[:product_id], 'quantity' => session[:quantity] }
+    end
+    @sum = 0
+    @count = 0
+    @items.each_with_index do |item, index|
+      product = Product.find(item['product'])
+      @sum += product.price * item['quantity'].to_i
+      @count += item['quantity'].to_i
     end
     @address = BillAddress.find(params[:bill_address_id])
     @user = current_user
@@ -45,13 +49,13 @@ class CheckoutController < ApplicationController
   def purchase_action
     # from cart
     if params[:product_id] == '0'
-      @items = items_from_cart
+      @items = session[:cart]
       @purchase = Purchase.new(:bill_address_id => params[:bill_address_id], :ip =>  IPAddr.new(request.remote_ip).to_i)
       @purchase.save
       @items.each do |item|
-        @purchase_products = PurchaseProduct.new(:purchase_id => @purchase.id, :product_id => item.id )
+        @purchase_products = PurchaseProduct.new(:purchase_id => @purchase.id, :product_id => item['product'], :quantity =>  item['quantity'])
         @purchase_products.save
-        stock_minus(item.id)
+        stock_minus(item['product'], item['quantity'])
       end
       UserMailer.purchase_email(params, session[:cart]).deliver
       session[:purchased_item] = params[:product_id]
@@ -84,21 +88,26 @@ class CheckoutController < ApplicationController
     items = session[:cart]
     products = []
     items.each do |item|
-      products << Product.find(item['product'])
-      products[:amount] = item['amount']
+      product =  Product.find(item['product'])
+      products << { :name => product.name, :price => product.price, :image => product.product_images[0].image.url(:thumb), :quantity => item['quantity'] }
     end
     return products
   end
 
-
   def success
     if session[:purchased_item] == '0'
-      @products = items_from_cart
+      @items = items_from_cart
       session.delete(:cart)
     else
-      item = session[:purchased_item]
-      @products = Product.find(item)
+      item = Product.find(session[:purchased_item])
+      @items = []
+      @items << { :name => item.name, :price => item.price, :image => item.product_images[0].image.url(:thumb), :quantity => session[:quantity] }
+    end
+    @sum = 0
+    @count = 0
+    @items.each_with_index do |item, index|
+      @sum += item[:price] * item[:quantity].to_i
+      @count += item[:quantity].to_i
     end
   end
-
 end

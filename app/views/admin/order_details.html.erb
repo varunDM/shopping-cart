@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <td>Total</td>
-          <td>Rs. ... </td>
+          <td>Rs. <%= @total %> </td>
         </tr>
         <tr>
           <td>IP address</td>
@@ -72,13 +72,13 @@
           <td>Unit Price</td>
           <td>Total</td>
         </tr>
-        <% @order.products.each do |product| %>
+        <% Array(@purchase_products).each do |purchase_product| %>
           <tr>
-            <td><%= product.name %></td>
-            <td><%= product.category.name %></td>
-            <td>...</td>
-            <td>Rs. <%= product.price %></td>
-            <td>...</td>
+            <td><%= purchase_product.product.name %></td>
+            <td><%= purchase_product.product.category.name %></td>
+            <td><%= purchase_product.quantity %></td>
+            <td>Rs. <%= purchase_product.product.price %></td>
+            <td>Rs. <%= purchase_product.quantity * purchase_product.product.price %></td>
           </tr>
         <% end %>
       </table>

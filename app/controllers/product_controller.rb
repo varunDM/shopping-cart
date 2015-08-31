@@ -62,19 +62,19 @@ class ProductController < ApplicationController
   def add_to_cart
     if session[:cart].nil?
       session[:cart] = []
-      session[:cart] << { :product => params[:product], :quantity => params[:quantity] }
-    else
-      unless session[:cart].any?{ |h| h['product'] == params[:product]}
-        session[:cart] << { :product => params[:product], :quantity => params[:quantity] }
-      else
-        p 'founddddddddddddddddddddddddddddddd'
-        index = session[:cart].index { |item| item['product'] == params[:product] }
-        session[:cart][index]['quantity'] = params[:quantity]
-      end
     end
+    unless session[:cart].any?{ |h| h['product'] == params[:product]}
+      p session[:cart]
+      session[:cart] << { 'product' => params[:product], 'quantity' => params[:quantity] }
+      p session[:cart]
+    else
+      index = session[:cart].index { |item| item['product'] == params[:product] }
+      session[:cart][index]['quantity'] = params[:quantity]
 
-    @product = Product.find(params[:product])
-    render :json => @product.as_json(methods: :image_url)
+    end
+    p session[:cart]
+    # render :json => @product.as_json(methods: :image_url)
+    render :partial => 'mini_cart'
   end
 
   # Remove the element at 'arr_pos' from session

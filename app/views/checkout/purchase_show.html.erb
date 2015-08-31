@@ -12,7 +12,7 @@
       <td>Manufacturer</td>
       <td>Price</td>
     </tr>
-    <% Array(@items).each_with_index do |item, index| %>
+    <% @items.each_with_index do |item, index| %>
         <% product = Product.find(item['product']) %>
         <tr>
           <td> <div class="number"><%= index+1 %></div> </td>
@@ -24,9 +24,6 @@
       </tr>
     <% end %>
     <tr style="border-bottom: 1px solid #ddd;">
-      <td></td>
-      <td></td>
-      <td></td>
       <td></td>
       <td></td>
       <td>

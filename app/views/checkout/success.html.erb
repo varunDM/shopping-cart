@@ -11,16 +11,25 @@
         <td style="width: 30px;"></td>
         <td style="width: 90px;"></td>
         <td>Product Name</td>
+        <td>Quantity</td>
         <td>Price</td>
       </tr>
-      <% Array(@products).each_with_index do |product, index| %>
+      <% Array(@items).each_with_index do |item, index| %>
           <tr>
             <td> <div class="number"><%= index+1 %></div> </td>
-            <td> <%= image_tag product.product_images[0].image.url(:thumb) , :style => 'width: 40px;' %> </td>
-            <td> <h5><%= product.name %></h5> </td>
-            <td> <h5>Rs. <%= product.price %> </h5> </td>
+            <td> <%= image_tag item[:image], :style => 'width: 40px;' %> </td>
+            <td> <h5><%= item[:name] %></h5> </td>
+            <td> <h5><%= item[:quantity] %></h5> </td>
+            <td> <h5>Rs. <%= item[:price] %> </h5> </td>
         </tr>
       <% end %>
+      <tr style="border-bottom: 1px solid #ddd;">
+      <td></td>
+      <td></td>
+      <td>
+        <h4 style="font-weight: bold;">Subtotal (<%= @count %> items): <span style="color: #b12704;">Rs. <%= @sum %></span></h4>
+      </td>
+    </tr>
     </table>
     <div style="clear:both;"></div>
     <%= link_to 'Continue Shopping', home_index_path, :class => 'btn btn-primary' %>

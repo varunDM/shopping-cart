@@ -53,30 +53,11 @@
         quantity: 1
       },
       success: function(data){
-        var mini_products = '';
-        var next_index = $('.product').length;
-        mini_products =  '<a href="/product/'+ data.id + '" class="product" style= "display: block;">' +
-                            '<div class="mini-cart-remove" data-index='+next_index+'>x</div>' +
-                            '<img src="' + data.image_url + '"/>' +
-                            '<div class="mini-product-details">' +
-                              '<div class="mini-product-details">' +
-                                '<h5>' + data.name + '</h5>' +
-                                '<h6>Rs.' + data.price + '</h6>' +
-                              '</div>' +
-                            '</div>' +
-                          '</a>';
-        cart_button = '<div style="text-align: center; margin: 15px 0px 5px 0px;">' +
-                        '<a href="/cart" class="btn btn-primary">View Cart</a>' +
-                      '</div>';
-        $('.empty-cart').remove();
-        $('.mini-cart-products').append(mini_products);
-        if($('.product').length == 1){
-          $('.mini-cart').append(cart_button);
-        }
-        // get old count and plus by one
-        count = $('.cart-count').text();
-        formatted_count = parseInt(count)+1;
-        $('.cart-count').html(formatted_count);
+        
+        $('.mini-cart').html(data);
+        // get new count
+        count = $('.mini-cart-products .product').size();
+        $('.cart-count').html(count);
       },
       error: function(){
         alert('Error');
