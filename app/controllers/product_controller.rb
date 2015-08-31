@@ -32,7 +32,7 @@ class ProductController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
-      activity_log("edited a product #{@product.previous_changes()}")
+      activity_log("edited a product")
       redirect_to company_index_path
     else
       @categories = Category.all

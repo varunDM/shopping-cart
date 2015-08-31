@@ -18,19 +18,19 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div>
+				<div class="box">
 					<h4>Recent Activity</h4>
 					<table class="table">
 					<% @activities.each do |activity| %>
-						<tr><td><b><%= activity.user.first_name %></b> <%= activity.action.html_safe %> <span style="color: #9D9D9D;">(<%= activity.created_at%>)</span></td></tr>
+						<tr><td><b><%= activity.user.first_name %></b> <%= activity.action.html_safe %> <span style="color: #9D9D9D; font-size: 12px;">(<%= activity.created_at%>)</span></td></tr>
 					<% end %>
 					</table>
+					<%= link_to 'View more...', logs_path %>
 				</div>
-				<%= link_to 'View more...', logs_path %>
 			</div>
 
 			<div class="col-md-6">
-				<div>
+				<div class="box">
 					<h4>Orders</h4>
 					<table class="table">
 						<tr style="background-color: #E2E4E5;">

@@ -6,12 +6,12 @@
         <td style="border: none;"></td>
         <td style="border: none;">Item</td>
         <td style="border: none;">Price</td>
-        <td style="border: none;"></td>
+        <td style="border: none;">Actions</td>
       </tr>
       <% @products.each_with_index do |product, index| %>
         <tr>
           <td> <%= image_tag(product.product_images[0].image.url(:thumb), :style => 'width: 40px;') %> </td>
-          <td> <%= product.name %> </td>
+          <td> <h5> <%= link_to product.name, product_path(product) %> </h5> </td>
           <td> <%= product.price %> </td>
           <td> <%= link_to 'Delete',remove_from_wishlist_path(index), :class => 'remove' %> </td>
         </tr>

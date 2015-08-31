@@ -22,7 +22,10 @@
 
         <ul class="nav navbar-nav navbar-right">
           <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
-          <%= link_to(image_tag('compare_white.png'), compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
+          <%= link_to compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico', :title => 'Compare' do %>
+            <%= image_tag('compare_white.png') %>
+            <span>!</span>
+          <% end %>
           <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
             <div class="cart-count">0</div>
             <div class="triangle"></div>

@@ -96,7 +96,22 @@ button.btn.btn-default:focus {
     .mini-cart-ico {
       height: 26px;
     }
-
+    .notifier {
+      position: absolute;
+      top: 6px;
+      right: -2px;
+      background: #f05050;
+      color: #FFFFFF;
+      border-radius: 50%;
+      width: 20px;
+      z-index: 1;
+      font-size: 14px;
+      font-weight: bold;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
     .compare-ico img{
       height: 22px;
     }
