@@ -49,7 +49,8 @@
       url: '/add_to_cart',
       method: 'POST',
       data: {
-        product: $(this).attr('productid')
+        product: $(this).attr('productid'),
+        quantity: 1
       },
       success: function(data){
         var mini_products = '';

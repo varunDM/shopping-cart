@@ -9,7 +9,7 @@
           <td style="border-top: 0px; width: 275px; text-align: right;">Price</td>
         </tr>
         <% @items.each_with_index do |item, index| %>
-          <% product = Product.find(item) %>
+          <% product = Product.find(item['product']) %>
           <tr class="product-row">
             <td>
               <div class="image">
@@ -22,7 +22,7 @@
               </div>
             </td>
             <td>
-              ...
+              <%= item['quantity'] %>
             </td>
             <td style="text-align: right;">
               <h5 class="price">Rs. <%= product.price %> </h5>

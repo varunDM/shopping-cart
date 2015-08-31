@@ -29,7 +29,7 @@
               <% if session[:cart].present? %>
                 <% items = session[:cart] %>
                 <% items.each_with_index do |item, index| %>
-                  <% product = Product.find(item) %>
+                  <% product = Product.find(item['product']) %>
                   <div class="product">
                     <div class="mini-cart-remove" data-index="<%= index %>">x</div>
                     <%= image_tag product.product_images[0].image.url(:thumb)%>

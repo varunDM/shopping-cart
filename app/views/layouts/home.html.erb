@@ -31,12 +31,13 @@
                 <% if session[:cart].present? %>
                   <% items = session[:cart] %>
                   <% items.each_with_index do |item, index| %>
-                    <% product = Product.find(item) %>
+                    <% product = Product.find(item['product']) %>
                     <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
                       <div class="mini-cart-remove" style="z-index: 2;" data-index="<%= index %>">x</div>
                       <%= image_tag product.product_images[0].image.url(:thumb)%>
                       <div class="mini-product-details">
                         <h5> <%= product.name %> </h5>
+                        <h6>Quantity: <%= item['quantity'] %></h6>
                         <h6>Rs. <%= product.price %> </h6>
                       </div>
                     <% end %>

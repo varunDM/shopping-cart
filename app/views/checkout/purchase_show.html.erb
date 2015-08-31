@@ -1,6 +1,4 @@
 <div class="container" style=" padding-top: 20px;">
-  <h4>Quantity: <%= session[:quantity] %></h4>
-  <h4>Product: <%= session[:product] %></h4>
   <h3>Confirm Order</h3>
   <hr>
   <div class="col-md-12" style="padding-left: 0;">
@@ -10,18 +8,31 @@
       <td></td>
       <td style="width: 90px;"></td>
       <td>Product Name</td>
+      <td>Quantity</td>
       <td>Manufacturer</td>
       <td>Price</td>
     </tr>
-    <% Array(@products).each_with_index do |product, index| %>
+    <% Array(@items).each_with_index do |item, index| %>
+        <% product = Product.find(item['product']) %>
         <tr>
           <td> <div class="number"><%= index+1 %></div> </td>
           <td> <%= image_tag product.product_images[0].image.url(:thumb) , :style => 'width: 30px;' %> </td>
           <td> <h5><%= product.name %></h5> </td>
+          <td> <h5><%= item['quantity'] %></h5></td>
           <td> <h5> <%= product.user.first_name %> </h5> </td>
           <td> <h5>Rs. <%= product.price %> </h5> </td>
       </tr>
     <% end %>
+    <tr style="border-bottom: 1px solid #ddd;">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <h4 style="font-weight: bold;">Subtotal (<%= @count %> items): <span style="color: #b12704;">Rs. <%= @sum %></span></h4>
+      </td>
+    </tr>
   </table>
   <div class="col-md-12">
     <h4>Billing Address</h4>

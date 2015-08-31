@@ -19,8 +19,8 @@ class CheckoutController < ApplicationController
       @sum = 0
       @items = session[:cart]
       @items.each_with_index do |item, index|
-        product = Product.find(item)
-        @sum += product.price
+        product = Product.find(item['product'])
+        @sum += product.price * item['quantity'].to_i
         @count = index + 1
       end
     end
@@ -28,7 +28,13 @@ class CheckoutController < ApplicationController
 
   def purchase_show
     if params[:product_id] == '0'
-      @products = items_from_cart
+      @sum = 0
+      @items = session[:cart]
+      @items.each_with_index do |item, index|
+        product = Product.find(item['product'])
+        @sum += product.price * item['quantity'].to_i
+        @count = index + 1
+      end
     else
       @products = Product.find(params[:product_id])
     end
@@ -78,7 +84,8 @@ class CheckoutController < ApplicationController
     items = session[:cart]
     products = []
     items.each do |item|
-      products << Product.find(item)
+      products << Product.find(item['product'])
+      products[:amount] = item['amount']
     end
     return products
   end

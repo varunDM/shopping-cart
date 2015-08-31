@@ -62,9 +62,15 @@ class ProductController < ApplicationController
   def add_to_cart
     if session[:cart].nil?
       session[:cart] = []
-      session[:cart] << params[:product]
+      session[:cart] << { :product => params[:product], :quantity => params[:quantity] }
     else
-      session[:cart] << params[:product]
+      unless session[:cart].any?{ |h| h['product'] == params[:product]}
+        session[:cart] << { :product => params[:product], :quantity => params[:quantity] }
+      else
+        p 'founddddddddddddddddddddddddddddddd'
+        index = session[:cart].index { |item| item['product'] == params[:product] }
+        session[:cart][index]['quantity'] = params[:quantity]
+      end
     end
 
     @product = Product.find(params[:product])
