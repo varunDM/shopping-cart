@@ -12,7 +12,8 @@
         <td style="width: 90px;"></td>
         <td>Product Name</td>
         <td>Quantity</td>
-        <td>Price</td>
+        <td>Unit Price</td>
+        <td>Total</td>
       </tr>
       <% Array(@items).each_with_index do |item, index| %>
           <tr>
@@ -21,6 +22,7 @@
             <td> <h5><%= item[:name] %></h5> </td>
             <td> <h5><%= item[:quantity] %></h5> </td>
             <td> <h5>Rs. <%= item[:price] %> </h5> </td>
+            <td> <h5>Rs. <%= item[:quantity].to_i * item[:price].to_i %></h5> </td>
         </tr>
       <% end %>
       <tr style="border-bottom: 1px solid #ddd;">

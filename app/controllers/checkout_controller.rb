@@ -57,7 +57,7 @@ class CheckoutController < ApplicationController
         @purchase_products.save
         stock_minus(item['product'], item['quantity'])
       end
-      UserMailer.purchase_email(params, session[:cart]).deliver
+      UserMailer.purchase_email('cart',@purchase, session[:cart]).deliver
       session[:purchased_item] = params[:product_id]
       redirect_to purchase_success_path
     # via product page
@@ -68,7 +68,7 @@ class CheckoutController < ApplicationController
         @purchase_products.save
         stock_minus(params[:product_id], session[:quantity])
         # Send email
-        UserMailer.purchase_email(params, session[:cart]).deliver
+        UserMailer.purchase_email('product',@purchase, session[:cart]).deliver
         session[:purchased_item] = params[:product_id]
         redirect_to purchase_success_path
       else

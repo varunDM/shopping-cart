@@ -1,4 +1,5 @@
-#
+##
+# 
 class AdminController < ApplicationController
   before_action :authenticate_user!
   before_filter :check_user

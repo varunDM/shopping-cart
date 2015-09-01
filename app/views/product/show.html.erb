@@ -13,9 +13,9 @@
     </div>
   </div>
   <div class="col-md-7 product-details">
-  	<h3> <%= @product.name %> </h3>
-    <h5>Brand: <%= @product.user.first_name %> </h5>
-    <h3 style="padding-top: 10px; padding-bottom: 20px;"> Rs. <%= @product.price %> </h3>
+  	<h4 class="name"><b><%= @product.name %></b></h4>
+    <h5 class="brand">Brand: <%= @product.user.first_name %> </h5>
+    <h3 class="price"><span>Rs</span> <%= @product.price %> </h3>
     
     <% if @product.quantity == 0 %>
       <h4>Availability: <span style="font-weight: bold;">Out of Stock</span></h4>
@@ -26,8 +26,10 @@
 
       <%= form_tag checkout_index_path(@product) do %>
         <span>Quantity:</span>
-        <%= number_field_tag 'quantity', 1, min: 1, :class => 'number-input' %><br></br>
-        <%= submit_tag 'Buy Now', :class => "btn btn-primary" %>
+        <%= number_field_tag 'quantity', 1, min: 1, :class => 'number-input' %>
+        <span class="flash-message alert alert-danger">Enter a valid amount!</span>
+        <br></br>
+        <%= submit_tag 'Buy Now', :class => "btn btn-primary buy-now" %>
         <a href="#"  class="btn btn-warning add-to-cart" productid="<%= @product.id %>">Add to Cart</a>
       <% end %>
 
@@ -95,25 +97,29 @@
 
 
   $('.add-to-cart').click(function(){
+    if(parseInt($('#quantity').val()) > 0 ) {
+      $.ajax({
 
-    $.ajax({
-
-      url: '/add_to_cart',
-      method: 'POST',
-      data: {
-        product: $(this).attr('productid'),
-        quantity: $('#quantity').val()
-      },
-      success: function(data){
-        $('.mini-cart').html(data);
-        // get new count
-        count = $('.mini-cart-products .product').size();
-        $('.cart-count').html(count);
-      },
-      error: function(){
-        alert('Error');
-      }
-    });
+        url: '/add_to_cart',
+        method: 'POST',
+        data: {
+          product: $(this).attr('productid'),
+          quantity: $('#quantity').val()
+        },
+        success: function(data){
+          $('.mini-cart').html(data);
+          // get new count
+          count = $('.mini-cart-products .product').size();
+          $('.cart-count').html(count);
+        },
+        error: function(){
+          alert('Error');
+        }
+      });
+    }
+    else {
+      $('.flash-message').fadeIn().delay(1500).fadeOut("slow");
+    }
   });
 
   $(function(){

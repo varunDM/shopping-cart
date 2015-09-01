@@ -2,15 +2,51 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Lobster+Two);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+    </style>
   </head>
-  <body style="color: rgb(55, 55, 55);">
-    <h1>Hi, <%= @user.first_name %></h1>
-    <p>
-      You have successfully placed the order of the following item:<br>
+  <body style="font-family: 'Droid Sans', sans-serif;">
+    <div style="font-family: 'Lobster Two', cursive; color: #0E83CD;">
+      <h1>Shopping Cart</h1>
+    </div>
+    <h2 style="text-align: center;">YOUR ORDER IS PLACED</h2>
+    <p style="color: #4e575b; font-size: 16px;">
+      <div>Hi <%= @user.first_name %>,</div>
+      Thank you for your order!
+      Here's a summary of your purchase. When we ship an item, we will send an update with tracking details.
+      <div>Order Placed on: <%= @purchase.created_at %> </div>
     </p>
-    <% @products.each do |product| %>
-      <h4> <%= product.name %> (<%= product.user.first_name %>) </h4>
-    <% end %>
-    <p>Thanks for shopping and have a great day!</p>
+    <hr>
+    <p style="font-size: 15px;">
+        <div><b>SHIPPING ADDRESS</b></div>
+        <%= @bill_address.name %><br>
+        <%= @bill_address.address %><br> <%= @bill_address.country %> <br><%= @bill_address.zip %>
+      </h5>
+    </p>
+    <h3>ORDER DETAILS</h3>
+    <table style="font-size: 14px; border: 1px solid #4e575b;">
+      <tr>
+        <td>S. No.</td>
+        <td>Item name</td>
+        <td>Quantity</td>
+        <td>Unit Price</td>
+        <td>Amount</td>
+      </tr>
+      <% total = 0 %>
+      <% Array(@products).each_with_index do |product, index| %>
+        <tr style="color: #4e575b; font-size: 12px;">
+          <td style="text-align: center;"><%= index + 1 %></td>
+          <td><%= product[:name] %> </td>
+          <td style="text-align: center;"><%= product[:quantity] %></td>
+          <td><%= product[:price] %></td>
+          <td><%= product[:quantity] * product[:price] %></td>
+          <% total += product[:quantity] * product[:price] %>
+        </tr>
+      <% end %>
+    </table>
+    <h3>Total Amount: Rs. <%= total %>/-</h3>
+    <h4 style="color: #4e575b;">We look forward to seeing you again soon. </h4>
   </body>
 </html>

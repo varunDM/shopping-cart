@@ -5,6 +5,8 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="container-fluid header" style="padding:0;">
@@ -22,9 +24,11 @@
 
         <ul class="nav navbar-nav navbar-right">
           <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
-          <%= link_to compare_product_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico', :title => 'Compare' do %>
+          <%= link_to compare_product_path, :style => "float: left; padding: 14px 7px; position:relative;", :class => 'compare-ico', :title => 'Compare' do %>
             <%= image_tag('compare_white.png') %>
-            <span>!</span>
+            <% if session[:compare].present? %>
+              <span class="notifier">!</span>
+            <% end %>
           <% end %>
           <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
             <div class="cart-count">0</div>

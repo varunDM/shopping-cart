@@ -8,9 +8,10 @@
       <td></td>
       <td style="width: 90px;"></td>
       <td>Product Name</td>
-      <td>Quantity</td>
       <td>Manufacturer</td>
-      <td>Price</td>
+      <td>Quantity</td>
+      <td>Unit Price</td>
+      <td>Amount</td>
     </tr>
     <% @items.each_with_index do |item, index| %>
         <% product = Product.find(item['product']) %>
@@ -18,9 +19,10 @@
           <td> <div class="number"><%= index+1 %></div> </td>
           <td> <%= image_tag product.product_images[0].image.url(:thumb) , :style => 'width: 30px;' %> </td>
           <td> <h5><%= product.name %></h5> </td>
-          <td> <h5><%= item['quantity'] %></h5></td>
           <td> <h5> <%= product.user.first_name %> </h5> </td>
+          <td> <h5><%= item['quantity'] %></h5></td>
           <td> <h5>Rs. <%= product.price %> </h5> </td>
+          <td> <h5>Rs. <%= item['quantity'].to_i * product.price %> </h5> </td>
       </tr>
     <% end %>
     <tr style="border-bottom: 1px solid #ddd;">

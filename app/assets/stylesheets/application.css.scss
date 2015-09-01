@@ -23,33 +23,47 @@ body {
   font-family: 'Droid Sans', sans-serif;
   overflow-y: scroll;
 }
+.header {
+    a {
+    color: #E8E8E8;
+    font-weight: bold;  
+  }
+  a:hover {
+    color: #E1F6FD;
+    background-color: rgba(0,0,0,0.05) !important;
+  }
+}
 
 button.btn.btn-default:focus {
   outline: none;
 }
+
+.btn {
+  border-radius: 0px;
+}
+
 .btn-primary {
   color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #7fbf4d;
-  background-image: -webkit-linear-gradient(top,#7fbf4d,#63a62f);
-  background-repeat: repeat-x;
-  border: 1px solid;
-  border-color: #63a62f;
-  border-bottom: 1px solid #5b992b;
+  background-color: #0E83CD !important;
+  background-image: none;
+  border: none;
 }
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-  background-color: #7fbf4d !important;
-  border-color: #4C8321 !important;
+a.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #0194F1 !important;
+  border:none;
+  background-image: none;
 }
 
 .btn-warning {
   color: #fff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #E59D37;
-  background-image: -webkit-linear-gradient(top, #DA983B, #D07A00);
-  background-image: linear-gradient(to bottom, #DA983B, #D07A00);
-  background-repeat: repeat-x;
-  border-color: #f0ad4e #BE7C1D #86540E;
+  background-color: #E7970C;
+  background-image: none;
+  border-color: #E7970C;
+}
+.btn-warning:hover, .btn-warning:active, .btn-warning:focus {
+  background-color: #F79D00;
+  background-image: none;
+  border-color: #F79D00;
 }
 
 .alert {
@@ -74,15 +88,6 @@ button.btn.btn-default:focus {
 
 .header {
   background: #FFFFFF;
-  a {
-    color: #E8E8E8;
-    font-weight: bold;
-  }
-  a:hover {
-    color: #E1F6FD;
-    background-color: rgba(0,0,0,0.05) !important;
-  }
-
 
   .navbar {
     margin-bottom: 0;
@@ -140,9 +145,10 @@ button.btn.btn-default:focus {
       border-bottom: 8px solid #ffffff;
       position: absolute;
       right: 15px;
-      top: 41px;
+      top: 34px;
       z-index: 2;
       opacity: 0;
+      transition:visibility 0s linear 0.2s,opacity 0.2s linear,top 0.2s linear;
     }
     .mini-cart {
       cursor: default;
@@ -214,7 +220,13 @@ button.btn.btn-default:focus {
     }
     .mini-cart-trigger:hover .triangle {
       opacity: 1;
+      top: 41px;
     }
+  }
+  .navbar-brand {
+    font-family: 'Lobster Two', cursive;
+    font-size: 23px;
+    font-weight: normal;
   }
   .navbar-inverse .navbar-nav > li > a {
     font-weight: normal;
