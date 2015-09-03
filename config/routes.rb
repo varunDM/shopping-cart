@@ -41,6 +41,9 @@
   # add-to cart
   post '/add_to_cart' => 'product#add_to_cart'
 
+  # check inventory
+  post '/check_inventory' => 'product#check_inventory'
+
   # remove item from mini-cart
   post 'remove_from_cart' => 'product#remove_from_cart'
 

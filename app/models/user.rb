@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :products, dependent: :destroy
-  has_many :bill_address, dependent: :destroy
+  has_many :bill_addresses, dependent: :destroy
   has_many :activity_logs, dependent: :destroy
   has_many :reviews, dependent: :destroy
   validates :first_name, presence: true

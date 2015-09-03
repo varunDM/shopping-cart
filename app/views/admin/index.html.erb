@@ -20,11 +20,15 @@
 			<div class="col-md-6">
 				<div class="box">
 					<h4>Recent Activity</h4>
-					<table class="table">
-					<% @activities.each do |activity| %>
-						<tr><td><b><%= activity.user.first_name %></b> <%= activity.action.html_safe %> <span style="color: #9D9D9D; font-size: 12px;">(<%= activity.created_at%>)</span></td></tr>
+					<% if @activities.present? %>
+						<table class="table">
+						<% @activities.each do |activity| %>
+							<tr><td><b><%= activity.user.first_name %></b> <%= activity.action.html_safe %> <span style="color: #9D9D9D; font-size: 12px;">(<%= activity.created_at%>)</span></td></tr>
+						<% end %>
+						</table>
+					<% else %>
+						<div class="alert alert-warning">No activities yet !</div>
 					<% end %>
-					</table>
 					<%= link_to 'View more...', logs_path %>
 				</div>
 			</div>
@@ -32,23 +36,27 @@
 			<div class="col-md-6">
 				<div class="box">
 					<h4>Orders</h4>
-					<table class="table">
-						<tr style="background-color: #E2E4E5;">
-							<td>OrderID</td>
-							<td>Customer</td>
-							<td>Date</td>
-							<td>Total</td>
-						</tr>
-						<% @orders.each do |order| %>
-							<tr>
-								<td><%= order.id %></td>
-								<td><%= order.first_name %></td>
-								<td><%= order.created_at %></td>
-								<td>...</td>
+					<% if @orders.present? %>
+						<table class="table">
+							<tr style="background-color: #E2E4E5;">
+								<td>OrderID</td>
+								<td>Customer</td>
+								<td>Date</td>
+								<td>Total</td>
 							</tr>
-						<% end %>
-					</table>
-					<%= link_to 'View more...', orders_path %>
+							<% @orders.each do |order| %>
+								<tr>
+									<td><%= order.id %></td>
+									<td><%= order.first_name %></td>
+									<td><%= order.created_at %></td>
+									<td>...</td>
+								</tr>
+							<% end %>
+						</table>
+					<% else %>
+						<div class="alert alert-warning">No orders yet !</div>
+					<% end %>
+						<%= link_to 'View more...', orders_path %>
 				</div>
 			</div>
 		</div>

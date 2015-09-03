@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="col-md-7 product-details">
-  	<h4 class="name"><b><%= @product.name %></b></h4>
+  	<h4 class="name"><b><%= @product.name %></b></h4><%= @product.quantity %>
     <h5 class="brand">Brand: <%= @product.user.first_name %> </h5>
     <h3 class="price"><span>Rs</span> <%= @product.price %> </h3>
     
@@ -24,12 +24,36 @@
       <%= link_to "#{image_tag('compare.png')}  Add to Compare".html_safe, product_compare_path(@product), :class => 'compare btn' %></br>
       <%= link_to "#{image_tag('heart.png')}  Add to Wishlist".html_safe, add_to_wishlist_path(@product), :class => 'compare btn' %></br></br>
 
-      <%= form_tag checkout_index_path(@product) do %>
+      <%= form_tag checkout_index_path(@product), :id => 'buy_now', :style => 'position: relative;' do %>
         <span>Quantity:</span>
         <%= number_field_tag 'quantity', 1, min: 1, :class => 'number-input' %>
-        <span class="flash-message alert alert-danger">Enter a valid amount!</span>
+        <span id="flash1" class="flash-message alert alert-danger">Enter a valid amount!</span>
+        <!-- Trigger the modal with a button -->
+        <button type="button" id="exhaust-button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: none;">Open Modal</button>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body" style="text-align: center;">
+                <h2>Oops !</h2><br>
+                <p>The item is not available at this amount. Please adjust the quantity.</p>
+                <%= image_tag 'exhausted.png' %>
+              </div>
+              
+            </div>
+
+          </div>
+        </div>
+
+
         <br></br>
-        <%= submit_tag 'Buy Now', :class => "btn btn-primary buy-now" %>
+        <%= submit_tag 'Buy Now', :class => "btn btn-primary buy-now", :productid => @product.id %>
         <a href="#"  class="btn btn-warning add-to-cart" productid="<%= @product.id %>">Add to Cart</a>
       <% end %>
 
@@ -95,32 +119,83 @@
 
 <script type="text/javascript">
 
+  // Buy now
+  $('#buy_now').submit(function(event){
+    event.preventDefault(); // prevent form submission
+    var status;
+    $.fn.checkInventory(function(output){
+      status = output;
+      console.log('buy: ' + status);
+      if (status == false) { // check for stock
+        console.log('Inventory exhausted');
+        $('#exhaust-button').click();
+      }
+      else {
+        $('#buy_now').unbind('submit').submit(); // resume form submission
+      }
+    });
+  
+  });
 
+  // Add to cart
   $('.add-to-cart').click(function(){
-    if(parseInt($('#quantity').val()) > 0 ) {
-      $.ajax({
+    if(parseInt($('#quantity').val()) > 0 ) {  // check value is greater than 0
+      
+      $.fn.checkInventory(function(output){
+        var status = output;
+        console.log('cart: ' + status);
+        if (status == false) { // check for stock
+          console.log('Inventory exhausted');
+          $('#exhaust-button').click();
+        }
+        else { //ajax call
 
-        url: '/add_to_cart',
-        method: 'POST',
-        data: {
-          product: $(this).attr('productid'),
-          quantity: $('#quantity').val()
-        },
-        success: function(data){
-          $('.mini-cart').html(data);
-          // get new count
-          count = $('.mini-cart-products .product').size();
-          $('.cart-count').html(count);
-        },
-        error: function(){
-          alert('Error');
+          $.ajax({
+
+            url: '/add_to_cart',
+            method: 'POST',
+            data: {
+              product: $('.add-to-cart').attr('productid'),
+              quantity: $('#quantity').val()
+            },
+            success: function(data){
+              $('.mini-cart').html(data);
+              // get new count
+              count = $('.mini-cart-products .product').size();
+              $('.cart-count').html(count);
+            },
+            error: function(){
+              alert('Error');
+            }
+          });
+
         }
       });
+
+
     }
     else {
-      $('.flash-message').fadeIn().delay(1500).fadeOut("slow");
+      $('#flash1').fadeIn().delay(1500).fadeOut("slow"); // flash message if invalid quantity
     }
   });
+
+   $.fn.checkInventory = function(handleData){
+    $.ajax({
+      url: '/check_inventory',
+      method: 'POST',
+      data: {
+        product: $('.buy-now').attr('productid'),
+        quantity: $('#quantity').val()
+      },
+      success: function(data){
+        console.log('ajax.success: ' + data);
+        handleData(data);
+      },
+      error: function(){
+        alert('Error');
+      }
+    });
+   }
 
   $(function(){
     // Change blowup image on clicking small images

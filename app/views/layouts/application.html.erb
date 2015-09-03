@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
   <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+  <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body>
 	<div class="container-fluid header" style="padding:0;">
@@ -89,31 +90,29 @@
 	</div>
 
 
-<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
 
-<%= yield %>
+  <%= yield %>
 
 
 
-<!-- Script for product search using AJAX -->
   <script type="text/javascript">
    
-   // Cart Count
-   var count = $('.product').length;
+    // Cart Count
+    var count = $('.product').length;
    $('.cart-count').html(count);
 
     // // Mini-cart remove
-     
 
     $('.mini-cart').delegate(".mini-cart-remove","click", function(event) {
-        event.preventDefault();
+        event.preventDefault(); // prevent anchor event
         var t = $(this);
-        var prod_index = t.attr('data-index');
+        var prod_index = t.attr('data-index'); // get position of product in cart
         formatted_prod_index = parseInt(prod_index);
         $.ajax({
             url: '/remove_from_cart',
@@ -122,8 +121,8 @@
               arr_pos: formatted_prod_index
             },
             success: function(data){
-              // Remove current element
-              t.parent().remove();
+
+              t.parent().remove(); // removes clicked element 
               
               // Iterate through the products and change data index
               $('.mini-cart-remove').each(function(index){
@@ -163,7 +162,7 @@
         
         data: {
           query: $('#query').val(),
-          type: "products.name"
+          type: "products.name" // search by product name
         },
         
         success: function(data){
@@ -191,14 +190,14 @@
     
     // Navbar - Category search
     $('#categories li a').click(function(){
-      var category = $.trim($(this).text());
+      var category = $.trim($(this).text()); // remove white spaces in category name
 
       $.ajax({
         url: '/search',
         method: 'POST',
         data: {
           query: category,
-          type: 'categories.name'
+          type: 'categories.name' // search by category name
         },
         success: function(data){
           var len = data.length;

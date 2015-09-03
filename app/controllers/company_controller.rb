@@ -2,7 +2,7 @@
 class CompanyController < ApplicationController
   before_action :authenticate_user!
   before_filter :check_user, only: [:index]
-  
+
   def index
     @company = current_user
     @products = @company.products

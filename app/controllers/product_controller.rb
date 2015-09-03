@@ -58,6 +58,19 @@ class ProductController < ApplicationController
     p @old_reviews
   end
 
+  # check whether quantity minus inventory becomes less than 0
+
+  def check_inventory
+    quantity = Product.find(params[:product]).quantity
+    respond_to do |format| 
+      if quantity - params[:quantity].to_i < 0
+        format.json { render :json => 'false' }
+      else
+        format.json { render :json => 'true' }
+      end
+    end
+  end
+
   # Stores the product id's to session
   def add_to_cart
     if session[:cart].nil?

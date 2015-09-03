@@ -1,22 +1,38 @@
 <div class="container" style="padding-top: 60px; width: 60%;">
 
   <div class="col-md-2">
-    <%= image_tag 'user.png' %>    
+    <%= image_tag 'user.png' %>
   </div>
   <div class="col-md-8 col-md-offset-2">
-    <h3> <%= @user.first_name + ' ' + @user.second_name %> </h3>
-    <h4 style="color: #737373;"> <%= @user.email %> </h4>
+    <h3> <%= @user['first_name'] + ' ' + @user['second_name'] %> </h3>
+    <h4 style="color: #737373;"> <%= @user['email'] %> </h4>
     <hr>
     <h3>Address</h3>
-    <h5> <%= @user.address %> </h5>
-    <h5> <%= @user.city %> </h5>
-    <h5> <%= @user.state %> </h5>
-    <h5> <%= @user.zip %> </h5>
+    <h5> <%= @user['address'] %> </h5>
+    <h5> <%= @user['city'] %> </h5>
+    <h5> <%= @user['state'] %> </h5>
+    <h5> <%= @user['zip'] %> </h5>
   </div>
 </div>
 
-<!-- <div class="container">
+<div class="container">
   <div class="col-md-12">
     <h3>Recent orders</h3>
+    <table class="table">
+      <tr>
+        <td>Order ID</td>
+        <td>Items</td>
+      </tr>
+      <% @purchases.each do |purchase| %>
+        <tr>
+          <td><%= purchase.id %></td>
+          <td>
+            <% purchase.purchase_products.each do |product| %>
+              <li><%= product.product.name %></li>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
-</div> -->
+</div>
