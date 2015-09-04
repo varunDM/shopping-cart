@@ -1,34 +1,32 @@
 <div class="container">
   <h2><%= @company.first_name %></h2>
-	<h5>(<%= @company.email %>)</h5>
-
+  <h5>(<%= @company.email %>)</h5>
   <% if @products.present? %>
-    <h3>List of Products</h3>
-    <table class="table">
-      <tr>
-        <td>No.</td>
-        <td></td>
-        <td>Product Name</td>
-        <td>Category</td>
-        <td>Price</td>
-        <td>Quanitiy</td>
-        <td>Description</td>
-      </tr>
-      <% @products.each_with_index do |product, index| %>
-        <tr>
-          <td> <%= index+1 %> </td>
-          <td> <%= image_tag product.product_images[0].image.url(:thumb), :style => "width: 50px;" %> </td>
-          <td> <%= product.name %></td>
-          <td> <%= product.category.name %> </td>
-          <td> <%= product.price %> </td>
-          <td> <%= product.quantity %> </td>
-          <td> <%= product.description %> </td>
-        </tr>
-      <% end %>
-    </table>
+  <h3>List of Products</h3>
+  <table class="table">
+    <tr>
+      <td>No.</td>
+      <td></td>
+      <td>Product Name</td>
+      <td>Category</td>
+      <td>Price</td>
+      <td>Quanitiy</td>
+      <td>Description</td>
+    </tr>
+    <% @products.each_with_index do |product, index| %>
+    <tr>
+      <td> <%= index+1 %> </td>
+      <td> <%= image_tag product.product_images[0].image.url(:thumb), :style => "width: 50px;" %> </td>
+      <td> <%= product.name %></td>
+      <td> <%= product.category.name %> </td>
+      <td> <%= product.price %> </td>
+      <td> <%= product.quantity %> </td>
+      <td> <%= product.description %> </td>
+    </tr>
+    <% end %>
+  </table>
   <% else %>
-    <h5 class="alert alert-warning">This company has no products !</h5>
+  <h5 class="alert alert-warning">This company has no products !</h5>
   <% end %>
-	<%= link_to "Back", admin_index_path, :class => "btn btn-primary" %>
-
+  <%= link_to "Back", admin_index_path, :class => "btn btn-primary" %>
 </div>

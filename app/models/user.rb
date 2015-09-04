@@ -9,10 +9,7 @@ class User < ActiveRecord::Base
   has_many :bill_addresses, dependent: :destroy
   has_many :activity_logs, dependent: :destroy
   has_many :reviews, dependent: :destroy
+
   validates :first_name, presence: true
-  # validates :second_name, presence: true
-  # validates :address, presence: true
-  # validates :city, presence: true
-  # validates :state, presence: true
-  # validates :zip, presence: true
+ 
 end

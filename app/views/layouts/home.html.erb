@@ -1,54 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Cart</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-  <%= favicon_link_tag 'favicon.ico' %>
-</head>
-<body>
-  <div class="container-fluid header" style="padding:0;">
-    <nav class="navbar" style="background-color: #2196F3; border-radius: 0px;">
-      <div class="navbar-header">
-        <%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
-
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+  <head>
+    <title>Shopping Cart</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <%= favicon_link_tag 'favicon.ico' %>
+  </head>
+  <body>
+    <div class="container-fluid header" style="padding:0;">
+      <nav class="navbar" style="background-color: #2196F3; border-radius: 0px;">
+        <div class="navbar-header">
+          <%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-          <span class="icon-bar"></span> 
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="myNav">
-
-        <ul class="nav navbar-nav navbar-right">
-          <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %> 
-          <%= link_to compare_product_path, :style => "float: left; padding: 14px 7px; position:relative;", :class => 'compare-ico', :title => 'Compare' do %>
+          <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNav">
+          <ul class="nav navbar-nav navbar-right">
+            <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico') %>
+            <%= link_to compare_product_path, :style => "float: left; padding: 14px 7px; position:relative;", :class => 'compare-ico', :title => 'Compare' do %>
             <%= image_tag('compare_white.png') %>
             <% if session[:compare].present? %>
-              <span class="notifier">!</span>
+            <span class="notifier">!</span>
             <% end %>
-          <% end %>
-          <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
-            <div class="cart-count">0</div>
-            <div class="triangle"></div>
-            <div class="mini-cart">
-              <div class="mini-cart-products">
-                <% if session[:cart].present? %>
+            <% end %>
+            <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
+              <div class="cart-count">0</div>
+              <div class="triangle"></div>
+              <div class="mini-cart">
+                <div class="mini-cart-products">
+                  <% if session[:cart].present? %>
                   <% items = session[:cart] %>
                   <% items.each_with_index do |item, index| %>
-                    <% product = Product.find(item['product']) %>
-                    <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
-                      <div class="mini-cart-remove" style="z-index: 2;" data-index="<%= index %>">x</div>
-                      <%= image_tag product.product_images[0].image.url(:thumb)%>
-                      <div class="mini-product-details">
-                        <h5> <%= product.name %> </h5>
-                        <h6>Quantity: <%= item['quantity'] %></h6>
-                        <h6>Rs. <%= product.price %> </h6>
-                      </div>
-                    <% end %>
+                  <% product = Product.find(item['product']) %>
+                  <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
+                  <div class="mini-cart-remove" style="z-index: 2;" data-index="<%= index %>">x</div>
+                  <%= image_tag product.product_images[0].image.url(:thumb)%>
+                  <div class="mini-product-details">
+                    <h5> <%= product.name %> </h5>
+                    <h6>Quantity: <%= item['quantity'] %></h6>
+                    <h6>Rs. <%= product.price %> </h6>
+                  </div>
+                  <% end %>
                   <% end %>
                 </div>
                 <div class="view_cart" style="text-align: center; margin: 15px 0px 5px 0px;">
@@ -56,175 +54,64 @@
                   <%= link_to 'View Cart', view_cart_path, :class => 'btn btn-primary' %>
                 </div>
                 <% else %>
-                  </div>
-                  <div class="empty-cart" style="color: #A1A1A1; text-align: center; padding: 50px 0px; font-size: 20px;">
-                    Cart is empty !
-                  </div>
-                <% end %>
+              </div>
+              <div class="empty-cart" style="color: #A1A1A1; text-align: center; padding: 50px 0px; font-size: 20px;">
+                Cart is empty !
+              </div>
+              <% end %>
+              </div>
             </div>
-          </div>
-
-          <% if user_signed_in? %>
+            <% if user_signed_in? %>
             <li>
               <% if current_user.role == 1 %>
-                <%= link_to current_user.first_name, admin_index_path %>
+              <%= link_to current_user.first_name, admin_index_path %>
               <% elsif current_user.role == 2 %>
-                <%= link_to current_user.first_name, company_index_path %>
+              <%= link_to current_user.first_name, company_index_path %>
               <% else %>
-                <%= link_to current_user.first_name, customer_index_path %>
+              <%= link_to current_user.first_name, customer_index_path %>
               <% end %>
             </li>
             <li>
               <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
             </li>
-          <% else %>
+            <% else %>
             <li>
               <%= link_to new_user_session_path, method: :get do %>
-                Login
+              Login
               <% end %>
             </li>
             <li>
               <%= link_to new_user_registration_path, method: :get do %>
-                Sign Up
+              Sign Up
               <% end %>
             </li>
-          <% end %>
+            <% end %>
           </ul>
-      </div>
-    </nav>
-
+        </div>
+      </nav>
       <nav class="navbar navbar-inverse" style="border: none; border-radius: 0; background-color: #2196F3; min-height: 40px;">
-       <div class="container-fluid" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);">
-        <ul class="nav navbar-nav" id="categories">
-          <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li> -->
-          <% Category.all.each do |category| %>
+        <div class="container-fluid" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);">
+          <ul class="nav navbar-nav" id="categories">
+            <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li> -->
+            <% Category.all.each do |category| %>
             <li><a href="#"> <%= category.name %> </a></li>
-          <% end %>
-        </ul>
-
-        <%= form_tag( home_index_path ,:method => 'get' ,class: 'navbar-form navbar-right', style: 'background-color: #FFFFFF; margin-right: 5px; padding: 0px;', role: 'search',  id: 'search_form') do %>
+            <% end %>
+          </ul>
+          <%= form_tag( home_index_path ,:method => 'get' ,class: 'navbar-form navbar-right', style: 'background-color: #FFFFFF; margin-right: 5px; padding: 0px;', role: 'search',  id: 'search_form') do %>
           <div class="form-group">
             <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'search', id: 'query', :style => 'box-shadow: none; border: 1px solid #FFF;' %>
           </div>
           <button type="submit" class="btn btn-default" style="box-shadow: none; border: 1px solid #FFF;"><span class="glyphicon glyphicon-search"></span></button>
-        <% end %>
-
-       </div>
+          <% end %>
+        </div>
       </nav>
-  </div>
-
-
-  <% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-
-<%= yield %>
-
-
-
-<!-- Script for product search using AJAX -->
-  <script type="text/javascript">
-   
-   // Cart Count
-   var count = $('.product').length;
-   $('.cart-count').html(count);
-
-    // // Mini-cart remove
-
-
-    $('.mini-cart').delegate(".mini-cart-remove","click", function(event) {
-        event.preventDefault();
-        var t = $(this);
-        var prod_index = t.attr('data-index');
-        formatted_prod_index = parseInt(prod_index);
-        $.ajax({
-            url: '/remove_from_cart',
-            method: 'POST',
-            data: {
-              arr_pos: formatted_prod_index
-            },
-            success: function(data){
-              // Remove current element
-              t.parent().remove();
-              
-              // Iterate through the products and change data index
-              $('.mini-cart-remove').each(function(index){
-                $(this).attr("data-index",index);               
-              });
-
-              // get old count and minus by one
-              count = $('.cart-count').text();
-              formatted_count = parseInt(count)-1;
-              $('.cart-count').html(formatted_count);
-
-              // When cart is empty
-              empty_cart = '<div class="mini-cart-products"></div><div class="empty-cart" style="color: #A1A1A1; text-align: center;padding: 50px 0px; font-size: 20px;">Cart is empty !</div>';
-
-              if($('.product').length == 0){
-                 $('.mini-cart').html(empty_cart);
-              }
-
-            },
-            error: function(){
-              alert("Error");
-            }
-          });
-      });
-
-    // Product search by name
-
-    $('#search_form').submit(function(event){
-
-      event.preventDefault();
-      $.ajax({
-
-        url: '/search',
-        
-        method: 'POST',
-        
-        data: {
-          query: $('#query').val(),
-          type: "products.name"
-        },
-        
-        success: function(data){
-          $('.flexslider').hide();
-          $('.products-container').html(data);
-        },
-        error: function(){
-          alert("Error");
-        }
-      });
-    });
-    
-    // Navbar - Category search
-    $('#categories li a').click(function(){
-      var category = $.trim($(this).text());
-      $.fn.categorySearch(category);
-    });
-
-    $.fn.categorySearch = function(category){
-      $.ajax({
-        url: '/search',
-        method: 'POST',
-        data: {
-          query: category,
-          type: 'categories.name'
-        },
-        success: function(data){
-          $('.flexslider').hide();
-          $('.products-container').html(data);
-        },
-        error: function(){
-          alert('Error');
-        }
-      });
-    } 
-
-  </script>
-
-</body>
+    </div>
+    <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    <%= yield %>
+  </body>
 </html>

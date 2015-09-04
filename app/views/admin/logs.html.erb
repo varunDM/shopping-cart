@@ -1,18 +1,18 @@
 <div class="container">
   <h3>Logs</h3>
   <% if @activities.present? %>
-    <table class="table">
-      <% @activities.each do |activity| %>
-        <tr>
-        <td>
+  <table class="table">
+    <% @activities.each do |activity| %>
+    <tr>
+      <td>
         <b><%= activity.user.first_name %></b> <%= activity.action.html_safe %> <span style="color: #9D9D9D;">(<%= activity.created_at%>)</span>
-        </td>
-        </tr>
-      <% end %>
-      <%= paginate @activities %>
-    </table>
+      </td>
+    </tr>
+    <% end %>
+    <%= paginate @activities %>
+  </table>
   <% else %>
-    <div class="alert alert-warning">No activities yet !</div>
+  <div class="alert alert-warning">No activities yet !</div>
   <% end %>
   <%= link_to 'Back', admin_index_path, :class => 'btn btn-primary'%>
 </div>

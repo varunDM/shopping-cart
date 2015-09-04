@@ -15,5 +15,4 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require cart_custom.js
 //= require_tree .

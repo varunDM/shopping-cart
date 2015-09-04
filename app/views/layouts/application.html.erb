@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Cart</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-  <%= favicon_link_tag 'favicon.ico' %>
-</head>
-<body>
-	<div class="container-fluid header" style="padding:0;">
-		<nav class="navbar" style="background-color: #2196F3; border-radius: 0px; border: none;">
-			<div class="navbar-header">
-				<%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
-			</div>
-			<div class="navbar-collapse" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);">
-
-				<ul class="nav navbar-nav navbar-right">
-          <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico', :title => 'Wishlist') %>
-          <%= link_to compare_product_path, :style => "float: left; padding: 14px 7px; position:relative;", :class => 'compare-ico', :title => 'Compare' do %>
+  <head>
+    <title>Shopping Cart</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <%= favicon_link_tag 'favicon.ico' %>
+  </head>
+  <body>
+    <div class="container-fluid header" style="padding:0;">
+      <nav class="navbar" style="background-color: #2196F3; border-radius: 0px; border: none;">
+        <div class="navbar-header">
+          <%= link_to "Shopping Cart", home_index_path, :class => "navbar-brand" %>
+        </div>
+        <div class="navbar-collapse" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);">
+          <ul class="nav navbar-nav navbar-right">
+            <%= link_to(image_tag('heart_white.png'), wishlist_path, :style => "float: left; padding: 14px 7px;", :class => 'compare-ico', :title => 'Wishlist') %>
+            <%= link_to compare_product_path, :style => "float: left; padding: 14px 7px; position:relative;", :class => 'compare-ico', :title => 'Compare' do %>
             <%= image_tag('compare_white.png') %>
             <% if session[:compare].present? %>
-              <span class="notifier">!</span>
+            <span class="notifier">!</span>
             <% end %>
-          <% end %>
-					<div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
-            <div class="cart-count">0</div>
-            <div class="triangle"></div>
-            <div class="mini-cart">
-              <div class="mini-cart-products">
-                <% if session[:cart].present? %>
+            <% end %>
+            <div style="float: left; padding: 11px 10px; position: relative; margin: 0px 15px 0px 0px;" class="mini-cart-trigger"> <%= image_tag "cart_white.png", :class => 'mini-cart-ico' %>
+              <div class="cart-count">0</div>
+              <div class="triangle"></div>
+              <div class="mini-cart">
+                <div class="mini-cart-products">
+                  <% if session[:cart].present? %>
                   <% items = session[:cart] %>
                   <% items.each_with_index do |item, index| %>
-                    <% product = Product.find(item['product']) %>
+                  <% product = Product.find(item['product']) %>
                   <%= link_to product_path(product), :class => "product", :style => 'display: block;' do %>
-                    <div class="mini-cart-remove" data-index="<%= index %>">x</div>
-                    <%= image_tag product.product_images[0].image.url(:thumb)%>
-                    <div class="mini-product-details">
-                      <h5> <%= product.name %> </h5>
-                      <h6>Quantity: <%= item['quantity'] %></h6>
-                      <h6>Rs. <%= product.price %> </h6>
-                    </div>
+                  <div class="mini-cart-remove" data-index="<%= index %>">x</div>
+                  <%= image_tag product.product_images[0].image.url(:thumb)%>
+                  <div class="mini-product-details">
+                    <h5> <%= product.name %> </h5>
+                    <h6>Quantity: <%= item['quantity'] %></h6>
+                    <h6>Rs. <%= product.price %> </h6>
+                  </div>
                   <% end %>
                   <% end %>
                 </div>
@@ -50,180 +49,48 @@
                   <%= link_to 'View Cart', view_cart_path, :class => 'btn btn-primary' %>
                 </div>
                 <% else %>
-                  </div>
-                  <div class="empty-cart" style="color: #A1A1A1; text-align: center; padding: 50px 0px; font-size: 20px;">
-                    Cart is empty !
-                  </div>
-                <% end %>
+              </div>
+              <div class="empty-cart" style="color: #A1A1A1; text-align: center; padding: 50px 0px; font-size: 20px;">
+                Cart is empty !
+              </div>
+              <% end %>
+              </div>
             </div>
-          </div>
-
-					<% if user_signed_in? %>
-						<li>
-							<% if current_user.role == SUPERADMIN %>
-								<%= link_to current_user.first_name, admin_index_path, :title => 'Dashboard' %>
-							<% elsif current_user.role == COMPANY %>
-								<%= link_to current_user.first_name, company_index_path, :title => 'Dashboard' %>
-							<% else %>
-								<%= link_to current_user.first_name, customer_index_path, :title => 'Profile' %>
-							<% end %>
-						</li>
-						<li>
-							<%= link_to 'Log out', destroy_user_session_path,:title => 'Sign Out', method: :delete %>
-						</li>
-					<% else %>
-						<li>
-							<%= link_to new_user_session_path, :title => 'Login', method: :get do %>
-								Login
-							<% end %>
-						</li>
-						<li>
-							<%= link_to new_user_registration_path, :title => 'Sign Up', method: :get do %>
-								Sign Up
-							<% end %>
-						</li>
-					<% end %>
-
-			    </ul>
-			</div>
-		</nav>
-	</div>
-
-
-  <% if notice %>
+            <% if user_signed_in? %>
+            <li>
+              <% if current_user.role == SUPERADMIN %>
+              <%= link_to current_user.first_name, admin_index_path, :title => 'Dashboard' %>
+              <% elsif current_user.role == COMPANY %>
+              <%= link_to current_user.first_name, company_index_path, :title => 'Dashboard' %>
+              <% else %>
+              <%= link_to current_user.first_name, customer_index_path, :title => 'Profile' %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to 'Log out', destroy_user_session_path,:title => 'Sign Out', method: :delete %>
+            </li>
+            <% else %>
+            <li>
+              <%= link_to new_user_session_path, :title => 'Login', method: :get do %>
+              Login
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path, :title => 'Sign Up', method: :get do %>
+              Sign Up
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <% if notice %>
     <p class="alert alert-success"><%= notice %></p>
-  <% end %>
-  <% if alert %>
+    <% end %>
+    <% if alert %>
     <p class="alert alert-danger"><%= alert %></p>
-  <% end %>
-
-  <%= yield %>
-
-
-
-  <script type="text/javascript">
-   
-    // Cart Count
-    var count = $('.product').length;
-   $('.cart-count').html(count);
-
-    // // Mini-cart remove
-
-    $('.mini-cart').delegate(".mini-cart-remove","click", function(event) {
-        event.preventDefault(); // prevent anchor event
-        var t = $(this);
-        var prod_index = t.attr('data-index'); // get position of product in cart
-        formatted_prod_index = parseInt(prod_index);
-        $.ajax({
-            url: '/remove_from_cart',
-            method: 'POST',
-            data: {
-              arr_pos: formatted_prod_index
-            },
-            success: function(data){
-
-              t.parent().remove(); // removes clicked element 
-              
-              // Iterate through the products and change data index
-              $('.mini-cart-remove').each(function(index){
-                $(this).attr("data-index",index);               
-              });
-
-              // get old count and minus by one
-              count = $('.cart-count').text();
-              formatted_count = parseInt(count)-1;
-              $('.cart-count').html(formatted_count);
-
-              // When cart is empty
-              empty_cart = '<div class="mini-cart-products"></div><div class="empty-cart" style="color: #A1A1A1; text-align: center;padding: 50px 0px; font-size: 20px;">Cart is empty !</div>';
-
-              if($('.product').length == 0){
-                 $('.mini-cart').html(empty_cart);
-              }
-
-            },
-            error: function(){
-              alert("Error");
-            }
-          });
-      });
-
-    // Product search by name
-
-    $('#search_form').submit(function(event){
-
-      event.preventDefault();
-      
-      $.ajax({
-
-        url: '/search',
-        
-        method: 'POST',
-        
-        data: {
-          query: $('#query').val(),
-          type: "products.name" // search by product name
-        },
-        
-        success: function(data){
-          var len = data.length;
-          var products = '';
-          for(var i=0; i<len; i++){
-            products += '<a href="/product/' + data[i].id + '">' +
-                          '<div class="product-box col-md-2 col-sm-3 col-xs-6">' +
-                            '<div class="img-container">' +
-                              '<img src="' + data[i].image_url + '">' +
-                            '</div>' +
-                            '<h5>'+ data[i].name +'</h5>' +
-                            '<h6>'+ data[i].first_name +'</h5>' +
-                            '<h5>Rs. '+ data[i].price + '</h5>' +
-                          '</div>' +
-                        '</a>';
-          }
-          $('.products-container').html(products);
-        },
-        error: function(){
-          alert("Error");
-        }
-      });
-    });
-    
-    // Navbar - Category search
-    $('#categories li a').click(function(){
-      var category = $.trim($(this).text()); // remove white spaces in category name
-
-      $.ajax({
-        url: '/search',
-        method: 'POST',
-        data: {
-          query: category,
-          type: 'categories.name' // search by category name
-        },
-        success: function(data){
-          var len = data.length;
-          var products = '';
-          for(var i=0; i<len; i++){
-            products += '<a href="/product/' + data[i].id + '">' +
-                          '<div class="product-box col-md-2 col-sm-3 col-xs-6">' +
-                            '<div class="img-container">' +
-                              '<img src="' + data[i].image_url + '">' +
-                            '</div>' +
-                            '<h5>'+ data[i].name +'</h5>' +
-                            '<h6>'+ data[i].first_name +'</h5>' +
-                            '<h5>Rs. '+ data[i].price + '</h5>' +
-                          '</div>' +
-                        '</a>';
-          }
-          $('.products-container').html(products);
-        },
-        error: function(){
-          alert('Error');
-        }
-      });
-
-    });
-
-  </script>
-
-</body>
+    <% end %>
+    <%= yield %>
+  </body>
 </html>

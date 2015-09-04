@@ -1,4 +1,8 @@
 #
+# Actions for all the controllers
+#
+# @author [qbuser]
+#
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -8,9 +12,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :store_location
 
-
+  # store last url
+  #
   def store_location
-    # store last url
     return unless request.get?
     if request.path != new_user_session_path &&
        request.path != new_user_registration_path &&
@@ -20,6 +24,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Store activity log to db
+  #
   def activity_log(action)
     @activity = ActivityLog.new
     @activity.user_id = current_user.id
@@ -34,13 +40,16 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :first_name
   end
 
+  # Redirect to previous url after sign in
+  #
   def after_sign_in_path_for(_resource)
     activity_log('logged into the system')
     session[:previous_url] || root_path
   end
 
+  # Redirect to home page after sign in
+  #
   def after_sign_out_path_for(_resource)
-    # activity_log('logged out of the system')
     root_path
   end
 end

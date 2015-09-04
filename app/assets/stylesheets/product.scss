@@ -18,6 +18,7 @@
   }
 
   .product-image {
+    position: relative;
     border-right: 1px solid #B6B6B6;
     text-align: center;
     padding: 30px;
@@ -96,13 +97,14 @@
   }
 }
 
+
 /* Add to compare button*/
 .compare {
   color: #444444;
   margin: 10px 0px 0px -10px !important;
 
   img {
-    width: 17px; 
+    width: 21px; 
     margin: 0px 5px 0px 0px; 
     vertical-align: top; 
     opacity: .7;

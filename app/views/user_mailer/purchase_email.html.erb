@@ -3,8 +3,8 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <style type="text/css">
-      @import url(https://fonts.googleapis.com/css?family=Lobster+Two);
-      @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+    @import url(https://fonts.googleapis.com/css?family=Lobster+Two);
+    @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
     </style>
   </head>
   <body style="font-family: 'Droid Sans', sans-serif;">
@@ -20,9 +20,9 @@
     </p>
     <hr>
     <p style="font-size: 15px;">
-        <div><b>SHIPPING ADDRESS</b></div>
-        <%= @bill_address.name %><br>
-        <%= @bill_address.address %><br> <%= @bill_address.country %> <br><%= @bill_address.zip %>
+      <div><b>SHIPPING ADDRESS</b></div>
+      <%= @bill_address.name %><br>
+      <%= @bill_address.address %><br> <%= @bill_address.country %> <br><%= @bill_address.zip %>
       </h5>
     </p>
     <h3>ORDER DETAILS</h3>
@@ -36,14 +36,14 @@
       </tr>
       <% total = 0 %>
       <% Array(@products).each_with_index do |product, index| %>
-        <tr style="color: #4e575b; font-size: 12px;">
-          <td style="text-align: center;"><%= index + 1 %></td>
-          <td><%= product[:name] %> </td>
-          <td style="text-align: center;"><%= product[:quantity] %></td>
-          <td><%= product[:price] %></td>
-          <td><%= product[:quantity] * product[:price] %></td>
-          <% total += product[:quantity] * product[:price] %>
-        </tr>
+      <tr style="color: #4e575b; font-size: 12px;">
+        <td style="text-align: center;"><%= index + 1 %></td>
+        <td><%= product[:name] %> </td>
+        <td style="text-align: center;"><%= product[:quantity] %></td>
+        <td><%= product[:price] %></td>
+        <td><%= product[:quantity] * product[:price] %></td>
+        <% total += product[:quantity] * product[:price] %>
+      </tr>
       <% end %>
     </table>
     <h3>Total Amount: Rs. <%= total %>/-</h3>

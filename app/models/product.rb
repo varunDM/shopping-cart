@@ -13,8 +13,9 @@ class Product < ActiveRecord::Base
   validates :description, presence: true
 
   def self.search(query, type)
-    Product.select('products.*, users.first_name as first_name').joins(:user).joins(:category).where(" #{type} like ? ", "%#{query}%")
-
+    query = select('products.*, users.first_name as first_name').joins(:user)
+           .joins(:category).where(" #{type} like ? ", "%#{query}%")
+    query       
   end
 
   def self.autocomplete(query)

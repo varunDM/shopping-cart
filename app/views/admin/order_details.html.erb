@@ -1,6 +1,5 @@
 <div class="container">
   <h3>Orders</h3>
-
   <div id="tabs" style="margin: 25px 0px;">
     <ul>
       <li><a href="#tabs-1">Order details</a></li>
@@ -73,13 +72,13 @@
           <td>Total</td>
         </tr>
         <% Array(@purchase_products).each do |purchase_product| %>
-          <tr>
-            <td><%= purchase_product.product.name %></td>
-            <td><%= purchase_product.product.category.name %></td>
-            <td><%= purchase_product.quantity %></td>
-            <td>Rs. <%= purchase_product.product.price %></td>
-            <td>Rs. <%= purchase_product.quantity * purchase_product.product.price %></td>
-          </tr>
+        <tr>
+          <td><%= purchase_product.product.name %></td>
+          <td><%= purchase_product.product.category.name %></td>
+          <td><%= purchase_product.quantity %></td>
+          <td>Rs. <%= purchase_product.product.price %></td>
+          <td>Rs. <%= purchase_product.quantity * purchase_product.product.price %></td>
+        </tr>
         <% end %>
       </table>
     </div>
@@ -91,4 +90,4 @@
   $(function() {
     $( "#tabs" ).tabs();
   });
-  </script>
+</script>

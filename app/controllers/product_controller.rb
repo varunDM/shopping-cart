@@ -1,6 +1,11 @@
-# Manage the operations related to Products
+#
+# Activities related to products
+#
+# @author [qbuser]
+#
 class ProductController < ApplicationController
   # For creating new product
+  #
   def new
     @company = current_user.id
     @product = Product.new
@@ -9,6 +14,7 @@ class ProductController < ApplicationController
   end
 
   # Populates the edit page for product
+  #
   def edit
     @company = current_user.id
     @product = Product.find(params[:id])
@@ -16,6 +22,7 @@ class ProductController < ApplicationController
   end
 
   # Creates a new product
+  #
   def create
     @product = Product.new(product_params)
     if @product.save
@@ -29,10 +36,11 @@ class ProductController < ApplicationController
   end
 
   # Saves changes to the product
+  #
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
-      activity_log("edited a product")
+      activity_log('edited a product')
       redirect_to company_index_path
     else
       @categories = Category.all
@@ -41,64 +49,78 @@ class ProductController < ApplicationController
   end
 
   # Removes a product
+  #
   def destroy
     @product = Product.find(params[:id])
     if @product.destroy
-      activity_log("deleted a product")
+      activity_log('deleted a product')
       redirect_to company_index_path
     end
   end
 
   # Get the details of a product
+  #
   def show
-    @product = Product.find(params[:id])
+    @product = Product.select('id', 'name', 'price', 'quantity', 'description', 'users.first_name AS brand').joins(:user).find(params[:id])
+    @product_images = @product.product_images.map { |i| i.image.url }
     @review = Review.new
-    session[:previous_url] = request.fullpath
-    @old_reviews = Review.where(:product_id => params[:id])
-    p @old_reviews
+    @old_reviews = Review.where(product_id: params[:id])
+    session[:previous_url] = request.fullpath # return after sign_in
   end
 
   # check whether quantity minus inventory becomes less than 0
-
+  #
   def check_inventory
     quantity = Product.find(params[:product]).quantity
-    respond_to do |format| 
+    respond_to do |format|
       if quantity - params[:quantity].to_i < 0
-        format.json { render :json => 'false' }
+        format.json { render json: 'false' }
       else
-        format.json { render :json => 'true' }
+        format.json { render json: 'true' }
       end
     end
   end
 
-  # Stores the product id's to session
-  def add_to_cart
-    if session[:cart].nil?
-      session[:cart] = []
+  # Get products in cart session
+  #
+  def view_cart
+    session[:previous_url] = request.fullpath
+    if session[:cart].present?
+      @sum = 0
+      @count = 0
+      @items = session[:cart]
+      @items.each do |item|
+        product = Product.find(item['product'])
+        @sum += product.price * item['quantity'].to_i
+        @count += item['quantity'].to_i
+      end
     end
-    unless session[:cart].any?{ |h| h['product'] == params[:product]}
-      p session[:cart]
+  end
+  
+  # Stores the product id's to session
+  #
+  def add_to_cart
+    session[:cart] = [] if session[:cart].nil?
+    unless session[:cart].any? { |h| h['product'] == params[:product] }
       session[:cart] << { 'product' => params[:product], 'quantity' => params[:quantity] }
-      p session[:cart]
     else
       index = session[:cart].index { |item| item['product'] == params[:product] }
       session[:cart][index]['quantity'] = params[:quantity]
-
     end
-    p session[:cart]
-    # render :json => @product.as_json(methods: :image_url)
     render :partial => 'mini_cart'
   end
 
   # Remove the element at 'arr_pos' from session
+  #
   def remove_from_cart
     pos = params[:arr_pos].to_i
     session[:cart].delete_at(pos)
     return redirect_to view_cart_path if session[:previous_url] == '/cart'
-    render :json => session[:cart]
+    render json: session[:cart]
   end
 
   # Add to wishlist
+  #
   def add_to_wishlist
     if session[:wishlist].nil?
       session[:wishlist] = []
@@ -111,6 +133,8 @@ class ProductController < ApplicationController
     redirect_to wishlist_path
   end
 
+  # Show products in wishlist session
+  #
   def wishlist
     if session[:wishlist].present?
       @products = session[:wishlist].map do |id|
@@ -119,6 +143,8 @@ class ProductController < ApplicationController
     end
   end
 
+  # Remove product from wishlist session
+  #
   def remove_from_wishlist
     index = params[:index].to_i
     session[:wishlist].delete_at(index)
@@ -126,6 +152,7 @@ class ProductController < ApplicationController
   end
 
   # Add to compare session
+  #
   def add_to_compare
     if session[:compare].present?
       items = session[:compare].split(',')
@@ -144,6 +171,8 @@ class ProductController < ApplicationController
     redirect_to product_path(params[:product_id])
   end
 
+  # Remove product from compare session
+  #
   def remove_from_compare
    pos = params[:index].to_i
    compare_items = session[:compare].split(',')
@@ -152,6 +181,8 @@ class ProductController < ApplicationController
    redirect_to(compare_product_path)
   end
 
+  # Get products in compare session
+  #
   def show_compare
     if session[:compare].present?
       @items = session[:compare].split(',')

@@ -1,6 +1,6 @@
   Rails.application.routes.draw do
   
-  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
+  devise_for :users #, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
 
   root 'home#index'
   
@@ -21,7 +21,7 @@
   resources :product
   resources :categories
 
-  get 'cart' => 'checkout#view_cart', as: 'view_cart'
+  get 'cart' => 'product#view_cart', as: 'view_cart'
   post 'checkout/:product_id' => 'checkout#index', as: 'checkout_index'
   # post 'checkout/cart' => 'checkout#index', as: 'checkout_cart'
 

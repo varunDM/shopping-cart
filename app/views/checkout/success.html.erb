@@ -1,13 +1,13 @@
 <div class="container">
   <div class="alert">
     <h4>Thank You for Your Order!</h4>
-    <div class="alert alert-success"> 
+    <div class="alert alert-success">
       You will recieve an email confirmation shortly at <b><%= current_user.email %></b>.
     </div>
     <hr>
     <h5>Order Summary:</h5>
     <table class="table">
-       <tr>
+      <tr>
         <td style="width: 30px;"></td>
         <td style="width: 90px;"></td>
         <td>Product Name</td>
@@ -16,22 +16,22 @@
         <td>Total</td>
       </tr>
       <% Array(@items).each_with_index do |item, index| %>
-          <tr>
-            <td> <div class="number"><%= index+1 %></div> </td>
-            <td> <%= image_tag item[:image], :style => 'width: 40px;' %> </td>
-            <td> <h5><%= item[:name] %></h5> </td>
-            <td> <h5><%= item[:quantity] %></h5> </td>
-            <td> <h5>Rs. <%= item[:price] %> </h5> </td>
-            <td> <h5>Rs. <%= item[:quantity].to_i * item[:price].to_i %></h5> </td>
-        </tr>
+      <tr>
+        <td> <div class="number"><%= index+1 %></div> </td>
+        <td> <%= image_tag item[:image], :style => 'width: 40px;' %> </td>
+        <td> <h5><%= item[:name] %></h5> </td>
+        <td> <h5><%= item[:quantity] %></h5> </td>
+        <td> <h5>Rs. <%= item[:price] %> </h5> </td>
+        <td> <h5>Rs. <%= item[:quantity].to_i * item[:price].to_i %></h5> </td>
+      </tr>
       <% end %>
       <tr style="border-bottom: 1px solid #ddd;">
-      <td></td>
-      <td></td>
-      <td>
-        <h4 style="font-weight: bold;">Subtotal (<%= @count %> items): <span style="color: #b12704;">Rs. <%= @sum %></span></h4>
-      </td>
-    </tr>
+        <td></td>
+        <td></td>
+        <td>
+          <h4 style="font-weight: bold;">Subtotal (<%= @count %> items): <span style="color: #b12704;">Rs. <%= @sum %></span></h4>
+        </td>
+      </tr>
     </table>
     <div style="clear:both;"></div>
     <%= link_to 'Continue Shopping', home_index_path, :class => 'btn btn-primary' %>

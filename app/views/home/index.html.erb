@@ -11,107 +11,30 @@
     </li>
     <li>
       <%= image_tag 'slide1.jpg' %>
-    </li>    
+    </li>
   </ul>
 </div>
 <div class="container">
   <div class="products-container">
     <% @products.each do |product| %>
-      <%= link_to product_path(product) do %>
-        <div class="product-box col-md-3 col-sm-4 col-xs-6">
-          <div class="product-box-container">
-            <div class="img-container">
-              <%= image_tag product.product_images[0].image.url(:thumb)%>
-            </div>
-            <h5> <%= product.name %> </h5>
-            <h6> <%= truncate(product.description, :length => 80, :omission => '...') %> </h6>
-            <h4>Rs. <%= product.price %> </h4>
-          </div>
-          <% if product.quantity == 0 %>
-            <h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>
-          <% else %>
-            <a href="#" class="add-to-cart" productid="<%= product.id %>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
-          <% end %>
+    <%= link_to product_path(product) do %>
+    <div class="product-box col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box-container">
+        <div class="img-container">
+          <%= image_tag product.product_images[0].image.url(:thumb)%>
         </div>
+        <h5> <%= product.name %> </h5>
+        <h6> <%= truncate(product.description, :length => 80, :omission => '...') %> </h6>
+        <h4>Rs. <%= product.price %> </h4>
+      </div>
+      <% if product.quantity == 0 %>
+      <h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>
+      <% else %>
+      <a href="#" class="add-to-cart" productid="<%= product.id %>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
       <% end %>
+    </div>
+    <% end %>
     <% end %>
     <div class="clear"></div>
   </div>
 </div>
-
-<script type="text/javascript">
-
-
-  $('.products-container').delegate(".add-to-cart", "click", function() {
-
-    $.ajax({
-
-      url: '/add_to_cart',
-      method: 'POST',
-      data: {
-        product: $(this).attr('productid'),
-        quantity: 1
-      },
-      success: function(data){
-        
-        $('.mini-cart').html(data);
-        // get new count
-        count = $('.mini-cart-products .product').size();
-        $('.cart-count').html(count);
-      },
-      error: function(){
-        alert('Error');
-      }
-    });
-  });
-
-$(function() {
-
-  $('.flexslider').flexslider({
-    animation: "slide"
-  });
-
-// Auto complete
-
-  $("#query").autocomplete({ minLength: 2 },{
-
-    select: function (event, ui) {
-      // On selecting a category
-      if(ui.item.type == 'category') {
-        $.fn.categorySearch(ui.item.label);
-      }
-    },
-    source: function(request, response){
-      $.ajax({
-        url: '/autocomplete',
-        method: 'POST',
-        data: {
-          query: $('#query').val()
-        },
-        success: function(data){
-          response(data);
-          // headers for search lists
-          $('.search-product-item:first-child').before('<b class="search_header">Products</b>');
-          $('.search-category-item').first().before('<b class="search_header">Categories</b>');
-
-        },
-        error: function(){
-          alert('Error');
-        }
-      });
-    }
-  })
-  .data("uiAutocomplete")._renderItem = function(ul, item){
-    if(item.type == 'product') {
-      return $('<li class="search-product-item">')
-            .append( '<a href="product/'+ item.id + '">' + item.label+ '</a>' )
-            .appendTo(ul);
-    }
-    return $('<li class="search-category-item">')
-            .append( item.label )
-            .appendTo(ul);
-  };
-
-      
-});
-</script>

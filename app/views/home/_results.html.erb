@@ -1,19 +1,19 @@
 <% @products.each do |product| %>
-  <%= link_to product_path(product) do %>
-    <div class="product-box col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box-container">
-        <div class="img-container">
-          <%= image_tag product.product_images[0].image.url(:thumb)%>
-        </div>
-        <h5> <%= product.name %> </h5>
-        <h6> <%= truncate(product.description, :length => 80, :omission => '...') %> </h6>
-        <h4>Rs. <%= product.price %> </h4>
-      </div>
-      <% if product.quantity == 0 %>
-        <h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>
-      <% else %>
-        <a href="#" class="add-to-cart" productid="<%= product.id %>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
-      <% end %>
+<%= link_to product_path(product) do %>
+<div class="product-box col-md-3 col-sm-4 col-xs-6">
+  <div class="product-box-container">
+    <div class="img-container">
+      <%= image_tag product.product_images[0].image.url(:thumb)%>
     </div>
+    <h5> <%= product.name %> </h5>
+    <h6> <%= truncate(product.description, :length => 80, :omission => '...') %> </h6>
+    <h4>Rs. <%= product.price %> </h4>
+  </div>
+  <% if product.quantity == 0 %>
+  <h5 style="text-align: center; color: #F74C4C; border-top: 1px solid #D5D5D5; padding: 11px; display: block; margin-top: 0px;">Out of Stock</h5>
+  <% else %>
+  <a href="#" class="add-to-cart" productid="<%= product.id %>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
   <% end %>
+</div>
+<% end %>
 <% end %>

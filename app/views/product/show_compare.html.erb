@@ -1,37 +1,36 @@
 <div class="container">
   <h3>Product Comparison</h3>
-  <hr> 
+  <hr>
   <% if session[:compare].present? %>
-    <table class="table">
-      <tr>
-        <td style="font-weight: bold; color: #767676; border: none;">Product Details</td>
-      </tr>
-      
-      <% @table_headers.each_with_index do |header, index| %>
-        <tr>
-          <td> <%= header %> </td>
-          <% if index == 0 %>
-            <% @products.each do |product| %>
-              <td> <h5> <%= link_to product[index], product_path(product[5]), :style => 'color: #000000;' %> </h5> </td>
-            <% end %>
-          <% elsif index == 1 %>
-            <% @products.each do |product| %>
-              <td> <img src="<%= product[index] %>"> </td>
-            <% end %>
-          <% elsif index == 5 %>
-            <% @products.each_with_index do |product, indx| %>
-              <td> <%= link_to 'Remove', compare_remove_path(indx), :class => 'remove' %> </td>
-            <% end %>
-          <% else %>
-            <% @products.each do |product| %>
-              <td> <%= product[index] %> </td>
-            <% end %>
-          <% end %>
-        </tr>
+  <table class="table">
+    <tr>
+      <td style="font-weight: bold; color: #767676; border: none;">Product Details</td>
+    </tr>
+    
+    <% @table_headers.each_with_index do |header, index| %>
+    <tr>
+      <td> <%= header %> </td>
+      <% if index == 0 %>
+      <% @products.each do |product| %>
+      <td> <h5> <%= link_to product[index], product_path(product[5]), :style => 'color: #000000;' %> </h5> </td>
       <% end %>
-
-    </table>
+      <% elsif index == 1 %>
+      <% @products.each do |product| %>
+      <td> <img src="<%= product[index] %>"> </td>
+      <% end %>
+      <% elsif index == 5 %>
+      <% @products.each_with_index do |product, indx| %>
+      <td> <%= link_to 'Remove', compare_remove_path(indx), :class => 'remove' %> </td>
+      <% end %>
+      <% else %>
+      <% @products.each do |product| %>
+      <td> <%= product[index] %> </td>
+      <% end %>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
   <% else %>
-    <div class="alert alert-warning">You have not chosen any products to compare !</div>
+  <div class="alert alert-warning">You have not chosen any products to compare !</div>
   <% end %>
 </div>

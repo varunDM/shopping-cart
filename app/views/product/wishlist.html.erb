@@ -1,23 +1,23 @@
 <div class="container">
   <h3>Wishlist</h3>
   <% if session[:wishlist].present? %>
-    <table class="table">
-      <tr>
-        <td style="border: none;"></td>
-        <td style="border: none;">Item</td>
-        <td style="border: none;">Price</td>
-        <td style="border: none;">Actions</td>
-      </tr>
-      <% @products.each_with_index do |product, index| %>
-        <tr>
-          <td> <%= image_tag(product.product_images[0].image.url(:thumb), :style => 'width: 40px;') %> </td>
-          <td> <h5> <%= link_to product.name, product_path(product) %> </h5> </td>
-          <td> <%= product.price %> </td>
-          <td> <%= link_to 'Delete',remove_from_wishlist_path(index), :class => 'remove' %> </td>
-        </tr>
-      <% end %>
-    </table>
+  <table class="table">
+    <tr>
+      <td style="border: none;"></td>
+      <td style="border: none;">Item</td>
+      <td style="border: none;">Price</td>
+      <td style="border: none;">Actions</td>
+    </tr>
+    <% @products.each_with_index do |product, index| %>
+    <tr>
+      <td> <%= image_tag(product.product_images[0].image.url(:thumb), :style => 'width: 40px;') %> </td>
+      <td> <h5> <%= link_to product.name, product_path(product) %> </h5> </td>
+      <td> <%= product.price %> </td>
+      <td> <%= link_to 'Delete',remove_from_wishlist_path(index), :class => 'remove' %> </td>
+    </tr>
+    <% end %>
+  </table>
   <% else %>
-    <div class="alert alert-warning">Your wishlist is empty !</div>
+  <div class="alert alert-warning">Your wishlist is empty !</div>
   <% end %>
 </div>
