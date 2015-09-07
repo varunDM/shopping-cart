@@ -5,7 +5,7 @@
 #
 class CheckoutController < ApplicationController
   
-  before_action :authenticate_user!, except: :view_cart
+  before_action :authenticate_user!
 
   # Choose old address or create new
   #

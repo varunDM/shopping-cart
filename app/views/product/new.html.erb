@@ -31,15 +31,19 @@
     <%= f.text_area :description, :class => "form-control", :style => 'height: 100px;' %>
   </div>
   <%= f.hidden_field :user_id, :value => @company %>
-  <%= f.fields_for :product_images do |builder| %>
-  <div class="form-group">
-    <%= builder.label :image, 'Image File' %>
-    <%= builder.file_field :image %>
-  </div>
-  <% end %>
+
+  <ul id="product_images_form">
+    <%= f.fields_for :product_images do |product_image_fields| %>
+      <%= render 'product_image_fields', :f => product_image_fields %>
+    <% end %>
+  </ul>
+  <br>
+  <%= link_to_add_association '+ Add image', f, :product_images,
+      'data-association-insertion-node' => "#product_images_form",
+      'data-association-insertion-method' => "append", :class => 'add_image' %>
+
   
-  
-  <div class="form-group">
+  <div class="form-group" style="margin-top: 15px;">
     <%= f.submit "Save", :class => "btn btn-primary" %>
     <%= link_to "Cancel", company_index_path, :class => "btn btn-danger" %>
   </div>

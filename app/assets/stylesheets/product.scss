@@ -117,3 +117,15 @@
     opacity: .9;
   }
 }
+
+
+/* New product page */
+.add_image, .add_image:hover, .add_image:focus{
+  color: #FFFFFF;
+  padding: 10px 20px;
+  background-color: #0E83CD;
+
+  :before {
+    content: '+';
+  }
+}

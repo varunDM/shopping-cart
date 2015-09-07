@@ -87,4 +87,5 @@ $(function() {
         url: blowup_image_path,
         magnify: 1.5
     });
+
 });

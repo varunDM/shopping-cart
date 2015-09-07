@@ -10,7 +10,7 @@ class ProductController < ApplicationController
     @company = current_user.id
     @product = Product.new
     @categories = Category.all
-    4.times { @product.product_images.build }
+    @product.product_images.build
   end
 
   # Populates the edit page for product
@@ -19,6 +19,7 @@ class ProductController < ApplicationController
     @company = current_user.id
     @product = Product.find(params[:id])
     @categories = Category.all
+    @images = @product.product_images
   end
 
   # Creates a new product
@@ -30,7 +31,7 @@ class ProductController < ApplicationController
       redirect_to company_index_path
     else
       @categories = Category.all
-      4.times { @product.product_images.build }
+      @product.product_images.build
       render 'new'
     end
   end

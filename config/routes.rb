@@ -4,6 +4,7 @@
 
   root 'home#index'
   
+  post '/search' => 'home#search'
   post '/autocomplete' => 'home#autocomplete'
   resources :home
 
@@ -14,43 +15,37 @@
 
   resources :company
  
-  resources :customer
   post 'customer/:id/bill_address' => 'customer#create_bill_address', as: 'create_bill_address'
   delete 'customer/:id/bill_address/:address_id' => 'customer#remove_bill_address', as: 'remove_bill_address'
-
-  resources :product
-  resources :categories
-
-  get 'cart' => 'product#view_cart', as: 'view_cart'
-  post 'checkout/:product_id' => 'checkout#index', as: 'checkout_index'
-  # post 'checkout/cart' => 'checkout#index', as: 'checkout_cart'
-
-  get 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_show', as: 'purchase_show'
-
-  post 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_action', as: 'purchase_action'
-  get 'checkout/:product_id/success' => 'checkout#success', as: 'purchase_success'
-
-  # product comparison
-  get 'compare/:product_id' => 'product#add_to_compare', as: 'product_compare'
-  get 'compare' => 'product#show_compare', as: 'compare_product'
-  get 'compare_remove/:index' => 'product#remove_from_compare', as: 'compare_remove'
-  resources :review
-  # search-box submission
-  post '/search' => 'home#search'
-
-  # add-to cart
-  post '/add_to_cart' => 'product#add_to_cart'
-
-  # check inventory
-  post '/check_inventory' => 'product#check_inventory'
-
-  # remove item from mini-cart
-  post 'remove_from_cart' => 'product#remove_from_cart'
+  resources :customer
 
   # wishlist
   get '/add_to_wishlist/:id' => 'product#add_to_wishlist', as: 'add_to_wishlist'
   get '/wishlist' => 'product#wishlist', as: 'wishlist'
   get 'remove_from_wishlist/:index' => 'product#remove_from_wishlist', as: 'remove_from_wishlist'
+
+  # cart
+  get 'cart' => 'product#view_cart', as: 'view_cart'
+  post '/add_to_cart' => 'product#add_to_cart'
+  post 'remove_from_cart' => 'product#remove_from_cart'
+  post '/check_inventory' => 'product#check_inventory'
+  
+
+  # product comparison
+  get 'compare/:product_id' => 'product#add_to_compare', as: 'product_compare'
+  get 'compare' => 'product#show_compare', as: 'compare_product'
+  get 'compare_remove/:index' => 'product#remove_from_compare', as: 'compare_remove'
+  resources :product
+
+  resources :categories
+
+  # checkout
+  post 'checkout/:product_id' => 'checkout#index', as: 'checkout_index'
+  get 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_show', as: 'purchase_show'
+  post 'checkout/:product_id/purchase/:bill_address_id' => 'checkout#purchase_action', as: 'purchase_action'
+  get 'checkout/:product_id/success' => 'checkout#success', as: 'purchase_success'
+
+  resources :review
 
   # The priority is based upon order of creation
   # See how all your routes lay out with "rake routes".
