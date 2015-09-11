@@ -1,3 +1,8 @@
+#
+# Devise Confirmations Controller
+#
+# @author [qbuser]
+#
 class Users::ConfirmationsController < Devise::ConfirmationsController
   # GET /resource/confirmation/new
   # def new

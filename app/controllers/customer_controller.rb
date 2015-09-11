@@ -11,7 +11,7 @@ class CustomerController < ApplicationController
   #
   def index
     @user = User.select('id', 'first_name', 'second_name', 'email', 'address', 'city', 'state', 'zip')
-                .find(current_user.id)
+            .find(current_user.id)
     @purchases = []
     @user.bill_addresses.each do |bill|
       @purchases = bill.purchases

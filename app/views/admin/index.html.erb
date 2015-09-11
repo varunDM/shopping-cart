@@ -11,8 +11,8 @@
 		<div class="col-md-6">
 			<div class="card">
 				<h4>Total Customers</h4>
-				<h3><%= @customers.size %></h3>
-				<a href="#">View more...</a>
+				<h3><%= @customers %></h3>
+				<%= link_to 'View more...', customers_path %>
 			</div>
 		</div>
 	</div>
@@ -73,13 +73,19 @@
 				<td><%= index+1 %></td>
 				<td><%= company.first_name %></td>
 				<td>
-					<%= link_to "Edit", edit_company_path(company), :class => "btn" %>
-					<%= link_to "View", company_path(company), :class => "btn" %>
+					<%= link_to "", edit_company_path(company),
+					:class => "btn glyphicon glyphicon-edit",
+					:title => "Edit" %>
+
+					<%= link_to "", company_path(company),
+					:class => 'btn glyphicon glyphicon-eye-open',
+					:title => "View" %>
+
 					<%= link_to "", company_path(company),
 					method: :delete,
-					:class => 'glyphicon glyphicon-trash',
-					data: { confirm: 'Are you sure?   Products associated with this company will also be deleted !'}
-					%>
+					:class => 'btn glyphicon glyphicon-trash',
+					data: { confirm: 'Are you sure?   Products associated with this company will also be deleted !'},
+					:title => "Delete" %>
 				</td>
 			</tr>
 			<% end %>
@@ -99,13 +105,19 @@
 				<td><%= index+1 %></td>
 				<td><%= category.name %></td>
 				<td>
-					<%= link_to "Edit", edit_category_path(category), :class => "btn" %>
-					<%= link_to "View", category_path(category), :class => "btn" %>
+					<%= link_to "", edit_category_path(category),
+					:class => "btn glyphicon glyphicon-edit",
+					:title => "Edit" %>
+
+					<%= link_to "", category_path(category),
+					:class => 'btn glyphicon glyphicon-eye-open',
+					:title => "View" %>
+					
 					<%= link_to "", category_path(category),
 					method: :delete,
 					:class => 'glyphicon glyphicon-trash',
-					data: { confirm: 'Are you sure?   Products associated with this category will also be deleted !'}
-					%>
+					data: { confirm: 'Are you sure?   Products associated with this category will also be deleted !'},
+					:title => "Delete" %>
 				</td>
 			</tr>
 			<% end %>

@@ -44,6 +44,8 @@ $(function() {
             }
         },
         source: function(request, response) {
+            $('.search-button').removeClass('glyphicon-search');
+            $('.search-button').addClass('glyphicon-refresh');
             $.ajax({
                 url: '/autocomplete',
                 method: 'POST',
@@ -51,6 +53,8 @@ $(function() {
                     query: $('#query').val()
                 },
                 success: function(data) {
+                    $('.search-button').addClass('glyphicon-search');
+                    $('.search-button').removeClass('glyphicon-refresh');
                     response(data);
                     // headers for search lists
                     $('.search-product-item:first-child').before('<b class="search_header">Products</b>');

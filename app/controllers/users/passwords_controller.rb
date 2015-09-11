@@ -1,3 +1,8 @@
+#
+# Devise Password Controller
+#
+# @author [qbuser]
+#
 class Users::PasswordsController < Devise::PasswordsController
   # GET /resource/password/new
   # def new

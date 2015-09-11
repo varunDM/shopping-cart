@@ -1,4 +1,8 @@
 #
+# BillAddress Model
+#
+# @author [qbuser]
+#
 class BillAddress < ActiveRecord::Base
   validates :name, presence: true
   validates :zip, presence: true

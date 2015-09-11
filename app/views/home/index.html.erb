@@ -16,12 +16,12 @@
 </div>
 <div class="container">
   <div class="products-container">
-    <% @products.each do |product| %>
+    <% @products.each_with_index do |product, index| %>
     <%= link_to product_path(product) do %>
     <div class="product-box col-md-3 col-sm-4 col-xs-6">
       <div class="product-box-container">
         <div class="img-container">
-          <%= image_tag product.product_images[0].image.url(:thumb)%>
+          <%= image_tag @images[index] %>
         </div>
         <h5> <%= product.name %> </h5>
         <h6> <%= truncate(product.description, :length => 80, :omission => '...') %> </h6>

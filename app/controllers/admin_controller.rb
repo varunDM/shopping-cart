@@ -14,16 +14,16 @@ class AdminController < ApplicationController
     @companies = User.where(role: COMPANY)
     @categories = Category.all
     @purchases = Purchase.all
-    @customers = User.where(role: CUSTOMER)
+    @customers = User.where(role: CUSTOMER).count
 
     @activities = ActivityLog.select('action', 'created_at', 'user_id')
-                             .order(created_at: :desc)
-                             .limit(8)
+                  .order(created_at: :desc)
+                  .limit(8)
 
     @orders = Purchase.select('id', 'created_at', 'first_name')
-                      .joins(:bill_address => :user)
-                      .order(created_at: :desc)
-                      .limit(7)
+              .joins(bill_address: :user)
+              .order(created_at: :desc)
+              .limit(7)
     @totals = []
     @orders.each do |order|
       sum = 0
@@ -38,9 +38,9 @@ class AdminController < ApplicationController
   #
   def view_orders
     @orders = Purchase.select('id', 'created_at', 'first_name', 'email', 'phone', 'ip')
-                      .joins(:bill_address => :user)
-                      .order(created_at: :desc)
-                      .page params[:page]
+              .joins(bill_address: :user)
+              .order(created_at: :desc)
+              .page params[:page]
     @totals = []
     @orders.each do |order|
       sum = 0
@@ -49,6 +49,11 @@ class AdminController < ApplicationController
       end
       @totals << sum
     end
+  end
+
+  def view_customers
+    @customers = User.select('first_name', 'second_name', 'email', 'address', 'city', 'state').where(role: CUSTOMER)
+                 .page params[:page]
   end
 
   # All activity logs
@@ -61,7 +66,7 @@ class AdminController < ApplicationController
   #
   def order_details
     @order = Purchase.select('id', 'created_at', 'first_name', 'email', 'phone', 'ip')
-                     .joins(bill_address: :user).find(params[:id])
+             .joins(bill_address: :user).find(params[:id])
     @purchase_products = Purchase.find(params[:id]).purchase_products
     @total = 0
     @purchase_products.each do |purchase_product|

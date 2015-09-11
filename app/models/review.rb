@@ -1,3 +1,8 @@
+#
+# Review model
+#
+# @author [qbuser]
+#
 class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :product

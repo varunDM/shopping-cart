@@ -8,7 +8,8 @@ class HomeController < ApplicationController
 
   # Get all products for home page
   def index
-    @products = Product.select('id','name', 'description', 'price', 'quantity').all
+    @products = Product.select('id', 'name', 'description', 'price', 'quantity').all
+    @images = @products.map { |product| product.product_images[0].image.url(:thumb) }
   end
 
   # Search for products or categories based on params[:type]

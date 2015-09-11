@@ -41,6 +41,6 @@
         <h6><%= @address.country %></h6>
         <h6><%= @address.zip %></h6>
       </div>
-      <%= link_to "Confirm Order", purchase_action_path, method: :post, :class => "btn btn-primary" %>
+      <%= link_to "Confirm Order", purchase_action_path, method: :post, :class => "btn btn-primary", data: { disable_with: "Processsing..." } %>
     </div>
   </div>

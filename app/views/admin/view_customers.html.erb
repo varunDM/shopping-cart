@@ -1,0 +1,26 @@
+<div class="container">
+  <h3>Customers</h3>
+  <hr>
+  <% if @customers.present? %>
+  <table class="table">
+    <tr style="background-color: #E2E4E5;">
+      <td></td>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Address</td>
+    </tr>
+    <% @customers.each_with_index do |customer, index| %>
+    <tr>
+      <td><%= index+1 %></td>
+      <td><%= customer.first_name + ' ' + customer.second_name %></td>
+      <td><%= customer.email %></td>
+      <td><%= customer.address + ', ' + customer.city + ', ' + customer.state %></td>
+    </tr>
+    <% end %>
+  </table>
+  <%= paginate @customers %>
+  <% else %>
+  <div class="alert alert-warning">No customers !</div>
+  <% end %>
+  <%= link_to 'Back', admin_index_path, :class => 'btn btn-primary'%>
+</div>

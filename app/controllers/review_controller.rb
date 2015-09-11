@@ -1,8 +1,8 @@
-# 
+#
 # Review related activities
-# 
+#
 # @author [qbuser]
-# 
+#
 class ReviewController < ApplicationController
   # Create a new review
   #

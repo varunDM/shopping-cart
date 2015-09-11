@@ -23,6 +23,12 @@ body {
   font-family: 'Droid Sans', sans-serif;
   overflow-y: scroll;
 }
+
+
+a:disabled {
+  background-color: #737373;
+  cursor: wait;
+}
 .header {
     a {
     color: #E8E8E8;
@@ -66,11 +72,15 @@ a.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   border-color: #F79D00;
 }
 
+
 .alert {
   border-radius: 0px;
   margin: 0;
 }
 
+.alert-success {
+  
+}
 
 /*::-webkit-scrollbar {
   width: 0.8em;

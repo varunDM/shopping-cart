@@ -1,9 +1,9 @@
 <div class="container product-container">
   <div class="col-md-5 product-image">
     <div id="blowup">
-      <%= image_tag @product_images[0], :id => 'blowup-image' %>
+      <%= image_tag @product_images[0], :id => 'blowup-image', :data => { :lightbox => 'slideshow' } %>
     </div>
-    <div id="light-box">
+    <div id="image-box">
       <% @product_images.each do |product_image| %>
       <div class="tiny-image">
         <span class="helper"></span>

@@ -97,7 +97,7 @@ class ProductController < ApplicationController
       end
     end
   end
-  
+
   # Stores the product id's to session
   #
   def add_to_cart
@@ -108,7 +108,7 @@ class ProductController < ApplicationController
       index = session[:cart].index { |item| item['product'] == params[:product] }
       session[:cart][index]['quantity'] = params[:quantity]
     end
-    render :partial => 'mini_cart'
+    render partial: 'mini_cart'
   end
 
   # Remove the element at 'arr_pos' from session
@@ -175,11 +175,11 @@ class ProductController < ApplicationController
   # Remove product from compare session
   #
   def remove_from_compare
-   pos = params[:index].to_i
-   compare_items = session[:compare].split(',')
-   compare_items.delete_at(pos)
-   session[:compare] = compare_items.join(',')
-   redirect_to(compare_product_path)
+    pos = params[:index].to_i
+    compare_items = session[:compare].split(',')
+    compare_items.delete_at(pos)
+    session[:compare] = compare_items.join(',')
+    redirect_to(compare_product_path)
   end
 
   # Get products in compare session

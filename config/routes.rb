@@ -1,20 +1,27 @@
-  Rails.application.routes.draw do
-  
+Rails.application.routes.draw do
   devise_for :users #, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
 
   root 'home#index'
-  
+
+  namespace :api do
+    resources :users
+    resources :sessions
+    resources :products
+    resources :categories
+  end
+
   post '/search' => 'home#search'
   post '/autocomplete' => 'home#autocomplete'
   resources :home
 
   get 'admin/logs' => 'admin#logs', as: 'logs'
+  get 'admin/customers' => 'admin#view_customers', as: 'customers'
   get 'admin/orders' => 'admin#view_orders', as: 'orders'
   get 'admin/orders/:id' => 'admin#order_details', as: 'order_view'
   resources :admin
 
   resources :company
- 
+
   post 'customer/:id/bill_address' => 'customer#create_bill_address', as: 'create_bill_address'
   delete 'customer/:id/bill_address/:address_id' => 'customer#remove_bill_address', as: 'remove_bill_address'
   resources :customer
@@ -29,7 +36,6 @@
   post '/add_to_cart' => 'product#add_to_cart'
   post 'remove_from_cart' => 'product#remove_from_cart'
   post '/check_inventory' => 'product#check_inventory'
-  
 
   # product comparison
   get 'compare/:product_id' => 'product#add_to_compare', as: 'product_compare'

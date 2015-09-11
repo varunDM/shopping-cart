@@ -1,4 +1,8 @@
 #
+# User model
+#
+# @author [qbuser]
+#
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -11,5 +15,4 @@ class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
 
   validates :first_name, presence: true
- 
 end

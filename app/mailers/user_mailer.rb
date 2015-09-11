@@ -1,5 +1,5 @@
 #
-# Activities related to mailer
+# UserMailer
 #
 # @author [qbuser]
 #
@@ -17,7 +17,7 @@ class UserMailer < ApplicationMailer
     Array(purchase_products).each do |purchase_product|
       quantity = purchase_product[:quantity]
       product = Product.find(purchase_product[:product_id])
-      @products << { :name => product.name, :price => product.price, :quantity => quantity }
+      @products << { name: product.name, price: product.price, quantity: quantity }
     end
     # attachments.inline['product.jpg'] = File.read(@product.avatar.url)
     mail(to: @user.email,
